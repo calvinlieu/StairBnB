@@ -75,7 +75,7 @@ information.
 
 * Require Authentication: false
 * Request
-  * Method: GET
+  * Method: POST
   * URL: /session
   * Headers:
     * Content-Type: application/json
