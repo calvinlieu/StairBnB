@@ -76,7 +76,7 @@ information.
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /:UserId
+  * URL: /session
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -291,7 +291,7 @@ Returns the details of a spot specified by its id.
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /:UserId/:spotsId
+  * URL: /spots/:spotId
   * Body: none
 
 * Successful Response
@@ -511,7 +511,7 @@ Deletes an existing spot.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: DELETE
-  * URL: /:spotId/delete
+  * URL: /spots/:spotId
   * Body: none
 
 * Successful Response
