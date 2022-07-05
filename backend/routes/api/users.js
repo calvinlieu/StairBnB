@@ -30,7 +30,7 @@ router.post("/", validateSignup, async (req, res) => {
   const { email, password, username } = req.body;
   const user = await User.signup({ email, username, password });
 
-  setTokenCookie(res, user);
+  await setTokenCookie(res, user);
 
   return res.json({
     user,
@@ -38,8 +38,9 @@ router.post("/", validateSignup, async (req, res) => {
 });
 
 //Get the Current User
-router.get("/user", requireAuth, async (req, res) => {
-  const user = req.user.toJSON();
+router.get("/user", async (req, res) => {
+
+  const user = User.findAll(req.params.user)
 
   return res.json(user);
 });
