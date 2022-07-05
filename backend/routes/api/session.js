@@ -36,7 +36,7 @@ router.get(
 
 // Log in
 router.post(
-  '/session',
+  '/',
   validateLogin,
   async (req, res, next) => {
     const { credential, password } = req.body;
