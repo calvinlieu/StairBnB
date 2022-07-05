@@ -52,6 +52,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(
+        models.Spot,
+        {foreignKey: 'ownerId', onDelete: 'CASCADE'}
+      );
     }
   }
   User.init(
@@ -68,9 +72,22 @@ module.exports = (sequelize, DataTypes) => {
           }
         }
       },
+      firstName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: [2, 25],
+          isNotValid(value) {
+            if (value.length < 2) {
+              throw new Error("First name must be greater than 2")
+            }
+          }
+        }
+      },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        isEmail: true,
         validate: {
           len: [3, 256]
         }
