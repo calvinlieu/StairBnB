@@ -26,9 +26,20 @@ const validateSignup = [
 ];
 
 // Sign up
-router.post("/", validateSignup, async (req, res) => {
-  const { email, password, username } = req.body;
-  const user = await User.signup({ email, username, password });
+router.post("/sign-up", validateSignup, async (req, res) => {
+  const { firstName, lastName, email, password, username } = req.body;
+  const user = await User.signup({ firstName, lastName, email, username, password });
+
+  if (!firstName) {
+    res.status(400).json({
+      message: "First Name is required"
+    })
+  }
+  if (!lastName) {
+    res.status(400).json({
+      message: "Last Name is required"
+    })
+  }
 
   await setTokenCookie(res, user);
 
@@ -38,9 +49,10 @@ router.post("/", validateSignup, async (req, res) => {
 });
 
 //Get the Current User
-router.get("/user", async(req, res) => {
+router.get("/user", requireAuth, async(req, res) => {
 
   return res.json(req.user);
 });
+
 
 module.exports = router;

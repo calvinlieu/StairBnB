@@ -35,9 +35,11 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
 
-    static async signup({ username, email, password }) {
+    static async signup({ firstName, lastName, username, email, password }) {
       const hashedPassword = bcrypt.hashSync(password);
       const user = await User.create({
+        firstName,
+        lastName,
         username,
         email,
         hashedPassword
@@ -63,25 +65,30 @@ module.exports = (sequelize, DataTypes) => {
       username: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: {
+          msg: "User already exists"
+        },
         validate: {
           len: [4, 30],
-          isNotEmail(value) {
-            if (Validator.isEmail(value)) {
-              throw new Error("Cannot be an email.");
-            }
-          }
         }
       },
       firstName: {
         type: DataTypes.STRING,
+        allowNull: false
       },
       lastName: {
         type: DataTypes.STRING,
+        allowNull: false
       },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
-        isEmail: true,
+        isEmail: {
+          msg: "Invalid Email"
+        },
+        unique: {
+          msg: "User with that email already exists"
+        },
         validate: {
           len: [3, 256]
         }

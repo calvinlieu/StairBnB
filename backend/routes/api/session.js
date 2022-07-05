@@ -36,7 +36,7 @@ router.get(
 
 // Log in
 router.post(
-  '/',
+  '/session',
   validateLogin,
   async (req, res, next) => {
     const { credential, password } = req.body;
@@ -51,13 +51,29 @@ router.post(
       return next(err);
     }
 
+    if (!req.body) {
+      res.json( {
+        message: "Validation error",
+        statusCode: 400,
+        errors: {
+          email: "Email is Required",
+          password: "Password is Required"
+        }
+      })
+    }
+    
     await setTokenCookie(res, user);
+  
+    const token = setTokenCookie(res, user);
 
     return res.json({
-      user
+      user,
+      token
     });
   }
 );
+
+
 
 // Log out
 router.delete(
