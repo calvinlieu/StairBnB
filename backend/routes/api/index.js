@@ -13,7 +13,7 @@ router.use(restoreUser);
 router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 router.use('/spots', spotsRouter);
-router.use('/reviews', reviewsRouter)
+// router.use('/reviews', reviewsRouter);
 
 
 router.post('/test', function(req, res) {
