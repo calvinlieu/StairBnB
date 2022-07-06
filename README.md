@@ -50,7 +50,7 @@ Returns the information about the current user that is logged in.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /user
+  * URL: /api/user/currentUser
   * Body: none
 
 * Successful Response
@@ -142,7 +142,7 @@ user's information.
 * Require Authentication: false
 * Request
   * Method: POST
-  * URL: /sign-up
+  * URL: /api/users/sign-up
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -213,7 +213,7 @@ Returns all the spots.
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /spots
+  * URL: /api/spots
   * Body: none
 
 * Successful Response
@@ -252,7 +252,7 @@ Returns all the spots owned (created) by the current user.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /spots/:userid
+  * URL: /api/spots/your-spots
   * Body: none
 
 * Successful Response
@@ -291,7 +291,7 @@ Returns the details of a spot specified by its id.
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /spots/:spotId
+  * URL: /api/spots/:spotId
   * Body: none
 
 * Successful Response
@@ -348,7 +348,7 @@ Creates and returns a new spot.
 * Require Authentication: true
 * Request
   * Method: POST
-  * URL: /spots/create
+  * URL: /api/spots
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -423,7 +423,7 @@ Updates and returns an existing spot.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: PUT
-  * URL: /spots/:spotId
+  * URL: /api/spots/:spotId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -511,7 +511,7 @@ Deletes an existing spot.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: DELETE
-  * URL: /spots/:spotId
+  * URL: /api/spots/:spotId
   * Body: none
 
 * Successful Response
