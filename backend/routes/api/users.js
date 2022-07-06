@@ -28,8 +28,19 @@ const validateSignup = [
 // Sign up
 router.post("/sign-up", validateSignup, async (req, res) => {
   const { firstName, lastName, email, password, username } = req.body;
-  const user = await User.signup({ firstName, lastName, email, username, password });
 
+  const trackEmail = await User.findOne({
+    where: { email }
+  })
+  if (trackEmail) {
+    res.status(403);
+    res.json({
+      message: "User with that email already exists!"
+    })
+  }
+
+  const user = await User.signup({ firstName, lastName, email, username, password });
+  
   if (!firstName) {
     res.status(400).json({
       message: "First Name is required"
@@ -40,6 +51,7 @@ router.post("/sign-up", validateSignup, async (req, res) => {
       message: "Last Name is required"
     })
   }
+
 
   await setTokenCookie(res, user);
 
