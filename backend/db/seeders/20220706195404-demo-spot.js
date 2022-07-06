@@ -23,7 +23,6 @@ module.exports = {
         name: "App Academy",
         description: "Place where web developers are created",
         price: 123,
-        numReviews: 5
       },
       {
         ownerId: 2,
@@ -36,7 +35,6 @@ module.exports = {
         name: "Calvin Lieu",
         description: "Place where a web developer is created",
         price: 456,
-        numReviews: 5
       }
     ])
   },
