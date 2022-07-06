@@ -19,10 +19,7 @@ const validateLogin = [
 ];
 
 // Restore session user
-router.get(
-  '/',
-  restoreUser,
-  (req, res) => {
+router.get('/', restoreUser, (req, res) => {
     const { user } = req;
     if (user) {
       return res.json({
@@ -35,10 +32,7 @@ router.get(
 
 
 // Log in
-router.post(
-  '/',
-  validateLogin,
-  async (req, res, next) => {
+router.post( '/', validateLogin, async (req, res, next) => {
     const { credential, password } = req.body;
 
     const user = await User.login({ credential, password });
