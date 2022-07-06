@@ -511,7 +511,7 @@ Deletes an existing spot.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: DELETE
-  * URL: /api/spots/;spotId
+  * URL: /api/spots/:spotId
   * Body: none
 
 * Successful Response
