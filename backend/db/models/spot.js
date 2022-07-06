@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
   Spot.init({
     ownerId:{
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
     address:{
       type: DataTypes.STRING,
@@ -58,10 +59,21 @@ module.exports = (sequelize, DataTypes) => {
     price:{
       type: DataTypes.DECIMAL,
       allowNull: false,
-    }
+    },
+    numReviews: {
+      type: DataTypes.INTEGER,
+    },
+    avgStarRating: {
+      type: DataTypes.DECIMAL
+    },
   }, {
     sequelize,
     modelName: 'Spot',
+    defaultScope: {
+      attributes: {
+        exclude: ['numReviews', 'avgStarRating']
+      }
+    }
   });
   return Spot;
 };

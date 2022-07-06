@@ -54,21 +54,31 @@ router.get('/', async (req, res) => {
 
 //get all spots owned by the current user
 router.get('/your-spots', requireAuth, async (req, res) => {
-    const currentUser = await User.findAll({
-        where: { id: req.user.id }
+    const allSpots = await Spot.findAll({
+        where: { ownerId: req.user.id }
     })
 
-    res.json(currentUser);
+    res.json(allSpots);
 })
 
 //get details of a Spot from an id
 router.get('/:spotId', async(req, res) => {
+    const spots = await Spot.findByPk(req.params.spotId);
+
+    if (!spots) {
+        res.json({
+            message: "Spot couldn't be found",
+            statusCode: 404
+        })
+    }
+
+    res.json(spots);
 
 })
 
 //create a spot
 router.post('/', [spotValidator, requireAuth], async(req, res) => {
-    const { ownerId, address, city, state, country, lat, lng, name, description, price, } = req.body;
+    const { address, city, state, country, lat, lng, name, description, price, } = req.body;
 
     const spot = await Spot.create({
         address,
@@ -80,7 +90,7 @@ router.post('/', [spotValidator, requireAuth], async(req, res) => {
         name,
         description,
         price,
-        ownerId
+        ownerId: id
     })
 
     res.json(spot);
@@ -92,6 +102,13 @@ router.put('/:spotId', [requireAuth, spotValidator, spotExists], async(req, res)
     const spotId = req.params.spotId;
 
     const spot = Spot.findByPk(spotId);
+
+    if (spot.ownerId !== req.user.id) {
+        res.status(401);
+        return res.json({
+            message: "Unauthorized"
+        })
+    }
 
     spot.address = address;
     spot.city = city;
@@ -110,22 +127,22 @@ router.put('/:spotId', [requireAuth, spotValidator, spotExists], async(req, res)
 
 //delete a spot
 router.delete('/:spotId', [requireAuth, spotExists], async (req, res) => {
-    const spot = await Spot.findByPk(req.params.id);
+    const { spotId } = req.params;
+    const currentSpot = await Spot.findByPk(spotId);
 
-    if(!spot) {
+
+
+    if(!currentSpot) {
+        res.status(404);
        res.json({
         message: "Spot couldn't be found",
-        statusCode: 404
       })
     }
-     res.json({
-        message: "Successfully deleted",
-        statusCode: 200
-      })
-
-
-    spot.destroy()
-    spot.save()
+    
+    currentSpot.destroy()
+    res.json({
+       message: "Successfully deleted",
+     })
 })
 
 

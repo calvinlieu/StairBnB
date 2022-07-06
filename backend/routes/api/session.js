@@ -55,15 +55,19 @@ router.post( '/login', validateLogin, async (req, res, next) => {
         }
       })
     }
-    
-    await setTokenCookie(res, user);
   
-    const token = setTokenCookie(res, user);
+    const token = await setTokenCookie(res, user);
 
-    return res.json({
-      user,
-      token
-    });
+    const loggedInUser = {
+      id: req.user.id,
+      firstName: req.user.firstName,
+      lastName: req.user.lastName,
+      email: req.user.email,
+      token: token,
+    };
+  
+    return res.json(loggedInUser);
+    
   }
 );
 
