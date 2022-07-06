@@ -1,21 +1,25 @@
 const express = require('express');
 
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
-const { Booking, Review, Image, Spot } = require('../../db/models');
+const { Booking, Review, Image, Spot, User } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const user = require('../../db/models/user');
 
 const router = express.Router();
 
+//checks to see if the spot exists in the database
 const spotExists = (req, res, next) => {
     const spot = Spot.findByPk(req.params.spotId);
 
     if (!spot) {
         err.status(404);
         const err = new Error ("Spot couldn't be found")
+        return next(err);
     }
 }
 
+//checks to see if the spot is a valid spot
 const spotValidator = (req, res, next) => {
     const {address, city, state, country, lat, lng, name, description, price } = req.body;
     let results = { errors: {} }
@@ -42,14 +46,28 @@ const spotValidator = (req, res, next) => {
 }
 
 //get all spots
-router.get('/spots', async (req, res) => {
+router.get('/', async (req, res) => {
     let spots = await Spot.findAll();
 
     return res.json(spots);
 });
 
+//get all spots owned by the current user
+router.get('/your-spots', requireAuth, async (req, res) => {
+    const currentUser = await User.findAll({
+        where: { id: req.user.id }
+    })
+
+    res.json(currentUser);
+})
+
+//get details of a Spot from an id
+router.get('/:spotId', async(req, res) => {
+
+})
+
 //create a spot
-router.post('/spots/create', [spotValidator, requireAuth], async(req, res) => {
+router.post('/', [spotValidator, requireAuth], async(req, res) => {
     const { ownerId, address, city, state, country, lat, lng, name, description, price, } = req.body;
 
     const spot = await Spot.create({
@@ -71,9 +89,9 @@ router.post('/spots/create', [spotValidator, requireAuth], async(req, res) => {
 //edit a spot
 router.put('/:spotId', [requireAuth, spotValidator, spotExists], async(req, res) => {
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
-    let spotId = req.params.spotId;
+    const spotId = req.params.spotId;
 
-    let spot = Spot.findByPk(spotId);
+    const spot = Spot.findByPk(spotId);
 
     spot.address = address;
     spot.city = city;
@@ -88,27 +106,26 @@ router.put('/:spotId', [requireAuth, spotValidator, spotExists], async(req, res)
     await spot.save();
     res.json(spot);
 
-    
 })
 
-//delete spot
-router.delete('/:id', requireAuth, async (req, res) => {
-    const spots = await Spot.findByPk(req.params.id);
+//delete a spot
+router.delete('/:spotId', [requireAuth, spotExists], async (req, res) => {
+    const spot = await Spot.findByPk(req.params.id);
 
-     res.json({
-        message: "Successfully deleted",
-        statusCode: 200
-      })
-
-    if(!spots) {
+    if(!spot) {
        res.json({
         message: "Spot couldn't be found",
         statusCode: 404
       })
     }
+     res.json({
+        message: "Successfully deleted",
+        statusCode: 200
+      })
 
-    spots.destroy()
-    spots.save()
+
+    spot.destroy()
+    spot.save()
 })
 
 

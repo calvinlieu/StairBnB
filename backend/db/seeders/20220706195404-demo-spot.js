@@ -23,6 +23,18 @@ module.exports = {
         name: "App Academy",
         description: "Place where web developers are created",
         price: 123
+      },
+      {
+        ownerId: 2,
+        address: "123 Lois Lane",
+        city: "San Francisco",
+        state: "California",
+        country: "United States of America",
+        lat: 38.123654,
+        lng: -122.789456,
+        name: "Calvin Lieu",
+        description: "Place where a web developer is created",
+        price: 456
       }
     ])
   },
