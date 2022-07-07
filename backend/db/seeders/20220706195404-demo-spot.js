@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     /**
      * Add seed commands here.
      *
@@ -10,8 +10,8 @@ module.exports = {
      *   name: 'John Doe',
      *   isBetaMember: false
      * }], {});
-    */
-    return queryInterface.bulkInsert('Spots', [
+     */
+    return queryInterface.bulkInsert("Spots", [
       {
         ownerId: 1,
         address: "123 Main Street",
@@ -23,9 +23,6 @@ module.exports = {
         name: "App Academy",
         description: "Place where web developers are created",
         price: 123,
-        previewImage: "https://images.skyscrapercenter.com/building/rappleyea1a.jpg",
-        numReviews: 5,
-        avgStar
       },
       {
         ownerId: 2,
@@ -38,18 +35,18 @@ module.exports = {
         name: "Calvin Lieu",
         description: "Place where a web developer is created",
         price: 456,
-        previewImage: "https://upload.wikimedia.org/wikipedia/commons/1/1e/San_Francisco_from_the_Marin_Headlands_in_March_2019.jpg"
-      }
-    ])
+    
+      },
+    ]);
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     /**
      * Add commands to revert seed here.
      *
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    return queryInterface.bulkDelete('Spots')
-  }
+    return queryInterface.bulkDelete("Spots");
+  },
 };
