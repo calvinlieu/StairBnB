@@ -9,7 +9,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       ownerId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users'
+        },
+        onDelete: 'CASCADE'
       },
       address: {
         type: Sequelize.STRING
@@ -33,19 +37,13 @@ module.exports = {
         type: Sequelize.STRING
       },
       description: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       price: {
         type: Sequelize.DECIMAL
       },
-      previewImgId: {
-        type: Sequelize.INTEGER
-      },
-      numsReviews: {
-        type: Sequelize.INTEGER
-      },
-      avgStarRating: {
-        type: Sequelize.DECIMAL
+      previewImage: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

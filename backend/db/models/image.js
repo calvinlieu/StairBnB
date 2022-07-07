@@ -14,14 +14,14 @@ module.exports = (sequelize, DataTypes) => {
       Image.belongsTo(
         models.Review, 
         {
-          foreignKey: 'reviewId'
+          foreignKey: 'reviewId', onDelete: 'CASCADE'
         }
       );
 
       Image.belongsTo(
         models.Spot,
         {
-          foreignKey: 'spotId'
+          foreignKey: 'spotId', onDelete: 'CASCADE'
         }
       );
     }
@@ -29,17 +29,16 @@ module.exports = (sequelize, DataTypes) => {
   Image.init({
     url:{
       type: DataTypes.STRING,
-      allowNull: false,
+     
     },
     reviewId:{
       type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: true
+      
+      
     }, 
     spotId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: true
+
     }
   }, {
     sequelize,

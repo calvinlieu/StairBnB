@@ -48,6 +48,7 @@ const spotValidator = (req, res, next) => {
 //get all spots
 router.get('/', async (req, res) => {
     let spots = await Spot.findAll();
+    
 
     return res.json(spots);
 });
@@ -62,10 +63,38 @@ router.get('/your-spots', requireAuth, async (req, res) => {
 })
 
 //get details of a Spot from an id
-router.get('/:spotId', async(req, res) => {
-    const spots = await Spot.findByPk(req.params.spotId);
+router.get('/:id', async(req, res) => {
+    const spots = await Spot.findByPk(req.params.id, {
+        include: [
+            {
+                model: Image,
+                as: 'images',
+                attributes: ['url']
+            },
+            {
+                model: User,
+                as: 'Owner',
+                attributes: ['id', 'firstName', 'lastName']
+            }]
+    });
 
+    const reviewData = await Spot.findByPk(req.params.id, {
+        include: {
+            model: Review,
+            attributes: []
+        },
+        attributes: [
+            [sequelize.fn('COUNT', sequelize.col('*')), 'numReviews'],
+            [sequelize.fn('AVG', sequelize.col('stars')), 'avgStarRating']
+        ],
+        raw: true
+    })
+
+    const spotData = spots.toJSON();
+    spotData.numReviews = reviewData.numReviews;
+    spotData.avgStarRating = reviewData.avgStarRating;
     if (!spots) {
+        res.status(404);
         res.json({
             message: "Spot couldn't be found",
             statusCode: 404
