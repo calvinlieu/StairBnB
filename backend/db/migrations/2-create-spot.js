@@ -1,4 +1,7 @@
 'use strict';
+
+const { DataTypes } = require("sequelize/types");
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Spots', {
@@ -36,6 +39,15 @@ module.exports = {
         type: Sequelize.STRING
       },
       price: {
+        type: Sequelize.DECIMAL
+      },
+      previewImgId: {
+        type: Sequelize.INTEGER
+      },
+      numsReviews: {
+        type: Sequelize.INTEGER
+      },
+      avgStarRating: {
         type: Sequelize.DECIMAL
       },
       createdAt: {

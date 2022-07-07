@@ -23,6 +23,9 @@ module.exports = {
         name: "App Academy",
         description: "Place where web developers are created",
         price: 123,
+        previewImage: "https://images.skyscrapercenter.com/building/rappleyea1a.jpg",
+        numReviews: 5,
+        avgStar
       },
       {
         ownerId: 2,
@@ -35,6 +38,7 @@ module.exports = {
         name: "Calvin Lieu",
         description: "Place where a web developer is created",
         price: 456,
+        previewImage: "https://upload.wikimedia.org/wikipedia/commons/1/1e/San_Francisco_from_the_Marin_Headlands_in_March_2019.jpg"
       }
     ])
   },
@@ -46,5 +50,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+    return queryInterface.bulkDelete('Spots')
   }
 };

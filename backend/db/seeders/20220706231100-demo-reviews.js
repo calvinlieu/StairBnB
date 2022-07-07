@@ -11,6 +11,21 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+   return queryInterface.bulkInsert('Reviews', [
+    {
+      review: "Wow! What a great place!",
+      stars: 5
+    },
+    {
+      review: "I wish I could own a place like this one day!",
+      stars: 5
+    },
+    {
+      review: "This is the worst place ever! I will never come back.",
+      stars: 1
+    }
+   ]);
+
   },
 
   async down (queryInterface, Sequelize) {
@@ -20,5 +35,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+    return queryInterface.bulkDelete('Reviews');
   }
 };
