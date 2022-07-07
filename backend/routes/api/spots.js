@@ -109,7 +109,7 @@ router.post('/', [spotValidator, requireAuth], async(req, res) => {
         name,
         description,
         price,
-        ownerId: id
+        ownerId: req.params.id
     })
 
     res.json(spot);

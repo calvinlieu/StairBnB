@@ -16,7 +16,7 @@ router.get("/current-user-review", requireAuth, async (req, res) => {
     where: { id: req.user.id },
       include: [
         { model: Spot },
-        { model: Image, as: 'images', attributes: ['url'] },
+        { model: Image, attributes: ['url'] },
         { model: User, attributes: ["id", "firstName", "lastName"] },
       ],
     },
@@ -116,10 +116,10 @@ router.post('/:spotId/create', requireAuth, async (req, res) => {
 })
 
 //edit a review
-router.put('/reviewId', requireAuth, async(req, res) => {
-  const params = req.body;
-  const id = req.user.id;
-  const reviewId = req.params.reviewId;
+router.put('/:reviewId', requireAuth, async(req, res) => {
+  let {review, stars} = req.body;
+  let id = req.user.id;
+  let reviewId = req.params.reviewId;
 
   const currentReview = await Review.findByPk(reviewId);
 
@@ -153,7 +153,7 @@ router.put('/reviewId', requireAuth, async(req, res) => {
       }
     })
   }
-  review = await Review.update(params, {
+  review = await Review.update(req.body, {
     where: {
       id: reviewId
     }
@@ -162,6 +162,40 @@ router.put('/reviewId', requireAuth, async(req, res) => {
 
   res.json(review)
 
+});
+
+//delete a review
+
+router.delete('/:reviewId', requireAuth, async (req, res) => {
+  const reviewId = req.params.reviewId;
+  const id = req.user.id
+
+  const review = await Review.findOne({
+    where: {id : reviewId}
+  })
+
+  if (review.userId !== id ) {
+    res.status(403);
+    res.json({
+      "message": "Authorization Error"
+    })
+  }
+
+  if (!review) {
+    res.status(404);
+    res.json({
+      "message": "Review couldn't be found",
+      "statusCode": 404
+    })
+  }
+
+  await review.destroy();
+  await review.save();
+
+  res.json({
+    "message": "Successfully deleted",
+    "statusCode": 200 
+  })
 })
 
 
