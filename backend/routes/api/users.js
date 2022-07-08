@@ -38,26 +38,31 @@ router.post("/sign-up", validateSignup, async (req, res) => {
       message: "User with that email already exists!"
     })
   }
+  try {
+    const user = await User.signup({ firstName, lastName, email, username, password });
+    const token = await setTokenCookie(res, user);
 
-  const user = await User.signup({ firstName, lastName, email, username, password });
-  
-  if (!firstName) {
-    res.status(400).json({
-      message: "First Name is required"
+    const newUser = {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      token: token
+    };
+
+    return res.json(newUser);
+    
+  } catch (error) {
+    res.status(403);
+    res.json({
+      "message": "User already exists",
+      "statusCode": 403,
+      "errors": {
+        "email": "User with that email already exists"
+      }
     })
   }
-  if (!lastName) {
-    res.status(400).json({
-      message: "Last Name is required"
-    })
-  }
 
-
-  await setTokenCookie(res, user);
-
-  return res.json({
-    user,
-  });
 });
 
 //Get the Current User

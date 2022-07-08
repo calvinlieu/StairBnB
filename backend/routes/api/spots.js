@@ -9,31 +9,31 @@ const user = require('../../db/models/user');
 const router = express.Router();
 
 
-//checks to see if the spot is a valid spot
-const spotValidator = (req, res, next) => {
-    const {address, city, state, country, lat, lng, name, description, price } = req.body;
-    let results = { errors: {} }
+// //checks to see if the spot is a valid spot
+// const spotValidator = (req, res, next) => {
+//     const {address, city, state, country, lat, lng, name, description, price } = req.body;
+//     let results = { errors: {} }
 
-    if (!address) results.errors.address = "Street address is required"
-    if (!city) results.errors.city = "City is required"
-    if (!state) results.errors.state = "State is required"
-    if (!country) results.errors.country = "Country is required"
-    if (!lat) results.errors.lat = "Latitude is not valid"
-    if (!lng) results.errors.lng = "Longitutde is not valid"
-    if (name.length >= 50) results.errors.name = "Name must be less than 50 characters"
-    if (!description) results.errors.description = "Description is required"
-    if (!price) results.errors.price = "Price per day is required"
+//     if (!address) results.errors.address = "Street address is required"
+//     if (!city) results.errors.city = "City is required"
+//     if (!state) results.errors.state = "State is required"
+//     if (!country) results.errors.country = "Country is required"
+//     if (!lat) results.errors.lat = "Latitude is not valid"
+//     if (!lng) results.errors.lng = "Longitutde is not valid"
+//     if (name.length >= 50) results.errors.name = "Name must be less than 50 characters"
+//     if (!description) results.errors.description = "Description is required"
+//     if (!price) results.errors.price = "Price per day is required"
     
-    if (results.errors.length) {
-        const error = new Error("Validation Error");
-        error.status = 400;
-        error.errors = results.errors;
-        return next(error)
-    } else {
-        return next();
-    }
+//     if (results.errors.length) {
+//         const error = new Error("Validation Error");
+//         error.status = 400;
+//         error.errors = results.errors;
+//         return next(error)
+//     } else {
+//         return next();
+//     }
 
-}
+// }
 
 //get all spots
 router.get('/', async (req, res) => {
@@ -96,53 +96,43 @@ router.get('/:id', async(req, res) => {
 })
 
 //create a spot
-router.post('/', [spotValidator, requireAuth], async(req, res) => {
-    const { address, city, state, country, lat, lng, name, description, price, } = req.body;
+router.post('/', requireAuth, async(req, res) => {
+    spotParams = req.body;
+    spotParams.ownerId = req.user.id;
+  
+    let spot = await Spot.create(spotParams);
+    spot = await Spot.findByPk(spot.id);
 
-    const spot = await Spot.create({
-        address,
-        city,
-        state,
-        country,
-        lat,
-        lng,
-        name,
-        description,
-        price,
-        ownerId: req.params.id
-    })
-
-    res.json(spot);
+    return res.json(spot);
 })
 
 //edit a spot
-router.put('/:spotId', [requireAuth, spotValidator], async(req, res) => {
-    const { address, city, state, country, lat, lng, name, description, price } = req.body;
-    const spotId = req.params.spotId;
+router.put('/:spotId', requireAuth, async (req, res) => {
+  let spotId = req.params.spotId;
+  let spotParams = req.body;
+  let currentUserId = req.user.id;
 
-    const spot = Spot.findByPk(spotId);
+  let spot = await Spot.findByPk(spotId);
+  if (!spot || spot.ownerId !== currentUserId) {
+    return res.status(404).json({
+      "message": "Authorization required."
+    });
+  }
 
-    if (spot.ownerId !== req.user.id) {
-        res.status(401);
-        return res.json({
-            message: "Unauthorized"
-        })
-    }
-
-    spot.address = address;
-    spot.city = city;
-    spot.state = state;
-    spot.country = country;
-    spot.lat = lat;
-    spot.lng = lng;
-    spot.name = name;
-    spot.description = description;
-    spot.price = price;
-
-    await spot.save();
-    res.json(spot);
-
-})
+  try {
+    spot = await Spot.update(spotParams, {
+      where: {
+        id: spotId
+      }
+    });
+  } catch(error) {
+    return res.status(400).json({
+      "message": error.message
+    });
+  }
+  spot = await Spot.findByPk(spotId);
+  return res.json(spot);
+});
 
 //delete a spot
 router.delete('/:spotId', requireAuth, async (req, res) => {
