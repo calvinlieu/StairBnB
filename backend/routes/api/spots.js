@@ -1,11 +1,11 @@
 const express = require("express");
-const {Op, sequelize} = require("sequelize");
+const {Op} = require("sequelize");
 const {
   setTokenCookie,
   restoreUser,
   requireAuth,
 } = require("../../utils/auth");
-const { Booking, Review, Image, Spot, User } = require("../../db/models");
+const { Booking, Review, Image, Spot, User, sequelize } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const user = require("../../db/models/user");
@@ -146,7 +146,7 @@ router.get("/your-spots", requireAuth, async (req, res) => {
 });
 
 //get details of a Spot from an id
-router.get("/:id", async (req, res) => {
+router.get("/:spotId", async (req, res) => {
   const spots = await Spot.findByPk(req.params.id, {
     include: [
       {
