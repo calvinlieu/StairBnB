@@ -23,8 +23,19 @@ router.get("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
   const pagination = {
-    options: []
+    filter: []
   }
+
+  const { page, size, maxLat, minLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+
+  const errors = {
+    message: "Validation Error",
+    statusCode: 400,
+    errors: {}
+  }
+
+  page = Number(page);
+  size = Number(size);
 
 })
 
