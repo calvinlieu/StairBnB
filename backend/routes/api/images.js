@@ -93,9 +93,9 @@ router.post("/reviews/:reviewId", requireAuth, async (req, res) => {
 });
 
 //delete an image
-router.delete("/:id", requireAuth, async (req, res) => {
+router.delete("/:imageId", requireAuth, async (req, res) => {
   const currentUserId = req.user.id;
-  let imageId = req.params.imageId;
+  const imageId = req.params.imageId;
 
   const images = await Image.findByPk(imageId);
 
