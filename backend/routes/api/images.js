@@ -81,7 +81,7 @@ router.post("/reviews/:reviewId", requireAuth, async (req, res) => {
     });
   }
 
-  const url = req.body;
+  const {url} = req.body;
 
   const image = await Image.create({
     imageableId: allImg.length + 1,
