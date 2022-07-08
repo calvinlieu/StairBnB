@@ -34,12 +34,10 @@ router.get("/current-user-review", requireAuth, async (req, res) => {
 router.get('/spots/:spotId', async (req, res) => {
   const spotId = req.params.spotId;
 
-  let currentSpot = await Spot.findByPk(spotId);
-
-  if (!currentSpot) {
+  let spot  = await Spot.findByPk(spotId);
+  if (!spot) {
     return res.status(404).json({
-      "message": "Spot could not be found",
-      "statusCode": 404
+      "message": "Spot does not exist!"
     });
   }
 
@@ -49,8 +47,17 @@ router.get('/spots/:spotId', async (req, res) => {
     }
   });
 
-  return res.json(reviews);
+  let user = await User.findByPk(spot.ownerId);
+  let images = await Image.findByPk(spot.id)
+
+
+  return res.json({
+    reviews,
+    user,
+    images
+  });
 });
+
 
 //Create a Review for a Spot based on the Spot's id
 
