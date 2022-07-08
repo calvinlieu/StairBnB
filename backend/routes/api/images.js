@@ -9,6 +9,7 @@ const { Image, Review, Spot, User, Booking } = require("../../db/models");
 const { check, Result } = require("express-validator");
 const router = express.Router();
 const { Op, Sequelize } = require("sequelize");
+const image = require("../../db/models/image");
 
 //add an image to a spot based on the Spot's id
 
@@ -38,7 +39,6 @@ router.post("/spots/:spotId", requireAuth, async (req, res) => {
     imageableId: allImg.length + 1,
     imageableType: "Spot",
     url,
-    
   });
 
   res.json(image);
@@ -81,7 +81,7 @@ router.post("/reviews/:reviewId", requireAuth, async (req, res) => {
     });
   }
 
-  const {url} = req.body;
+  const { url } = req.body;
 
   const image = await Image.create({
     imageableId: allImg.length + 1,
@@ -94,7 +94,10 @@ router.post("/reviews/:reviewId", requireAuth, async (req, res) => {
 
 //delete an image
 router.delete("/:id", requireAuth, async (req, res) => {
-  const images = await Image.findByPk(req.params.id);
+  const currentUserId = req.user.id;
+  let imageId = req.params.imageId;
+
+  const images = await Image.findByPk(imageId);
 
   if (!images) {
     res.status(404);
@@ -103,16 +106,39 @@ router.delete("/:id", requireAuth, async (req, res) => {
       statusCode: 404,
     });
   }
-  if (images.imageableId !== req.user.id) {
+
+  if (image.spotId) {
+    let spot = await Spot.findByPk(image.spotId);
+    if (spot.ownerId !== currentUserId) {
+      res.status(403);
+      res.json({
+        message: "Forbidden",
+        statusCode: 403,
+      });
+    }
+  } else if (image.reviewId) {
+    let review = await Review.findByPk(image.reviewId);
+    if (review.userId !== currentUserId) {
+      res.status(403);
+      res.json({
+        message: "Forbidden",
+        statusCode: 403,
+      });
+    }
+  } else {
     res.status(403);
-    res.json({
-      message: "Forbidden",
-      statusCode: 403,
-    });
+      res.json({
+        message: "Forbidden",
+        statusCode: 403,
+      });
   }
 
-  images.destroy();
-  images.save();
+
+  await images.destroy({
+    where: {
+      id: imageId
+    }
+  });
 
   res.json({
     message: "Successfully deleted",
