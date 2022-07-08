@@ -128,7 +128,7 @@ router.post('/:spotId/create', requireAuth, async (req, res) => {
 
 //edit a review
 router.put('/:reviewId', requireAuth, async(req, res) => {
-  const { stars } = req.body;
+  let { stars } = req.body;
   let reviewId = req.params.reviewId;
   let reviewParams = req.body;
   let currentUserId = req.user.id
@@ -145,7 +145,7 @@ router.put('/:reviewId', requireAuth, async(req, res) => {
     })
   }
 
-  const review = await Review.findByPk(reviewId);
+  let review = await Review.findByPk(reviewId);
 
   if (!review) {
     res.status(404);
