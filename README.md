@@ -84,8 +84,8 @@ information.
 
     ```json
     {
-      "email": "john.smith@gmail.com",
-      "password": "secret password"
+      "credential": "demo@user.io",
+      "password": "password"
     }
     ```
 
@@ -98,9 +98,9 @@ information.
     ```json
     {
       "id": 1,
-      "firstName": "John",
-      "lastName": "Smith",
-      "email": "john.smith@gmail.com",
+      "firstName": "Calvin",
+      "lastName": "Lieu",
+      "email": "demo@user.io",
       "token": ""
     }
     ```
@@ -152,8 +152,9 @@ user's information.
     {
       "firstName": "John",
       "lastName": "Smith",
+      "username": "johnsmith",
       "email": "john.smith@gmail.com",
-      "password": "secret password"
+      "password": "password"
     }
     ```
 

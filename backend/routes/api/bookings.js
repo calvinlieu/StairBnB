@@ -253,7 +253,4 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
   res.json(booking);
 });
 
-
-
-
 module.exports = router;
