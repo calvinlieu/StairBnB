@@ -1,5 +1,5 @@
 const express = require("express");
-const { Op } = require("sequelize");
+const { Op, Sequelize } = require("sequelize");
 const {
   setTokenCookie,
   restoreUser,
