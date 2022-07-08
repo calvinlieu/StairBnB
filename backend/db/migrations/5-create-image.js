@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Images', {
@@ -26,6 +27,12 @@ module.exports = {
           model: 'Spots',
           key: 'id',
         }
+      },
+      imageableId: {
+        type: Sequelize.INTEGER
+      },
+      imageableType: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
