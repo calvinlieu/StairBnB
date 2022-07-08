@@ -12,22 +12,26 @@ const router = express.Router();
 //Get all reviews of the current user
 
 router.get("/current-user-review", requireAuth, async (req, res) => {
-  const review = await Review.findAll({
-    where: { id: req.user.id },
-      include: [
-        { model: Spot },
-        { model: Image, attributes: ['url'] },
-        { model: User, attributes: ["id", "firstName", "lastName"] },
-      ],
-    },
-  );
-  
-  if (!review) {
-    res.status(404);
-    res.json({ message: "Spot does not exist"})
-  }
+  const {id} = req.user;
 
-  res.json(review);
+  const reviews = await Review.findAll({
+    include: [
+      {
+        model: Spot,
+        attributes: {
+          exclude: ['createdAt', 'updatedAt', 'previewImage']
+        }
+      },
+      {
+        model: Image,
+        attributes: ['url']
+      }
+    ],
+    where: {
+      userId: id
+    }
+  })
+  res.json(reviews)
 });
 
 //Get all reviews by a Spot's id
