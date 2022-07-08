@@ -128,19 +128,11 @@ router.post('/:spotId/create', requireAuth, async (req, res) => {
 
 //edit a review
 router.put('/:reviewId', requireAuth, async(req, res) => {
-  let {review, stars} = req.body;
-  let id = req.user.id;
+  const { stars } = req.body;
   let reviewId = req.params.reviewId;
-
-  const currentReview = await Review.findByPk(reviewId);
-
-  if (currentReview.userId !== id ) {
-    res.status(403);
-    res.json({
-      "message": "Authorization Error"
-    })
-  }
-
+  let reviewParams = req.body;
+  let currentUserId = req.user.id
+  
   if (stars < 1 || stars > 5) {
     res.status(400);
     res.json({
@@ -153,22 +145,23 @@ router.put('/:reviewId', requireAuth, async(req, res) => {
     })
   }
 
-  if (review.length < 5) {
-    res.status(400);
+  const review = await Review.findByPk(reviewId);
+
+  if (!review) {
+    res.status(404);
     res.json({
-      "message": "Validation error",
-      "statusCode": 400,
-      "errors": {
-        "review": "Review text is required",
-        "stars": "Stars must be an integer from 1 to 5",
-      }
+      message: "Review couldn't be found",
+      statusCode: 404
     })
   }
-  review = await Review.update(req.body, {
+
+
+  review = await Review.update(reviewParams, {
     where: {
       id: reviewId
     }
   });
+  
   review = await Review.findByPk(reviewId);
 
   res.json(review)
