@@ -883,7 +883,7 @@ Return all the bookings for a spot specified by id.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /bookings/spot/:spotId
+  * URL: /api/bookings/spot/:spotId
   * Body: none
 
 * Successful Response: If you ARE NOT the owner of the spot.
@@ -952,7 +952,7 @@ Create and return a new booking from a spot specified by id.
 * Require proper authorization: Spot must NOT belong to the current user
 * Request
   * Method: POST
-  * URL: /bookings/spot/:spotId
+  * URL: /api/bookings/spot/:spotId
   * Body: 
 
     ```json
