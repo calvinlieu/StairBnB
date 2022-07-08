@@ -82,7 +82,7 @@ router.post("/reviews/:reviewId", requireAuth, async (req, res) => {
   }
 
   const image = await Image.create({
-    imageableId,
+    imageableId: allImg.length + 1,
     imageableType: "Review",
     url,
   });
