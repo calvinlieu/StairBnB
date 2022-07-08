@@ -14,27 +14,27 @@ module.exports = {
         url: 'https://picsum.photos/200',
         reviewId: 2,
         spotId: 2,
-        imageableId: 2,
+        imageableId: 1,
         imageableType: "Spot"
       },
       {
         url: 'https://picsum.photos/id/237/200/300',
-        reviewId: 1,
-        spotId: 1,
+        reviewId: 2,
+        spotId: 2,
         imageableId: 1,
         imageableType: "Review"
       },
       {
         url: 'https://picsum.photos/seed/picsum/200/300',
         reviewId: 3,
-        spotId: 2,
-        imageableId: 1,
+        spotId: 3,
+        imageableId: 3,
         imageableType: "Spot"
       },
       {
         url: 'https://picsum.photos/200/300?grayscale',
         reviewId: 1,
-        spotId: 2,
+        spotId: 1,
         imageableId: 2,
         imageableType: "Review"
       }

@@ -1,5 +1,5 @@
 const express = require("express");
-const sequelize = require("sequelize");
+const {Op, sequelize} = require("sequelize");
 const {
   setTokenCookie,
   restoreUser,
@@ -12,12 +12,12 @@ const user = require("../../db/models/user");
 
 const router = express.Router();
 
-//get all spots
-router.get("/", async (req, res) => {
-  let spots = await Spot.findAll();
+// //get all spots
+// router.get("/", async (req, res) => {
+//   let spots = await Spot.findAll();
 
-  return res.json(spots);
-});
+//   return res.json(spots);
+// });
 
 //add query filters to get all spots
 
@@ -122,15 +122,15 @@ router.get("/", async (req, res) => {
 
   const spots = await Spot.findAll({
     where: {
-      [Op.and]: pagination.options
+      [Op.and]: pagination.filter
     },
-    limit: pagination.size || 20,
+    limit: pagination.size,
     offset: pagination.size * pagination.page
   })
   res.json({
     spots,
     page: pagination.page,
-    size: pagination.size || 20,
+    size: pagination.size,
   }
   )
 
