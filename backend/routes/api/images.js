@@ -106,38 +106,18 @@ router.delete("/:imageId", requireAuth, async (req, res) => {
       statusCode: 404,
     });
   }
-
-  if (image.spotId) {
-    let spot = await Spot.findByPk(image.spotId);
-    if (spot.ownerId !== currentUserId) {
-      res.status(403);
-      res.json({
-        message: "Forbidden",
-        statusCode: 403,
-      });
-    }
-  } else if (image.reviewId) {
-    let review = await Review.findByPk(image.reviewId);
-    if (review.userId !== currentUserId) {
-      res.status(403);
-      res.json({
-        message: "Forbidden",
-        statusCode: 403,
-      });
-    }
-  } else {
+  if (images.imageableId !== currentUserId) {
     res.status(403);
-      res.json({
-        message: "Forbidden",
-        statusCode: 403,
-      });
+    res.json({
+      message: "Forbidden",
+      statusCode: 403,
+    });
   }
-
 
   await images.destroy({
     where: {
-      id: imageId
-    }
+      id: imageId,
+    },
   });
 
   res.json({
