@@ -743,7 +743,7 @@ Update and return an existing review.
     ```json
     {
       "review": "This was an awesome spot!",
-      "stars": 5,
+      "stars": 5
     }
     ```
 
@@ -959,7 +959,7 @@ Create and return a new booking from a spot specified by id.
     ```json
     {
       "startDate": "2021-11-19",
-      "endDate": "2021-11-19"
+      "endDate": "2021-11-20"
     }
     ```
 
@@ -975,7 +975,7 @@ Create and return a new booking from a spot specified by id.
       "spotId": 1,
       "userId": 2,
       "startDate": "2021-11-19",
-      "endDate": "2021-11-19",
+      "endDate": "2021-11-20",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36"
     }
@@ -1183,7 +1183,7 @@ Create and return a new image for a spot specified by id.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: POST
-  * URL: /api/images/:spotId/image
+  * URL: /api/images/spots/:spotId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1230,7 +1230,7 @@ Create and return a new image for a review specified by id.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: POST
-  * URL: /api/images/review/:reviewId
+  * URL: /api/images/reviews/:reviewId
   * Headers:
     * Content-Type: application/json
   * Body:
