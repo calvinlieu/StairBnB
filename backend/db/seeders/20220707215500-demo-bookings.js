@@ -1,28 +1,45 @@
 'use strict';
 
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Bookings', [
       {
-        id : 1,
-        spotId: 1,
         userId: 1,
-        startDate: new Date("2021-12-15"),
-        endDate: new Date("2021-12-20")
+        spotId: 1,
+        startDate: new Date('2022-7-04'),
+        endDate: new Date('2022-7-05')
       },
       {
-        id : 2,
-        spotId: 2,
         userId: 2,
-        startDate: new Date("2021-11-15"),
-        endDate: new Date("2021-11-30")
+        spotId: 2,
+        startDate: new Date('2022-7-06'),
+        endDate: new Date('2022-7-07')
+      },
+      {
+        userId: 3,
+        spotId: 3,
+        startDate: new Date('2022-7-11'),
+        endDate: new Date('2022-7-21')
+      },
+      {
+        userId: 4,
+        spotId: 4,
+        startDate: new Date('2022-7-17'),
+        endDate: new Date('2022-7-21')
+      },
+      {
+        userId: 5,
+        spotId: 5,
+        startDate: new Date('2022-7-25'),
+        endDate: new Date('2022-7-29')
       }
-    ]
-
-      )
+    ], {});
   },
 
-  async down (queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('Reviews')
+  down: async (queryInterface, Sequelize) => {
+    const Op = Sequelize.Op;
+    return queryInterface.bulkDelete('Bookings', {
+      startDate: { [Op.in]: [new Date('2022-7-04'), new Date('2022-7-06'), new Date('2022-7-11'),new Date('2022-7-17'),new Date('2022-7-25')] }
+    }, {});
   }
 };

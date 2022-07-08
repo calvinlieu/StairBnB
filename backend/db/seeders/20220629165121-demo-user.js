@@ -33,17 +33,26 @@ module.exports = {
         firstName: 'Calvin',
         lastName: 'Lieu',
         hashedPassword: bcrypt.hashSync('password3')
-      }
+      },
+      {
+        email: 'calvin@gmail.com',
+        username: 'Karuban',
+        firstName: 'Calvin',
+        lastName: 'Lieu',
+        hashedPassword: bcrypt.hashSync('password4')
+      },
+      {
+        email: 'lieu@gmail.com',
+        username: 'Karuuban',
+        firstName: 'Calvin',
+        lastName: 'Lieu',
+        hashedPassword: bcrypt.hashSync('password5')
+      },
      ], {});
   },
 
   async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+  
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete('Users', {
       username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }
