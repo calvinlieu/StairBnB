@@ -84,8 +84,8 @@ information.
 
     ```json
     {
-      "credential": "demo@user.io",
-      "password": "password"
+      "credential": "calvin@gmail.com",
+      "password": "password4"
     }
     ```
 
@@ -100,7 +100,7 @@ information.
       "id": 1,
       "firstName": "Calvin",
       "lastName": "Lieu",
-      "email": "demo@user.io",
+      "email": "calvin@gmail.com",
       "token": ""
     }
     ```
