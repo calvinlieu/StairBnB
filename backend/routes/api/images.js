@@ -106,13 +106,13 @@ router.delete("/:imageId", requireAuth, async (req, res) => {
       statusCode: 404,
     });
   }
-  if (images.imageableId !== currentUserId) {
-    res.status(403);
-    res.json({
-      message: "Forbidden",
-      statusCode: 403,
-    });
-  }
+  // if (images.imageableId !== currentUserId) {
+  //   res.status(403);
+  //   res.json({
+  //     message: "Forbidden",
+  //     statusCode: 403,
+  //   });
+  // }
 
   await images.destroy({
     where: {
