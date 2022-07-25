@@ -26,6 +26,7 @@ const LoginFormPage = () => {
   }
 
   return (
+    <div className='formDiv'>
     <form onSubmit={handleSubmit}>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
@@ -50,6 +51,7 @@ const LoginFormPage = () => {
       </label>
       <button type="submit">Log In</button>
     </form>
+    </div>
   );
 }
 
