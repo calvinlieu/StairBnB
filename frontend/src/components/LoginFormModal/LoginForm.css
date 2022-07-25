@@ -1,5 +1,6 @@
 .formDiv {
     width: 100%;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
