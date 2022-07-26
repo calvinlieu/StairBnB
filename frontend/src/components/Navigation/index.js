@@ -12,26 +12,37 @@ function Navigation({ isLoaded }) {
   if (sessionUser) {
     sessionLinks = (
       <>
+      <div>
         <ProfileButton user={sessionUser} />
-        {/* <NavLink to="/spots/create">Create a Spot</NavLink> */}
+      </div>
       </>
     );
   } else {
     sessionLinks = (
       <>
-        <LoginFormModal />
-        <NavLink to="/signup">Sign Up</NavLink>
+      <div id='nav_right'>
+        <div id='loginButton'> <LoginFormModal /></div>
+        <div id='signUp'><NavLink to="/signup">Sign Up</NavLink> </div>
+      </div>
       </>
     );
   }
 
   return (
-    <ul>
-      <li>
-        <NavLink exact to="/">Home</NavLink>
+    <nav>
+    <div id="home">
+        <div id='logo'>
+            <NavLink exact to="/">
+                <img src="https://1000logos.net/wp-content/uploads/2017/08/Airbnb-logo.jpg"></img>
+            </NavLink>
+        </div>
+  
         {isLoaded && sessionLinks}
-      </li>
-    </ul>
+    </div >
+
+
+</nav >
+    
   );
 }
 

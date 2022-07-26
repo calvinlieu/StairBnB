@@ -29,15 +29,16 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle"></i>
+      <button className="navBar" onClick={openMenu}>
+        <i className="fas fa-bars nav_bars_icon"></i>
+        <i className="fas fa-user-circle user_icon"></i>
       </button>
       {showMenu && (
-        <div>
-          <Link to="/spots/create">
+        <div id="menu">
+          <Link to="/spots/create" id="dropdown1">
             Create a Spot
           </Link>
-          <div onClick={logout}>
+          <div onClick={logout} id="dropdown2">
             Log out
           </div>
         </div>
