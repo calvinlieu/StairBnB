@@ -18,7 +18,7 @@ const SpotsPage = () => {
       <div className="spotsPage">
         <div className="left"></div>
         {spotsList.map((spot) => (
-          <Link>
+          <Link to={`/spots/${spot?.id}`}>
             <div key={spot.id}>
               <img
                 className="spotImg"

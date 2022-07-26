@@ -27,11 +27,14 @@ function App() {
           <Route exact path="/login">
             <LoginFormModal />
           </Route>
+          <Route exact path="/spots/create">
+            <NewSpotForm />
+          </Route>
+          <Route exact path="/spots/:spotId">
+            <SpotDetail />
+          </Route>
           <Route exact path="/">
             <SpotsPage />
-          </Route>
-          <Route>
-            <NewSpotForm exact path="/spots/create"/>
           </Route>
         </Switch>
       )}
