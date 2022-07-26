@@ -28,7 +28,25 @@ const SpotForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors([]);
+    const validateErrors = [];
+    if (name.length < 1) validateErrors.push('Please include a title for your listing.');
+    if (city.length < 1) validateErrors.push('Please include a city.');
+    if (description.length < 1) validateErrors.push('Please include a description for your listing.');
+    if (address.length < 1 || city.length < 1 || country.length < 1 || state.length < 1) validateErrors.push('Please include a full address.');
+    if (lat.length < 1 || lng.length < 1) validateErrors.push('Please include a latitude and longitude.');
+    if (price.length < 1) {
+        validateErrors.push('Please include a price.')
+    } else if (price.length > 0) {
+        if (Number(price) === 0) {
+            validateErrors.push('Price must be more that $0')
+        }
+    }
+    if (validateErrors.length > 0) {
+        setErrors(validateErrors);
+        return;
+    }
+
+
     let newSpot = {
       name: name,
       address: address,
@@ -94,10 +112,9 @@ const SpotForm = () => {
         />
       </label>
       <label >
-        Preview Image : 
+        Preview Image: 
         <input
-          type="file"
-          accept="image/png, image/gif, image/jpeg"
+          type="text"
           value={previewImage}
           onChange={(e) => setPreviewImage(e.target.value)}
         />

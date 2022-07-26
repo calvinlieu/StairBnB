@@ -23,7 +23,7 @@ function LoginForm() {
     return (
         <div>
             <div>
-                <h2> Welcome to StairBnB </h2>
+                <h2 > Welcome to StairBnB </h2>
             </div>
             <form
                 onSubmit={handleSubmit} >

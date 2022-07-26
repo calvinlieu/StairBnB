@@ -37,7 +37,7 @@ export const getAllSpots = () => async (dispatch) => {
   }
 };
 
-//Get a spot
+//Get a spot detail
 export const findASpot = (spotId) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${spotId}`);
   if (response.ok) {

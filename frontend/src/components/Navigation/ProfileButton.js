@@ -29,6 +29,7 @@ function ProfileButton({ user }) {
 
   return (
     <>
+    <div className="button">
       <button className="navBar" onClick={openMenu}>
         <i className="fas fa-bars nav_bars_icon"></i>
         <i className="fas fa-user-circle user_icon"></i>
@@ -43,6 +44,7 @@ function ProfileButton({ user }) {
           </div>
         </div>
       )}
+    </div>
     </>
   );
 }
