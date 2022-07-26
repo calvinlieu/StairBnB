@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import {createSpot} from "../../store/spots";
 import "./form.css";
 
-const CreateSpot = () => {
+const SpotForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
@@ -20,7 +20,7 @@ const CreateSpot = () => {
   const [price, setPrice] = useState(0);
   const [errors, setErrors] = useState([]);
 
-  if (sessionUser === null) {
+  if (!sessionUser) {
     alert("You must log in to create a spot")
     return <Redirect to="/" />
   }
@@ -156,4 +156,4 @@ const CreateSpot = () => {
   );
 };
 
-export default CreateSpot;
+export default SpotForm;

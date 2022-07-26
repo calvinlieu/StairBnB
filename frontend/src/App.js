@@ -5,7 +5,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import LoginFormModal from "./components/LoginFormModal";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import SpotDetail from "./components/SpotDetail";
+// import SpotDetail from "./components/SpotDetail";
 import SpotsPage from "./components/Spots";
 import NewSpotForm from "./components/SpotsForm";
 
@@ -21,10 +21,10 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route path="/signup">
+          <Route exact path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/login">
+          <Route exact path="/login">
             <LoginFormModal />
           </Route>
           <Route exact path="/spots/">
