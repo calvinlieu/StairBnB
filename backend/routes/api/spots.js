@@ -12,12 +12,12 @@ const user = require("../../db/models/user");
 
 const router = express.Router();
 
-// //get all spots
-// router.get("/", async (req, res) => {
-//   let spots = await Spot.findAll();
+//get all spots
+router.get("/", async (req, res) => {
+  let spots = await Spot.findAll();
 
-//   return res.json(spots);
-// });
+  return res.json(spots);
+});
 
 //add query filters to get all spots
 

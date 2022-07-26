@@ -44,6 +44,7 @@ router.post("/sign-up", validateSignup, async (req, res) => {
 
     const newUser = {
       id: user.id,
+      username: user.username,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
