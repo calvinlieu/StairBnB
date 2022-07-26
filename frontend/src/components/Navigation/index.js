@@ -13,7 +13,7 @@ function Navigation({ isLoaded }) {
     sessionLinks = (
       <>
         <ProfileButton user={sessionUser} />
-        <NavLink to="/spots/create">Create a Spot</NavLink>
+        {/* <NavLink to="/spots/create">Create a Spot</NavLink> */}
       </>
     );
   } else {
