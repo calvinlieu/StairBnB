@@ -1,3 +1,4 @@
-.spot-form label{
+.spotForm label{
     display: flex;
+    padding: 5px;
 }

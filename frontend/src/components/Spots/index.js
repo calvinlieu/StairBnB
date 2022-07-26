@@ -1,23 +1,29 @@
-import { useSelector, useDispatch } from "react-redux"
-import { useEffect } from "react"
-import { getAllSpots, getSpotDetails } from "../../store/spots"
-import Card from "../Cards"
-import './SpotsCards.css'
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllSpots } from "../../store/spots"
+import "./spots.css"
 
-function SpotCards() {
-  const spots = useSelector(state => state.spots.orderedSpotsList)
+
+const SpotsPage = () => {
   const dispatch = useDispatch();
+  const spotsList = useSelector((state) => Object.values(state.spots));
+
   useEffect(() => {
     dispatch(getAllSpots());
-  }, [dispatch])
 
-  return (
-    <div className="spots-cards-container">
-      {spots?.map(spot => (
-        <Card key={spot.id} spot={spot} />
-      ))}
+}, [dispatch])
+
+return (
+  <div>{spotsList.map(spot => (
+    <div key={spot.id}>
+        <h3 className="spotName">{spot.name}</h3>
+        <h4>{spot.city}, {spot.state}</h4>
+        <img className='spotImg' src={spot.previewImage} alt= {spot.name}></img>
+        <p>{spot.description}</p>
+        <p> Price: ${spot.price}</p>
     </div>
-  )
+))}</div>
+)
 }
 
-export default SpotCards
+export default SpotsPage;

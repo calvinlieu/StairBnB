@@ -1,68 +1,88 @@
-import { csrfFetch } from './csrf';
+import { csrfFetch } from "./csrf";
 
-const GET_ALL_SPOTS = 'spots/getAllSpots';
-const GET_DETAILS = 'spots/getDetails';
+const GET_SPOT = "spots/get-spot";
+const GET_ALL_SPOTS = "spots/get-all-spots";
+const ADD = "spots/add"
 
-const getSpots = (spots) => {
+const getAll = (spots) => {
   return {
     type: GET_ALL_SPOTS,
-    payload: spots
+    spots,
   };
 };
 
-const getSingleSpot = (spot) => {
+const getSpot = (spot) => {
   return {
-    type: GET_DETAILS,
-    payload: spot
+    type: GET_SPOT,
+    spot,
   };
 };
 
+const addSpot = (spot) => {
+  return {
+    type: ADD,
+    spot
+  }
+}
 
-export const getAllSpots = () => async dispatch => {
-  const response = await csrfFetch('/api/spots');
+//Get all spots
+export const getAllSpots = () => async (dispatch) => {
+  const response = await csrfFetch("/api/spots");
   if (response.ok) {
     const spots = await response.json();
-    dispatch(getSpots(spots.Spots));
-    return response
+    dispatch(getAll(spots));
+    const all = {};
+    spots.forEach((spot) => (all[spot.id] = spot));
+    return { ...all };
   }
-  return response;
 };
 
-export const getDetails = (id) => async dispatch => {
-  const response = await csrfFetch(`/api/spots/${id}`);
+//Get a spot
+export const findASpot = (spotId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spotId}`);
   if (response.ok) {
     const spot = await response.json();
-    const result = dispatch(getSingleSpot(spot));
-    return result
+    dispatch(getSpot(spot));
   }
   return response;
 };
 
+//Create a spot
+export const createSpot = spot => async dispatch => {
+  const response = await csrfFetch('/api/spots', {
+    method: "POST",
+    body: JSON.stringify(spot)
+  })
+  if (response.ok) {
+    const newSpot = await response.json();
+    dispatch(addSpot(newSpot));
+    return newSpot;
+  }
 
-const spotsReducer = (state = {}, action) => {
-  switch(action.type) {
+  return response
+}
+
+const initialState = {};
+const spotsReducer = (state = initialState, action) => {
+  switch (action.type) {
     case GET_ALL_SPOTS: {
-      let newState = {...state}
-      action.spots.forEach(spot => {
-        newState[spot.id] = spot
-      })
-      newState.orderedSpotsList = [...action.spots.sort((a, b) => a.id - b.id)]
-      return newState
+      const allSpots = {};
+      action.spots.forEach((spot) => (allSpots[spot.id] = spot));
+      return { ...allSpots, ...state };
     }
-    case GET_DETAILS: {
-      let newState = {}
-      newState[action.spot.id] = action.spot
-      const images = action.spot.Images
-      newState[action.spot.id].images = {}
-      images.forEach((image, i) => {
-        newState[action.spot.id].images[i + 1] = image.url
-      })
-      delete newState[action.spot.id].Images
-      return newState
+    case GET_SPOT: {
+      const spot = action.spot;
+      return { ...spot, ...state };
+    }
+    case ADD: {
+      let newState = {...state};
+      newState[action.spot.id] = action.spot;
+      return newState;
+
     }
     default:
       return state;
   }
-}
+};
 
-export default spotsReducer
+export default spotsReducer;
