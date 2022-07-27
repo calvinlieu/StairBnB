@@ -2,7 +2,9 @@ import { csrfFetch } from "./csrf";
 
 const GET_SPOT = "spots/get-spot";
 const GET_ALL_SPOTS = "spots/get-all-spots";
-const ADD = "spots/add"
+const ADD = "spots/add";
+const DELETE_SPOT = "spots/delete";
+const EDIT_SPOT = "spots/edit";
 
 const getAll = (spots) => {
   return {
@@ -21,9 +23,23 @@ const getSpot = (spot) => {
 const addSpot = (spot) => {
   return {
     type: ADD,
-    spot
-  }
-}
+    spot,
+  };
+};
+
+const deleteSpot = (spotId) => {
+  return {
+    type: DELETE_SPOT,
+    spotId,
+  };
+};
+
+const editSpot = (spot) => {
+  return {
+    type: EDIT_SPOT,
+    spot,
+  };
+};
 
 //Get all spots
 export const getAllSpots = () => async (dispatch) => {
@@ -43,24 +59,56 @@ export const findASpot = (spotId) => async (dispatch) => {
   if (response.ok) {
     const spot = await response.json();
     dispatch(getSpot(spot));
+    return spot
   }
   return response;
 };
 
 //Create a spot
-export const createSpot = spot => async dispatch => {
-  const response = await csrfFetch('/api/spots', {
+export const createSpot = (spot) => async (dispatch) => {
+  
+
+  const response = await csrfFetch("/api/spots", {
     method: "POST",
     body: JSON.stringify(spot)
-  })
+  });
   if (response.ok) {
     const newSpot = await response.json();
     dispatch(addSpot(newSpot));
     return newSpot;
   }
 
-  return response
-}
+  return response;
+};
+
+//edit a spot
+export const spotEdit = (spot, spotId) => async (dispatch) => {
+
+  const response = await csrfFetch(`/api/spots/${spotId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(spot)
+  });
+  if (response.ok) {
+    const editedSpot = await response.json();
+    dispatch(editSpot(editedSpot));
+    return editedSpot;
+  }
+};
+
+//delete a spot
+export const spotDelete = (spotId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spotId}`, {
+    method: "DELETE",
+    body: JSON.stringify({
+      spotId,
+    }),
+  });
+
+  const res = await response.json();
+  dispatch(deleteSpot(spotId));
+  return res;
+};
 
 const initialState = {};
 const spotsReducer = (state = initialState, action) => {
@@ -68,17 +116,26 @@ const spotsReducer = (state = initialState, action) => {
     case GET_ALL_SPOTS: {
       const allSpots = {};
       action.spots.forEach((spot) => (allSpots[spot.id] = spot));
-      return { ...allSpots, ...state };
+      return { ...allSpots };
     }
     case GET_SPOT: {
       const spot = action.spot;
-      return { ...spot, ...state };
+      return { ...spot};
     }
     case ADD: {
-      let newState = {...state};
+      let newState = { ...state };
       newState[action.spot.id] = action.spot;
       return newState;
-
+    }
+    case DELETE_SPOT: {
+      const newState = { ...state };
+      delete newState[action.res];
+      return newState;
+    }
+    case EDIT_SPOT: {
+      const newState = { ...state };
+      newState[action.editedSpot.id] = action.editedSpot;
+      return newState;
     }
     default:
       return state;

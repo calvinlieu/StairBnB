@@ -1,22 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { findASpot } from "../../store/spots";
+import { spotDelete } from "../../store/spots";
 import "./spotDetail.css"
 
 const SpotsDetail = () => {
+  const history = useHistory();
   let { spotId } = useParams();
   spotId = Number(spotId);
   const dispatch = useDispatch();
-  const spot = useSelector((state) => state.spots[spotId]);
+  const spot = useSelector((state) => state.spots);
   const sessionUser = useSelector((state) => state.session.user);
 
   useEffect(() => {
     dispatch(findASpot(spotId));
   }, [dispatch, spotId]);
 
+  const handleDelete = (e) => {
+    e.preventDefault();
+    dispatch(spotDelete(spotId));
+    history.push("/")
+  }
+
   return (
-    <div key={spot.id}>
+    <div >
       <h4 className="detailName">{spot.name}</h4>
       <img className="detailImg" src={spot.previewImage} alt={spot.name}></img>
       <h3 className="detailLocation">
@@ -24,6 +32,11 @@ const SpotsDetail = () => {
       </h3>
       <p className="detailDescription">{spot.description}</p>
       <p className="detailPrice">${spot.price} night</p>
+
+      <div>
+        <button onClick={handleDelete}>Delete Spot</button>
+      </div>
+      
     </div>
   );
 };

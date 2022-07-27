@@ -8,6 +8,9 @@ import Navigation from "./components/Navigation";
 import SpotDetail from "./components/SpotDetail";
 import SpotsPage from "./components/Spots";
 import NewSpotForm from "./components/SpotsForm";
+import EditSpot from "./components/SpotEdit"
+
+
 
 function App() {
   const dispatch = useDispatch();
@@ -21,6 +24,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route exact path="/">
+            <SpotsPage />
+          </Route>
           <Route exact path="/signup">
             <SignupFormPage />
           </Route>
@@ -31,10 +37,8 @@ function App() {
             <NewSpotForm />
           </Route>
           <Route exact path="/spots/:spotId">
+            <EditSpot />
             <SpotDetail />
-          </Route>
-          <Route exact path="/">
-            <SpotsPage />
           </Route>
         </Switch>
       )}
