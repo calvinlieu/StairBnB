@@ -34,6 +34,9 @@ const EditSpot = () => {
   const updatePrice = (e) => setPrice(e.target.value);
   const updatePreviewImage = (e) => setPreviewImage(e.target.value);
 
+  if (hasSubmit) {
+    return <Redirect to={`/spots`} />;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -57,24 +60,25 @@ const EditSpot = () => {
       setHasSubmit(true);
     })
     .then(() => {
-      history.push(`/spots/${spotId}`)
+      history.push(`/spots/${spot.id}`)
+      // <Redirect to={`/spots/${}`} />
     })
-    .catch(async (res) => {
-      const data = await res.json();
-      if (data && data.errors) setErrors(data.errors);
-    });
+    // .catch(async (res) => {
+    //   const data = await res.json();
+    //   if (data && data.errors) setErrors(data.errors);
+    // });
     
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="editSpot" onSubmit={handleSubmit}>
       <ul>
         {errors.map((error, idx) => (
           <li key={idx}>{error}</li>
         ))}
       </ul>
       <label>
-        {/* Name */}
+        Name
         <input
           type="text"
           placeholder="Spot name"
@@ -83,7 +87,7 @@ const EditSpot = () => {
         />
       </label>
       <label>
-        {/* Address*/}
+        Address
         <input
           type="text"
           placeholder="Address"
@@ -92,7 +96,7 @@ const EditSpot = () => {
         />
       </label>
       <label>
-        {/* City */}
+        City
         <input
           type="text"
           placeholder="City"
@@ -101,7 +105,7 @@ const EditSpot = () => {
         />
       </label>
       <label>
-        {/* State */}
+        State
         <input
           type="text"
           placeholder="State"
@@ -110,7 +114,7 @@ const EditSpot = () => {
         />
       </label>
       <label>
-        {/* Country */}
+        Country
         <input
           type="text"
           placeholder="Country"
@@ -119,7 +123,7 @@ const EditSpot = () => {
         />
       </label>
       <label>
-        {/* Lat */}
+        Lat
         <input
           type="text"
           placeholder="Latitude"
@@ -128,7 +132,7 @@ const EditSpot = () => {
         />
       </label>
       <label>
-        {/* Lng */}
+        Lng
         <input
           type="text"
           placeholder="Longitude"
@@ -137,7 +141,7 @@ const EditSpot = () => {
         />
       </label>
       <label>
-        {/* Description */}
+        Description
         <input
           type="text"
           placeholder="Description"
@@ -146,7 +150,7 @@ const EditSpot = () => {
         />
       </label>
       <label>
-        {/* Price */}
+        Price
         <input
           type="text"
           value={price}
@@ -154,7 +158,7 @@ const EditSpot = () => {
           onChange={updatePrice}
         />
         <label>
-          {/* Image */}
+          Image
           <input
             type="text"
             placeholder="img-url"
@@ -163,7 +167,7 @@ const EditSpot = () => {
           />
         </label>
       </label>
-      <button type="submit">Edit Spot</button>
+      <button type="submit">Confirm Edit</button>
     </form>
   );
 };

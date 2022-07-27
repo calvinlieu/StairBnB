@@ -17,27 +17,29 @@ const SpotsPage = () => {
 
   return (
     <div className="spotsPage">
-      {spotsList &&
-        spotsList.map((spot) => (
-          <div key={spot.id}>
+      <div></div>
+      {spotsList.map((spot) => {
+        if (spot) {
+          return (
             <NavLink to={`/spots/${spot.id}`}>
-              <div className="eachSpot" key={spot.id}>
+              <div className="eachSpot" key={spotId}>
                 <img
                   className="spotImg"
                   src={spot.previewImage}
                   alt={spot.name}
                 ></img>
+                <h3 className="spotName">{spot.name}</h3>
                 <h4 className="spotLocation">
                   {spot.city}, {spot.state}
                 </h4>
-                <h3 className="spotName">{spot.name}</h3>
                 <p className="spotAddress">{spot.address}</p>
                 <p className="spotDetails">{spot.description}</p>
                 <p className="spotPrice"> ${spot.price} night</p>
               </div>
             </NavLink>
-          </div>
-        ))}
+          );
+        }
+      })}
     </div>
   );
 };
