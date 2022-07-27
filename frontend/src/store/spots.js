@@ -81,9 +81,9 @@ export const createSpot = (spot) => async (dispatch) => {
 
 //edit a spot
 export const spotEdit = (spot) => async (dispatch) => {
-  console.log(spot.id, "spotId")
+  console.log(spot.spotId, "spotId")
   console.log("spot thunk", spot);
-  const response = await csrfFetch(`/api/spots/${spot.id}`, {
+  const response = await csrfFetch(`/api/spots/${spot.spotId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(spot),

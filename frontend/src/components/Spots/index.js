@@ -17,10 +17,9 @@ const SpotsPage = () => {
 
   return (
     <div className="spotsPage">
-      <div className="left"></div>
-      {spotsList.map((spot) => {
-        if (spot) {
-          return (
+      {spotsList &&
+        spotsList.map((spot) => (
+          <div key={spot.id}>
             <NavLink to={`/spots/${spot.id}`}>
               <div className="eachSpot" key={spot.id}>
                 <img
@@ -37,9 +36,8 @@ const SpotsPage = () => {
                 <p className="spotPrice"> ${spot.price} night</p>
               </div>
             </NavLink>
-          );
-        }
-      })}
+          </div>
+        ))}
     </div>
   );
 };

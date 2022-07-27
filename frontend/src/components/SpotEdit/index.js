@@ -34,6 +34,7 @@ const EditSpot = () => {
   const updatePrice = (e) => setPrice(e.target.value);
   const updatePreviewImage = (e) => setPreviewImage(e.target.value);
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
@@ -48,8 +49,9 @@ const EditSpot = () => {
       name,
       description,
       price,
+      spotId
     };
-    console.log("submitting", handleSubmit)
+    console.log("submitting", spotId)
     return dispatch(spotActions.spotEdit(data))
     .then(() => {
       setHasSubmit(true);
