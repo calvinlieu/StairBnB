@@ -2,22 +2,24 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";
 import * as spotActions from "../../store/spots";
+import { useHistory } from "react-router-dom";
 
 const EditSpot = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   let { spotId } = useParams();
   spotId = Number(spotId);
   const spot = useSelector((state) => state.spots);
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [country, setCountry] = useState("");
-  const [lat, setLat] = useState("");
-  const [lng, setLng] = useState("");
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [previewImage, setPreviewImage] = useState("");
+  const [address, setAddress] = useState(spot?.address);
+  const [city, setCity] = useState(spot?.city);
+  const [state, setState] = useState(spot?.state);
+  const [country, setCountry] = useState(spot?.country);
+  const [lat, setLat] = useState(spot?.lat);
+  const [lng, setLng] = useState(spot?.lng);
+  const [name, setName] = useState(spot?.name);
+  const [description, setDescription] = useState(spot?.description);
+  const [price, setPrice] = useState(spot?.price);
+  const [previewImage, setPreviewImage] = useState(spot?.previewImage);
   const [errors, setErrors] = useState([]);
   const [hasSubmit, setHasSubmit] = useState(false);
 
@@ -32,30 +34,28 @@ const EditSpot = () => {
   const updatePrice = (e) => setPrice(e.target.value);
   const updatePreviewImage = (e) => setPreviewImage(e.target.value);
 
-  if (hasSubmit) {
-    return <Redirect to={`/spots/${spotId}`} />;
-  }
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
     let data = {
-      address: address,
-      city: city,
-      state: state,
-      country: country,
-      previewImage: previewImage,
-      lat: lat,
-      lng: lng,
-      name: name,
-      description: description,
-      price: price,
+      address,
+      city,
+      state,
+      country,
+      previewImage,
+      lat,
+      lng,
+      name,
+      description,
+      price,
     };
-
-    return dispatch(spotActions.spotEdit(data, spot.id))
-    .then(async (res) => {
-      console.log("success");
+    console.log("submitting", handleSubmit)
+    return dispatch(spotActions.spotEdit(data))
+    .then(() => {
       setHasSubmit(true);
+    })
+    .then(() => {
+      history.push(`/spots/${spotId}`)
     })
     .catch(async (res) => {
       const data = await res.json();

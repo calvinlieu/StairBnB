@@ -27,7 +27,6 @@ const SpotsDetail = () => {
 
   const handleEditClick = (e) => {
     e.preventDefault();
-    dispatch(spotEdit(spotId))
     history.push(`/spots/${spotId}/edit`)
   }
 

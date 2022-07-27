@@ -80,17 +80,21 @@ export const createSpot = (spot) => async (dispatch) => {
 };
 
 //edit a spot
-export const spotEdit = (spot, spotId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/spots/${spotId}`, {
+export const spotEdit = (spot) => async (dispatch) => {
+  console.log(spot.id, "spotId")
+  console.log("spot thunk", spot);
+  const response = await csrfFetch(`/api/spots/${spot.id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(spot),
   });
+  console.log("thunkres", response)
   if (response.ok) {
     const editedSpot = await response.json();
-    dispatch(editSpot(editedSpot));
+    dispatch(editSpot(spot));
     return editedSpot;
   }
+  return response;
 };
 
 //delete a spot
