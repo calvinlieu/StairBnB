@@ -8,17 +8,18 @@ const EditSpot = () => {
   let { spotId } = useParams();
   spotId = Number(spotId);
   const spot = useSelector((state) => state.spots);
-  const [address, setAddress] = useState(spot.address);
-  const [city, setCity] = useState(spot.city);
-  const [state, setState] = useState(spot.state);
-  const [country, setCountry] = useState(spot.country);
-  const [lat, setLat] = useState(spot.lat);
-  const [lng, setLng] = useState(spot.lng);
-  const [name, setName] = useState(spot.name);
-  const [description, setDescription] = useState(spot.description);
-  const [price, setPrice] = useState(spot.price);
-  const [previewImage, setPreviewImage] = useState(spot.previewImage);
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [country, setCountry] = useState("");
+  const [lat, setLat] = useState("");
+  const [lng, setLng] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [previewImage, setPreviewImage] = useState("");
   const [errors, setErrors] = useState([]);
+  const [hasSubmit, setHasSubmit] = useState(false);
 
   const updateAddress = (e) => setAddress(e.target.value);
   const updateCity = (e) => setCity(e.target.value);
@@ -31,10 +32,13 @@ const EditSpot = () => {
   const updatePrice = (e) => setPrice(e.target.value);
   const updatePreviewImage = (e) => setPreviewImage(e.target.value);
 
+  if (hasSubmit) {
+    return <Redirect to={`/spots/${spotId}`} />;
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
-
     let data = {
       address: address,
       city: city,
@@ -49,6 +53,15 @@ const EditSpot = () => {
     };
 
     return dispatch(spotActions.spotEdit(data, spot.id))
+    .then(async (res) => {
+      console.log("success");
+      setHasSubmit(true);
+    })
+    .catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) setErrors(data.errors);
+    });
+    
   };
 
   return (
@@ -153,4 +166,4 @@ const EditSpot = () => {
   );
 };
 
-export default EditSpot
+export default EditSpot;

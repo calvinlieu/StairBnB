@@ -10,8 +10,6 @@ import SpotsPage from "./components/Spots";
 import NewSpotForm from "./components/SpotsForm";
 import EditSpot from "./components/SpotEdit"
 
-
-
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -37,8 +35,10 @@ function App() {
             <NewSpotForm />
           </Route>
           <Route exact path="/spots/:spotId">
-            <EditSpot />
             <SpotDetail />
+          </Route>
+          <Route exact path="/spots/:spotId/edit">
+            <EditSpot />
           </Route>
         </Switch>
       )}

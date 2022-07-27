@@ -59,18 +59,16 @@ export const findASpot = (spotId) => async (dispatch) => {
   if (response.ok) {
     const spot = await response.json();
     dispatch(getSpot(spot));
-    return spot
+    return spot;
   }
   return response;
 };
 
 //Create a spot
 export const createSpot = (spot) => async (dispatch) => {
-  
-
   const response = await csrfFetch("/api/spots", {
     method: "POST",
-    body: JSON.stringify(spot)
+    body: JSON.stringify(spot),
   });
   if (response.ok) {
     const newSpot = await response.json();
@@ -83,11 +81,10 @@ export const createSpot = (spot) => async (dispatch) => {
 
 //edit a spot
 export const spotEdit = (spot, spotId) => async (dispatch) => {
-
   const response = await csrfFetch(`/api/spots/${spotId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(spot)
+    body: JSON.stringify(spot),
   });
   if (response.ok) {
     const editedSpot = await response.json();
@@ -120,7 +117,7 @@ const spotsReducer = (state = initialState, action) => {
     }
     case GET_SPOT: {
       const spot = action.spot;
-      return { ...spot};
+      return { ...spot };
     }
     case ADD: {
       let newState = { ...state };

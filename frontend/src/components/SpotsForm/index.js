@@ -63,7 +63,7 @@ const SpotForm = () => {
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          required
+      
         />
       </label>
       <label>
@@ -73,7 +73,7 @@ const SpotForm = () => {
           placeholder="Address"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
-          required
+          
         />
       </label>
       <label>
@@ -83,7 +83,7 @@ const SpotForm = () => {
           placeholder="City"
           value={city}
           onChange={(e) => setCity(e.target.value)}
-          required
+          
         />
       </label>
       <label>
@@ -93,7 +93,7 @@ const SpotForm = () => {
           placeholder="State"
           value={state}
           onChange={(e) => setState(e.target.value)}
-          required
+          
         />
       </label>
       <label>
@@ -103,7 +103,7 @@ const SpotForm = () => {
           placeholder="Country"
           value={country}
           onChange={(e) => setCountry(e.target.value)}
-          required
+          
         />
       </label>
       <label>
@@ -113,7 +113,7 @@ const SpotForm = () => {
           placeholder="Latitude"
           value={lat}
           onChange={(e) => setLat(e.target.value)}
-          required
+          
         />
       </label>
       <label>
@@ -123,7 +123,7 @@ const SpotForm = () => {
           placeholder="Longitude"
           value={lng}
           onChange={(e) => setLng(e.target.value)}
-          required
+          
         />
       </label>
       <label>
@@ -133,7 +133,7 @@ const SpotForm = () => {
           placeholder="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          required
+          
         />
       </label>
       <label>
@@ -142,7 +142,7 @@ const SpotForm = () => {
           type="text"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
-          required
+          
         />
         </label>
       <label >

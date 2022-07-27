@@ -3,6 +3,8 @@ import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { findASpot } from "../../store/spots";
 import { spotDelete } from "../../store/spots";
+import { spotEdit } from "../../store/spots";
+import EditSpot from "../SpotEdit";
 import "./spotDetail.css"
 
 const SpotsDetail = () => {
@@ -23,6 +25,12 @@ const SpotsDetail = () => {
     history.push("/")
   }
 
+  const handleEditClick = (e) => {
+    e.preventDefault();
+    dispatch(spotEdit(spotId))
+    history.push(`/spots/${spotId}/edit`)
+  }
+
   return (
     <div >
       <h4 className="detailName">{spot.name}</h4>
@@ -35,6 +43,7 @@ const SpotsDetail = () => {
 
       <div>
         <button onClick={handleDelete}>Delete Spot</button>
+        <button onClick={handleEditClick}>Edit Spot</button>
       </div>
       
     </div>
