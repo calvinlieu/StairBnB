@@ -194,7 +194,7 @@ router.get("/:id", async (req, res) => {
 
 //create a spot
 router.post("/", requireAuth, async (req, res) => {
-  const { address, city, state, country, lat, lng, name, description, price } = req.body;
+  const { address, city, state, country, lat, lng, name, description, price, previewImage } = req.body;
 
   const error = {
     "message": "Validation Error",
@@ -227,6 +227,7 @@ router.post("/", requireAuth, async (req, res) => {
     lng,
     name,
     description,
+    previewImage,
     price
   });
 
@@ -275,6 +276,7 @@ router.put("/:spotId", requireAuth, async (req, res) => {
   spot.name = name
   spot.description = description
   spot.price = price
+  spot.previewImage = previewImage
 
   await spot.save()
   res.json(spot);
