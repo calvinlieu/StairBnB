@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { findASpot } from "../../store/spots";
 import { spotDelete } from "../../store/spots";
-import { spotEdit } from "../../store/spots";
-import EditSpot from "../SpotEdit";
-import "./spotDetail.css"
+import "./spotDetail.css";
 
 const SpotsDetail = () => {
   const history = useHistory();
@@ -22,16 +20,17 @@ const SpotsDetail = () => {
   const handleDelete = (e) => {
     e.preventDefault();
     dispatch(spotDelete(spotId));
-    history.push("/")
-  }
+    history.push("/");
+  };
 
   const handleEditClick = (e) => {
     e.preventDefault();
-    history.push(`/spots/${spotId}/edit`)
-  }
+    history.push(`/spots/${spotId}/edit`);
+  };
 
   return (
-    <div >
+    <>
+    <div>
       <h4 className="detailName">{spot.name}</h4>
       <img className="detailImg" src={spot.previewImage} alt={spot.name}></img>
       <h3 className="detailLocation">
@@ -40,12 +39,16 @@ const SpotsDetail = () => {
       <p className="detailDescription">{spot.description}</p>
       <p className="detailPrice">${spot.price} night</p>
 
-      <div>
-        <button onClick={handleDelete}>Delete Spot</button>
-        <button onClick={handleEditClick}>Edit Spot</button>
-      </div>
-      
+      {sessionUser &&
+        sessionUser.user.id ===
+          spot.ownerId&& (
+            <div>
+              <button onClick={handleDelete}>Delete Spot</button>
+              <button onClick={handleEditClick}>Edit Spot</button>
+            </div>
+          )}
     </div>
+    </>
   );
 };
 
