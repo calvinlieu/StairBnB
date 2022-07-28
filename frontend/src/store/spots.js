@@ -13,13 +13,6 @@ const getAll = (spots) => {
   };
 };
 
-const getSpot = (spot) => {
-  return {
-    type: GET_SPOT,
-    spot,
-  };
-};
-
 const addSpot = (spot) => {
   return {
     type: ADD,
@@ -34,23 +27,25 @@ const deleteSpot = (spotId) => {
   };
 };
 
-const editSpot = (spot) => {
+const editSpot = (editedSpot) => {
   return {
     type: EDIT_SPOT,
-    spot,
+    editedSpot,
   };
 };
 
 //Get all spots
-export const getAllSpots = () => async (dispatch) => {
+export const getAllSpots = async (dispatch) => {
   const response = await csrfFetch("/api/spots");
   if (response.ok) {
     const spots = await response.json();
     dispatch(getAll(spots));
     const all = {};
     spots.forEach((spot) => (all[spot.id] = spot));
+    console.log("all", all)
     return { ...all };
   }
+  return {};
 };
 
 //Get a spot detail
@@ -58,9 +53,11 @@ export const findASpot = (spotId) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${spotId}`);
   if (response.ok) {
     const spot = await response.json();
-    dispatch(getSpot(spot));
+    console.log(spot, "spotthunk");
+    // dispatch(getSpot(spot));
     return spot;
   }
+  debugger;
   return response;
 };
 
@@ -88,10 +85,9 @@ export const spotEdit = (spot) => async (dispatch) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(spot),
   });
-  console.log("thunkres", response)
   if (response.ok) {
     const editedSpot = await response.json();
-    dispatch(editSpot(spot));
+    dispatch(editSpot(editedSpot));
     return editedSpot;
   }
   return response;
@@ -119,10 +115,6 @@ const spotsReducer = (state = initialState, action) => {
       action.spots.forEach((spot) => (allSpots[spot.id] = spot));
       return allSpots;
     }
-    case GET_SPOT: {
-      const spot = action.spot;
-      return { ...spot };
-    }
     case ADD: {
       let newState = { ...state };
       newState[action.spot.id] = action.spot;
@@ -134,10 +126,10 @@ const spotsReducer = (state = initialState, action) => {
       return newState;
     }
     case EDIT_SPOT: {
-      // const newState = { ...state };
-      // newState[action.editedSpot.id] = action.editedSpot;
-      // return newState;
-      return {...state}
+      const newState = { ...state };
+      newState[action.editedSpot.id] = action.editedSpot;
+      return newState;
+      
     }
     default:
       return state;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import * as spotActions from "../../store/spots";
 import { useHistory } from "react-router-dom";
 
@@ -9,19 +9,18 @@ const EditSpot = () => {
   const dispatch = useDispatch();
   let { spotId } = useParams();
   spotId = Number(spotId);
-  const spot = useSelector((state) => state.spots);
+  const spot = useSelector((state) => state.spots[spotId]);
+  const [name, setName] = useState(spot?.name);
   const [address, setAddress] = useState(spot?.address);
   const [city, setCity] = useState(spot?.city);
   const [state, setState] = useState(spot?.state);
   const [country, setCountry] = useState(spot?.country);
   const [lat, setLat] = useState(spot?.lat);
   const [lng, setLng] = useState(spot?.lng);
-  const [name, setName] = useState(spot?.name);
   const [description, setDescription] = useState(spot?.description);
   const [price, setPrice] = useState(spot?.price);
   const [previewImage, setPreviewImage] = useState(spot?.previewImage);
   const [errors, setErrors] = useState([]);
-  const [hasSubmit, setHasSubmit] = useState(false);
 
   const updateAddress = (e) => setAddress(e.target.value);
   const updateCity = (e) => setCity(e.target.value);
@@ -33,10 +32,6 @@ const EditSpot = () => {
   const updateDescription = (e) => setDescription(e.target.value);
   const updatePrice = (e) => setPrice(e.target.value);
   const updatePreviewImage = (e) => setPreviewImage(e.target.value);
-
-  if (hasSubmit) {
-    return <Redirect to={`/spots`} />;
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,11 +49,8 @@ const EditSpot = () => {
       price,
       spotId
     };
-    console.log("submitting", spotId)
+    
     return dispatch(spotActions.spotEdit(data))
-    .then(() => {
-      setHasSubmit(true);
-    })
     .then(() => {
       history.push(`/spots/${spot.id}`)
       // <Redirect to={`/spots/${}`} />

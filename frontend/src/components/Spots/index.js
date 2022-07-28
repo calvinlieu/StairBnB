@@ -9,14 +9,15 @@ const SpotsPage = () => {
   const spotsList = useSelector((state) => Object.values(state?.spots));
 
   useEffect(() => {
-    dispatch(getAllSpots());
+    getAllSpots(dispatch)
   }, [dispatch]);
-
+  
   return (
     <div className="spotsPage">
       {spotsList &&
-        spotsList.map((spot) => (
+        spotsList.map((spot) =>  ( 
           <div key={spot.id}>
+            
             <NavLink to={`/spots/${spot.id}`}>
               <div className="eachSpot">
                 <img
