@@ -237,7 +237,7 @@ router.post("/", requireAuth, async (req, res) => {
 //edit a spot
 router.put("/:spotId", requireAuth, async (req, res) => {
   const { spotId } = req.params;
-  const { address, city, state, country, lat, lng, name, description, price } = req.body;
+  const { address, city, state, country, lat, lng, name, description, price, previewImage } = req.body;
   const spot = await Spot.findByPk(spotId);
 
   if (!spot) {
@@ -268,17 +268,17 @@ router.put("/:spotId", requireAuth, async (req, res) => {
     return res.json(error);
   }
 
-  spot.address = address
-  spot.city = city
-  spot.state = state
-  spot.lat = lat
-  spot.lng = lng
-  spot.name = name
-  spot.description = description
-  spot.price = price
-  spot.previewImage = previewImage
+  // spot.address = address
+  // spot.city = city
+  // spot.state = state
+  // spot.lat = lat
+  // spot.lng = lng
+  // spot.name = name
+  // spot.description = description
+  // spot.price = price
+  // spot.previewImage = previewImage
 
-  await spot.save()
+  await spot.update({address, city, state, country, lat, lng, name, description, price, previewImage});
   res.json(spot);
 });
 
