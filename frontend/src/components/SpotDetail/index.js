@@ -12,10 +12,13 @@ const SpotsDetail = () => {
   const dispatch = useDispatch();
   const spot = useSelector((state) => state.spots[spotId]);
   const sessionUser = useSelector((state) => state.session.user);
-
+  
+  
   useEffect(() => {
-    dispatch(findASpot(spotId));
-  }, [dispatch, spotId]);
+    if (!spot) {
+      dispatch(findASpot(spotId))
+    }
+  }, [dispatch, spotId, spot]);
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -28,9 +31,9 @@ const SpotsDetail = () => {
     history.push(`/spots/${spotId}/edit`);
   };
 
-  
 
   return (
+    spot &&  
     <>
       <div>
         <h4 className="detailName">{spot.name}</h4>

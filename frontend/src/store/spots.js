@@ -1,8 +1,7 @@
 import { csrfFetch } from "./csrf";
 
-const GET_SPOT = "spots/get-spot";
 const GET_ALL_SPOTS = "spots/get-all-spots";
-const ADD = "spots/add";
+const ADD_SPOT = "spots/add";
 const DELETE_SPOT = "spots/delete";
 const EDIT_SPOT = "spots/edit";
 
@@ -15,7 +14,7 @@ const getAll = (spots) => {
 
 const addSpot = (spot) => {
   return {
-    type: ADD,
+    type: ADD_SPOT,
     spot,
   };
 };
@@ -42,7 +41,6 @@ export const getAllSpots = async (dispatch) => {
     dispatch(getAll(spots));
     const all = {};
     spots.forEach((spot) => (all[spot.id] = spot));
-    console.log("all", all)
     return { ...all };
   }
   return {};
@@ -53,11 +51,10 @@ export const findASpot = (spotId) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${spotId}`);
   if (response.ok) {
     const spot = await response.json();
-    console.log(spot, "spotthunk");
-    // dispatch(getSpot(spot));
+
+    dispatch(addSpot(spot));
     return spot;
   }
-  debugger;
   return response;
 };
 
@@ -78,8 +75,6 @@ export const createSpot = (spot) => async (dispatch) => {
 
 //edit a spot
 export const spotEdit = (spot) => async (dispatch) => {
-  console.log(spot.spotId, "spotId")
-  console.log("spot thunk", spot);
   const response = await csrfFetch(`/api/spots/${spot.spotId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -115,7 +110,7 @@ const spotsReducer = (state = initialState, action) => {
       action.spots.forEach((spot) => (allSpots[spot.id] = spot));
       return allSpots;
     }
-    case ADD: {
+    case ADD_SPOT: {
       let newState = { ...state };
       newState[action.spot.id] = action.spot;
       return newState;
