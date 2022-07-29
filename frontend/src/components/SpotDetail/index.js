@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { findASpot } from "../../store/spots";
 import { spotDelete } from "../../store/spots";
-import * as reviewActions from "../../store/reviews";
+import { deleteReview } from "../../store/reviews";
 import "./spotDetail.css";
 
 const SpotsDetail = () => {
@@ -11,10 +11,14 @@ const SpotsDetail = () => {
   const dispatch = useDispatch();
   let { spotId } = useParams();
   spotId = Number(spotId);
+  let { reviewId } = useParams();
+  reviewId = Number(reviewId);
   const spot = useSelector((state) => state.spots[spotId]);
   const sessionUser = useSelector((state) => state.session.user);
-  console.log(sessionUser, "sessionUser")
- 
+  // const review = useSelector((state) => Object.values(state.reviews));
+  // const spotReview = review.filter(
+  //   (review) => review.reviews === parseInt(sessionUser.id)
+  // );
 
   useEffect(() => {
     if (!spot) {
@@ -33,11 +37,22 @@ const SpotsDetail = () => {
     history.push(`/spots/${spotId}/edit`);
   };
 
+  const handleCreateReview = (e) => {
+    e.preventDefault();
+    history.push(`/spots/${spotId}/createReview`);
+  };
+
+  const handleDeleteReview = (e) => {
+    e.preventDefault();
+    dispatch(deleteReview(reviewId));
+    history.push(`/spots/${spotId}`);
+  };
+
   return (
     spot && (
       <>
         <div>
-          <h4 className="detailName">{spot.name}</h4>
+          <div className="detailName">{spot.name} </div>
           <img
             className="detailImg"
             src={spot.previewImage}
@@ -46,17 +61,21 @@ const SpotsDetail = () => {
           <h3 className="detailLocation">
             {spot.city}, {spot.state}
           </h3>
-          <p className="detailDescription">{spot.description}</p>
-          <p className="detailPrice">${spot.price} night</p>
+          <p className="detailDescription">Description: {spot.description}</p>
+          <p className="detailPrice">Price: ${spot.price} night</p>
 
           {sessionUser &&
             sessionUser.user &&
             sessionUser.user.id === spot.ownerId && (
               <div>
-                <button onClick={handleDelete}>Delete Spot</button>
                 <button onClick={handleEditClick}>Edit Spot</button>
+                <button onClick={handleDelete}>Delete Spot</button>
               </div>
             )}
+        </div>
+        <div>
+          <button onClick={handleCreateReview}>Create Review</button>
+          <button onClick={handleDeleteReview}>Delete Review</button>
         </div>
       </>
     )

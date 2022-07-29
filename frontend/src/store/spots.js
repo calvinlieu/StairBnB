@@ -136,7 +136,7 @@ const spotsReducer = (state = initialState, action) => {
     }
     case DELETE_SPOT: {
       const newState = { ...state };
-      delete newState[action.res];
+      delete newState[action.spotId];
       return newState;
     }
     case EDIT_SPOT: {

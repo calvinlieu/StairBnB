@@ -39,8 +39,9 @@ function ProfileButton({ user }) {
             <Link to="/spots/create" id="dropdown1">
               Create a Spot
             </Link>
-            <Link to="/currentUser/spots">My Spots</Link>
-            <div onClick={logout} id="dropdown2">
+            <Link to="/currentUser/spots" id="dropdown2">My Spots</Link>
+            <Link to="currentUser/reviews" id="dropdown3">My Reviews</Link>
+            <div onClick={logout} id="dropdown4">
               Log out
             </div>
           </div>
