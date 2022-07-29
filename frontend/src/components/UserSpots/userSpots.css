@@ -21,3 +21,8 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+.noReview {
+    background-color: red;
+    width: 500px;
+}

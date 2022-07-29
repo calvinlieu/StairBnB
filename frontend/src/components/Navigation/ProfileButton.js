@@ -40,7 +40,7 @@ function ProfileButton({ user }) {
               Create a Spot
             </Link>
             <Link to="/currentUser/spots" id="dropdown2">My Spots</Link>
-            <Link to="currentUser/reviews" id="dropdown3">My Reviews</Link>
+            <Link to="/spots/currentUser/reviews" id="dropdown3">My Reviews</Link>
             <div onClick={logout} id="dropdown4">
               Log out
             </div>

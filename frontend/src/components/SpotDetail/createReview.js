@@ -3,11 +3,10 @@ import { useDispatch } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";
 import * as reviewActions from "../../store/reviews";
 
-const CreateReview = () => {
+const CreateReviews = () => {
   const dispatch = useDispatch();
   let { spotId } = useParams();
   spotId = Number(spotId);
-
   const [reviewMessage, setReviewMessage] = useState("");
   const [stars, setStars] = useState("");
   const [errors, setErrors] = useState([]);
@@ -20,11 +19,11 @@ const CreateReview = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
-    let review = {
+    let data = {
       review: reviewMessage,
       stars: stars,
     };
-    return dispatch(reviewActions.createReviews(spotId, review))
+    return dispatch(reviewActions.createReviews(spotId, data))
       .then(async (res) => {
         setSubmitSuccess(true);
       })
@@ -66,4 +65,4 @@ const CreateReview = () => {
   );
 };
 
-export default CreateReview;
+export default CreateReviews;

@@ -1,14 +1,14 @@
 import { csrfFetch } from "./csrf";
 
-const LOAD_REVIEWS = "/reviews/load";
+const LOAD_SPOT_REVIEWS = "/reviews/load";
 const POST_REVIEWS = "/reviews/post";
 const DELETE_REVIEW = "/review/delete";
 const LOAD_USER_REVIEWS = "/reviews/user"
 
-const deleteReviewAction = (review) => {
+const deleteReviewAction = (id) => {
   return {
     type: DELETE_REVIEW,
-    review,
+    id,
   };
 };
 
@@ -27,9 +27,9 @@ const loadUserReviews = (reviews) => {
 }
 
 
-const loadReviewAction = (reviews) => {
+const loadSpotReviews = (reviews) => {
   return {
-    type: LOAD_REVIEWS,
+    type: LOAD_SPOT_REVIEWS,
     reviews,
   };
 };
@@ -51,13 +51,14 @@ export const createReviews = (spotId, review) => async (dispatch) => {
 };
 
 //get all reviews of a spot
-export const loadReviews = () => async (dispatch) => {
-  const response = await csrfFetch("/api/reviews/:spotId");
+export const loadReviews = (spotId) => async (dispatch) => {
+  console.log(spotId)
+  const response = await csrfFetch(`/api/reviews/${spotId}`);
 
   if (response.ok) {
     const allReviews = await response.json();
-    dispatch(loadReviewAction(allReviews));
-    return allReviews;
+    dispatch(loadSpotReviews(allReviews));
+    // return allReviews;
   }
 
   return response;
@@ -68,33 +69,32 @@ export const getUserReviews = () => async (dispatch) => {
   const response = await csrfFetch(`/api/reviews/current-user-review`);
   if (response.ok) {
     const userReviews = await response.json();
-    console.log(userReviews);
     dispatch(loadUserReviews(userReviews));
-    return userReviews;
   }
   return response;
 };
 
 //delete review
-export const deleteReview = (review) => async (dispatch) => {
-  const response = await csrfFetch(`/api/reviews/${review.id}`, {
+export const deleteReview = (id) => async (dispatch) => {
+  const response = await csrfFetch(`/api/reviews/${id}`, {
     method: "DELETE",
-    body: JSON.stringify({
-      review,
-    }),
   });
+  console.log(response, "response")
 
-  const res = await response.json();
-  dispatch(deleteReviewAction(review));
-  return res;
+
+  const review = await response.json();
+  console.log(review, "sreview");
+  dispatch(deleteReviewAction(id));
+  return review;
 };
 
 const initialState = {};
 const reviewsReducer = (state = initialState, action) => {
   switch (action.type) {
     case DELETE_REVIEW: {
+      console.log("THIS IS THE ACTION FROM MY REDUCER => ", action);
       const newState = { ...state };
-      delete newState[action.res];
+      delete newState[action.id];
       return newState;
     };
     case POST_REVIEWS: {
@@ -102,17 +102,17 @@ const reviewsReducer = (state = initialState, action) => {
       newState[action.review.id] = action.review;
       return newState;
     };
-    case LOAD_REVIEWS: {
+    case LOAD_SPOT_REVIEWS: {
       const allReviews = {};
-      action.reviews.forEach((review) => (allReviews[review.id] = review));
+      action.reviews.reviews.forEach((review) => (allReviews[review.id] = review));
       let reviews = {...allReviews};
       return reviews;
     };
     case LOAD_USER_REVIEWS: {
       const newState = {};
       action.reviews.forEach(reviews => newState[reviews.id] = reviews);
-      let allReviews = {...newState};
-      return allReviews;
+
+      return newState;
     }
     default:
       return state;
