@@ -13,12 +13,13 @@ const SpotsDetail = () => {
   let { spotId } = useParams();
   spotId = Number(spotId);
   const { id } = useParams();
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false);
   const spot = useSelector((state) => state.spots[spotId]);
   const sessionUser = useSelector((state) => state.session.user);
   const review = useSelector((state) => Object.values(state.reviews));
-
-console.log(spotId, "hsjkahdsa")
+  const userReview = review.filter(
+    (review) => review.userId === sessionUser.user.id
+  );
 
   useEffect(() => {
     if (!spot) {
@@ -27,9 +28,8 @@ console.log(spotId, "hsjkahdsa")
   }, [dispatch, spotId, spot]);
 
   useEffect(() => {
-    dispatch((loadReviews(spotId)))
-      .then (() => setIsLoaded(true))
-  }, [dispatch])
+    dispatch(loadReviews(spotId)).then(() => setIsLoaded(true));
+  }, [dispatch]);
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -48,11 +48,19 @@ console.log(spotId, "hsjkahdsa")
     history.push(`/spots/${spotId}/createReview`);
   };
 
-  const handleDeleteReview = (e) => {
-    e.preventDefault();
-    dispatch(deleteReview(id));
-    history.push(`/spots/${spotId}`);
-  };
+  // const handleDeleteReview = (e) => {
+  //   e.preventDefault();
+  //   dispatch(deleteReview(id));
+  //   history.push(`/spots/${spotId}`);
+  // };
+
+  const reviews = spot.Reviews;
+  let allStars = 0;
+  reviews.map(review => {
+    allStars += review.stars
+  })
+  
+  const avgStarRating = allStars / reviews.length;
 
   return (
     spot && (
@@ -67,7 +75,9 @@ console.log(spotId, "hsjkahdsa")
           <h3 className="detailLocation">
             {spot.city}, {spot.state}
           </h3>
-          <p className="avgStarRating">Average Star Rating: {spot.avgStarRating}</p>
+          <p className="avgStarRating">
+            Average Star Rating: {avgStarRating}
+          </p>
           <p className="detailDescription">Description: {spot.description}</p>
           <p className="detailPrice">Price: ${spot.price} night</p>
           {sessionUser &&
@@ -80,18 +90,19 @@ console.log(spotId, "hsjkahdsa")
             )}
         </div>
         <div>
-          <button onClick={handleCreateReview}>Create Review</button>
-          <button onClick={handleDeleteReview}>Delete Review</button>
+          {!userReview.length && (
+            <button onClick={handleCreateReview}>Create Review</button>
+          )}
         </div>
         <div className="spotsReviews">
-          { review.map((review) => (
-              <div key={review.id}>
-                <div className="eachReview">
-                  <h3 className="reviewName">Reviews: {review.review}</h3>
-                  <div className="reviewStars">Stars: {review.stars}</div>
-                </div>
+          {review.map((review) => (
+            <div key={review.id}>
+              <div className="eachReview">
+                <h3 className="reviewName">Reviews: {review.review}</h3>
+                <div className="reviewStars">Stars: {review.stars}</div>
               </div>
-            ))}
+            </div>
+          ))}
         </div>
       </>
     )

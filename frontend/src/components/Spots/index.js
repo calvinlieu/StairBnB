@@ -12,6 +12,8 @@ const SpotsPage = () => {
     getAllSpots(dispatch);
   }, [dispatch]);
 
+  
+
   return (
     <div className="spotsPage">
       {spotsList &&

@@ -17,8 +17,7 @@ function UserReviews() {
     dispatch(getUserReviews()).then(() => setIsloaded(true));
   }, [dispatch]);
 
-//   console.log(roomId, "roomId");
-// console.log(reviewId, "reviewId");
+
 
   const handleDeleteClick = (reviewId) => async (e) => {
     e.preventDefault();
@@ -30,7 +29,7 @@ function UserReviews() {
 
     // .then (() => history.push(`/spots/currentUser/reviews`))
     // .then(dispatch(getUserReviews()))
-    // console.log(reviews, "skjhdksaj")
+    
   };
 
   return (
