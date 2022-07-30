@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { getAllSpots } from "../../store/spots";
 import { loadAllReviewsThunk } from "../../store/reviews";
 import "./spots.css";
@@ -9,16 +9,19 @@ const SpotsPage = () => {
   const dispatch = useDispatch();
   const spots = useSelector((state) => Object.values(state?.spots));
   const reviews = useSelector((state) => Object.values(state.reviews))
-  let {spotId} = useParams();
-  spotId = Number(spotId)
+  // let {spotId} = useParams();
+  // spotId = Number(spotId)
+
+  const spotsString = JSON.stringify(spots);
+  const reviewsString = JSON.stringify(reviews);
 
   useEffect(() => {
     getAllSpots(dispatch);
-  }, [dispatch]);
+  }, [dispatch, spotsString]);
 
   useEffect(() => {
     dispatch(loadAllReviewsThunk());
-  }, [dispatch]);
+  }, [dispatch, reviewsString]);
 
 
 
