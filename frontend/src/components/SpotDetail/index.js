@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllSpots } from "../../store/spots";
@@ -17,7 +17,7 @@ const SpotsDetail = () => {
   const spots = useSelector((state) => state.spots);
   const sessionUser = useSelector((state) => state.session.user);
   const reviews = useSelector((state) => Object.values(state.reviews));
-
+  
   const spotsString = JSON.stringify(spots);
   const reviewsString = JSON.stringify(reviews);
 
@@ -47,19 +47,21 @@ const SpotsDetail = () => {
 
   //If reviews is undefined, it will run forEach on an empty array.
   let spot = spots[spotId];
-  let allStars = 0;
-  (reviews || []).forEach((review) => {
-    allStars += review.stars;
-  });
-  const avgStarRating = allStars / reviews.length;
-  const userReviewForThisSpot = reviews.filter(
-    (review) =>
-      review.userId === sessionUser.user.id && review.spotId === spot.id
-  );
-
   const allReviewsForThisSpot = reviews.filter((review) => {
     return review.spotId === spotId;
   });
+  let allStars = 0;
+  (allReviewsForThisSpot || []).forEach((review) => {
+    allStars += review.stars;
+  });
+  console.log(allStars, "===========")
+  const avgStarRating = allStars / allReviewsForThisSpot.length;
+  
+  const userReviewForThisSpot = reviews.filter(
+    (review) =>
+    review.userId === sessionUser.user.id && review.spotId === spot.id
+    );
+    
 
   return (
     spot && (
@@ -74,7 +76,6 @@ const SpotsDetail = () => {
           <h3 className="detailLocation">
             {spot.city}, {spot.state}
           </h3>
-          <div> <h4>Address: {spot.address}</h4></div>
           <p className="avgStarRating">
             Average Star Rating: {avgStarRating.toFixed(2)}
           </p>
@@ -95,7 +96,7 @@ const SpotsDetail = () => {
           )}
         </div>
         <div className="spotsReviews">
-          {allReviewsForThisSpot.map((review) => (
+          {allReviewsForThisSpot.forEach((review) => (
             <div key={review.id}>
               <div className="eachReview">
                 <h3 className="reviewName">Reviews: {review.review}</h3>
