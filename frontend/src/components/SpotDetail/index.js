@@ -3,9 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllSpots } from "../../store/spots";
 import { spotDelete } from "../../store/spots";
-import {
-  loadAllReviewsThunk,
-} from "../../store/reviews";
+import { loadAllReviewsThunk } from "../../store/reviews";
 
 import "./spotDetail.css";
 
@@ -17,7 +15,7 @@ const SpotsDetail = () => {
   const spots = useSelector((state) => state.spots);
   const sessionUser = useSelector((state) => state.session.user);
   const reviews = useSelector((state) => Object.values(state.reviews));
-  
+
   const spotsString = JSON.stringify(spots);
   const reviewsString = JSON.stringify(reviews);
 
@@ -54,14 +52,16 @@ const SpotsDetail = () => {
   (allReviewsForThisSpot || []).forEach((review) => {
     allStars += review.stars;
   });
-  console.log(allStars, "===========")
   const avgStarRating = allStars / allReviewsForThisSpot.length;
-  
-  const userReviewForThisSpot = reviews.filter(
-    (review) =>
-    review.userId === sessionUser.user.id && review.spotId === spot.id
-    );
-    
+
+  const userReviewForThisSpot = reviews.filter((review) => {
+    console.log(sessionUser, "SESSIONUSER")
+    console.log(review, "REVIEW");
+    console.log(spot.id, "SPOTID")
+    return review.userId === sessionUser.user.id && review.spotId === spot.id
+  });
+
+  console.log(userReviewForThisSpot, "USERREVIEW")
 
   return (
     spot && (
@@ -96,7 +96,7 @@ const SpotsDetail = () => {
           )}
         </div>
         <div className="spotsReviews">
-          {allReviewsForThisSpot.forEach((review) => (
+          {allReviewsForThisSpot.map((review) => (
             <div key={review.id}>
               <div className="eachReview">
                 <h3 className="reviewName">Reviews: {review.review}</h3>
