@@ -7,12 +7,13 @@ import "./spots.css";
 const SpotsPage = () => {
   const dispatch = useDispatch();
   const spotsList = useSelector((state) => Object.values(state?.spots));
+  
 
   useEffect(() => {
     getAllSpots(dispatch);
   }, [dispatch]);
 
-  
+
 
   return (
     <div className="spotsPage">

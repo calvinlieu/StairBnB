@@ -37,7 +37,7 @@ function ProfileButton({ user }) {
         {showMenu && (
           <div id="menu">
             <Link to="/spots/create" id="dropdown1">
-              Create a Spot
+              Host your home
             </Link>
             <Link to="/currentUser/spots" id="dropdown2">My Spots</Link>
             <Link to="/spots/currentUser/reviews" id="dropdown3">My Reviews</Link>

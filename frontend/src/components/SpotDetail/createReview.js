@@ -53,7 +53,7 @@ const CreateReviews = () => {
       <label>
         Stars:
         <input
-          type="text"
+          type="number"
           placeholder="Rating"
           value={stars}
           onChange={(e) => setStars(e.target.value)}
