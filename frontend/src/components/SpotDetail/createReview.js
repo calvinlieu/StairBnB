@@ -16,21 +16,29 @@ const CreateReviews = () => {
     return <Redirect to={`/spots/${spotId}`} />;
   }
 
+  const validations = () => {
+    const errors = [];
+    if (reviewMessage.length < 5) errors.push("Review character count must be 5 or greater")
+    if (stars > 5 || stars < 1) errors.push("Please enter a number from 1 to 5 stars")
+    return errors;
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors([]);
     let data = {
       review: reviewMessage,
       stars: stars,
     };
+
+    const errors = validations();
+    if (errors.length) {
+      setErrors(errors);
+      return;
+    }
     return dispatch(reviewActions.createReviews(spotId, data))
       .then(async (res) => {
         setSubmitSuccess(true);
       })
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
-      });
   };
 
   return (

@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { findASpot, getAllSpots } from "../../store/spots";
+import { getAllSpots } from "../../store/spots";
 import { spotDelete } from "../../store/spots";
 import {
-  deleteReview,
-  loadReviews,
-  createReviews,
   loadAllReviewsThunk,
 } from "../../store/reviews";
 
@@ -17,20 +14,20 @@ const SpotsDetail = () => {
   const dispatch = useDispatch();
   let { spotId } = useParams();
   spotId = Number(spotId);
-  const { id } = useParams();
-  const [isLoaded, setIsLoaded] = useState(false);
   const spots = useSelector((state) => state.spots);
   const sessionUser = useSelector((state) => state.session.user);
-  const review = useSelector((state) => Object.values(state.reviews));
   const reviews = useSelector((state) => Object.values(state.reviews));
+
+  const spotsString = JSON.stringify(spots);
+  const reviewsString = JSON.stringify(reviews);
 
   useEffect(() => {
     getAllSpots(dispatch);
-  }, [dispatch, JSON.stringify(spots)]);
+  }, [dispatch, spotsString]);
 
   useEffect(() => {
     dispatch(loadAllReviewsThunk());
-  }, [dispatch, JSON.stringify(reviews)]);
+  }, [dispatch, reviewsString]);
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -45,7 +42,6 @@ const SpotsDetail = () => {
 
   const handleCreateReview = (e) => {
     e.preventDefault();
-    dispatch(createReviews(spotId, review));
     history.push(`/spots/${spotId}/createReview`);
   };
 
@@ -56,15 +52,15 @@ const SpotsDetail = () => {
     allStars += review.stars;
   });
   const avgStarRating = allStars / reviews.length;
-
   const userReviewForThisSpot = reviews.filter(
-    
-    (review) => review.userId === sessionUser.user.id && review.spotId === spot.id
+    (review) =>
+      review.userId === sessionUser.user.id && review.spotId === spot.id
   );
 
-  
- 
-  
+  const allReviewsForThisSpot = reviews.filter((review) => {
+    return review.spotId === spotId;
+  });
+
   return (
     spot && (
       <>
@@ -78,7 +74,10 @@ const SpotsDetail = () => {
           <h3 className="detailLocation">
             {spot.city}, {spot.state}
           </h3>
-          <p className="avgStarRating">Average Star Rating: {avgStarRating.toFixed(2)}</p>
+          <div> <h4>Address: {spot.address}</h4></div>
+          <p className="avgStarRating">
+            Average Star Rating: {avgStarRating.toFixed(2)}
+          </p>
           <p className="detailDescription">Description: {spot.description}</p>
           <p className="detailPrice">Price: ${spot.price} night</p>
           {sessionUser &&
@@ -96,7 +95,7 @@ const SpotsDetail = () => {
           )}
         </div>
         <div className="spotsReviews">
-          {review.map((review) => (
+          {allReviewsForThisSpot.map((review) => (
             <div key={review.id}>
               <div className="eachReview">
                 <h3 className="reviewName">Reviews: {review.review}</h3>
