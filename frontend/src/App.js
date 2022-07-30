@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormModal from "./components/LoginFormModal";
@@ -8,7 +8,7 @@ import Navigation from "./components/Navigation";
 import SpotDetail from "./components/SpotDetail";
 import SpotsPage from "./components/Spots";
 import NewSpotForm from "./components/SpotsForm";
-import EditSpot from "./components/SpotEdit"
+import EditSpot from "./components/SpotEdit";
 import UserSpots from "./components/UserSpots";
 import CreateReviews from "./components/SpotDetail/createReview";
 import UserReviews from "./components/UserSpots/userReviews";
@@ -16,14 +16,16 @@ import UserReviews from "./components/UserSpots/userReviews";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const sessionUser = useSelector((state) => state.session.user);
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
+  
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      {isLoaded && (
+      {isLoaded && sessionUser ? (
         <Switch>
           <Route exact path="/">
             <SpotsPage />
@@ -53,6 +55,10 @@ function App() {
             <CreateReviews />
           </Route>
         </Switch>
+      ) : (
+        <Route path="/">
+          <h1>404 Please Log In!</h1>
+        </Route>
       )}
     </>
   );
