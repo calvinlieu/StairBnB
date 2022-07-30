@@ -15,7 +15,7 @@ module.exports = {
         name: "App Academy",
         description: "Place where web developers are created",
         price: 123,
-        previewImage: "https://s3.amazonaws.com/rcp-prod-uploads/property_images/webp/2021-06/da3ae62144e59058a1d27b1b958af4b96a6135e5LE.jpg",
+        previewImage: "https://a0.muscache.com/im/pictures/prohost-api/Hosting-39283022/original/8e07d34d-eb2b-45f6-8c75-353ff6a588cb.jpeg?im_w=960",
       },
       {
         ownerId: 2,
@@ -28,7 +28,7 @@ module.exports = {
         name: "Calvin Lieu",
         description: "The house to be at",
         price: 456,
-        previewImage: "https://hips.hearstapps.com/hmg-prod/images/classic-turn-of-the-century-american-house-royalty-free-image-1655496994.jpg",
+        previewImage: "https://a0.muscache.com/im/pictures/miso/Hosting-36771267/original/7067d0e1-8c3b-4588-97de-3e1a4793f86b.jpeg?im_w=960",
       },
       {
         ownerId: 3,
@@ -41,7 +41,7 @@ module.exports = {
         name: "Vanessa Luong",
         description: "The house to be at during the winter",
         price: 410,
-        previewImage: "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2021/08/download-23.jpg",
+        previewImage: "https://a0.muscache.com/im/pictures/prohost-api/Hosting-38408609/original/492df9f2-221b-49f8-95fa-3763cc01a06e.jpeg?im_w=960",
       },
       {
         ownerId: 4,
@@ -54,7 +54,7 @@ module.exports = {
         name: "Demarcus Lieu",
         description: "The house to be at during a party",
         price: 789,
-        previewImage: "https://media.istockphoto.com/vectors/vector-illustration-of-red-house-icon-vector-id155666671?k=20&m=155666671&s=612x612&w=0&h=sL5gRpVmrGcZBVu5jEjF5Ne7A4ZrBCuh5d6DpRv3mps=",
+        previewImage: "https://a0.muscache.com/im/pictures/prohost-api/Hosting-33766718/original/b39b431b-1168-4e3c-8c16-a1c9f57d3274.jpeg?im_w=960",
       },
       {
         ownerId: 5,
@@ -67,7 +67,7 @@ module.exports = {
         name: "Macdonalds Lieu",
         description: "The golden arches",
         price: 456,
-        previewImage: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmVhdXRpZnVsJTIwaG91c2V8ZW58MHx8MHx8&w=1000&q=80",
+        previewImage: "https://a0.muscache.com/im/pictures/miso/Hosting-53045905/original/89b5977c-2f30-42d8-83df-ac641bb0ac49.jpeg?im_w=960",
       },
     ]);
   },

@@ -9,6 +9,12 @@ const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const router = express.Router();
 
+//get all reviews
+router.get("/", async (req, res) => {
+  let reviews = await Review.findAll();
+  return res.json(reviews);
+});
+
 //Get all reviews of the current user
 
 router.get("/current-user-review", requireAuth, async (req, res) => {
@@ -61,6 +67,8 @@ router.get('/:spotId', async (req, res) => {
     images
   });
 });
+
+
 
 
 //Create a Review for a Spot based on the Spot's id
@@ -178,12 +186,12 @@ router.delete('/:reviewId', requireAuth, async (req, res) => {
     where: {id : reviewId}
   })
 
-  if (review.userId !== id ) {
-    res.status(403);
-    res.json({
-      "message": "Authorization Error"
-    })
-  }
+  // if (review.userId !== id ) {
+  //   res.status(403);
+  //   res.json({
+  //     "message": "Authorization Error"
+  //   })
+  // }
 
   if (!review) {
     res.status(404);
