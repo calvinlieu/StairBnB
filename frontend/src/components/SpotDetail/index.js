@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllSpots } from "../../store/spots";
@@ -55,13 +55,8 @@ const SpotsDetail = () => {
   const avgStarRating = allStars / allReviewsForThisSpot.length;
 
   const userReviewForThisSpot = reviews.filter((review) => {
-    console.log(sessionUser, "SESSIONUSER")
-    console.log(review, "REVIEW");
-    console.log(spot.id, "SPOTID")
-    return review.userId === sessionUser.user.id && review.spotId === spot.id
+    return review.userId === sessionUser.user.id && review.spotId === spotId
   });
-
-  console.log(userReviewForThisSpot, "USERREVIEW")
 
   return (
     spot && (
