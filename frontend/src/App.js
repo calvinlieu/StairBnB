@@ -21,11 +21,10 @@ function App() {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
-  
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      {isLoaded && sessionUser ? (
+      {isLoaded && (
         <Switch>
           <Route exact path="/">
             <SpotsPage />
@@ -54,11 +53,10 @@ function App() {
           <Route exact path="/spots/:spotId/createReview">
             <CreateReviews />
           </Route>
+          <Route path="*">
+            Page Not Found
+          </Route>
         </Switch>
-      ) : (
-        <Route path="/">
-          <h1>404 Please Log In!</h1>
-        </Route>
       )}
     </>
   );
