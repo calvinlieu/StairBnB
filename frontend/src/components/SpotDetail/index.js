@@ -55,7 +55,6 @@ const SpotsDetail = () => {
 
   const userReviewForThisSpot = reviews.filter((review) => {
     if (!sessionUser) {
-      // return review.spotId === spotId;
       return [];
     } else {
       return review.userId === sessionUser.id && review.spotId === spotId;
@@ -76,7 +75,7 @@ const SpotsDetail = () => {
             {spot.city}, {spot.state}
           </h3>
           <p className="avgStarRating">
-            Average Star Rating: {avgStarRating.toFixed(2)}
+            Average Star Rating: {(avgStarRating || 0).toFixed(2)}
           </p>
           <p className="detailDescription">Description: {spot.description}</p>
           <p className="detailPrice">Price: ${spot.price} night</p>
