@@ -55,7 +55,7 @@ const SpotsDetail = () => {
   const avgStarRating = allStars / allReviewsForThisSpot.length;
 
   const userReviewForThisSpot = reviews.filter((review) => {
-    return review.userId === sessionUser.id && review.spotId === spotId
+    return review.userId === sessionUser.user.id && review.spotId === spotId
   });
 
   return (

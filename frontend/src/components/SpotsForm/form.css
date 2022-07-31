@@ -1,4 +1,51 @@
-.spotForm label{
-    display: flex;
-    padding: 5px;
+.spotForm label {
+  display: flex;
+  padding: 5px;
+  font-family: "Montserrat", sans-serif;
 }
+
+.spotForm span {
+  font-size: 15px;
+  margin-right: 12px;
+}
+
+.createSpot {
+  background-color: white;
+  border: none;
+  font-size: 18px;
+  margin-top: 20px;
+  font-family: "Montserrat", sans-serif;
+  background-image: linear-gradient(
+    to right,
+    #e61e4d 0%,
+    #e31c5f 50%,
+    #d70466 100%
+  );
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  height: 50px;
+  width: 370px;
+}
+
+input {
+    font-size: 16px;
+    padding-left: 10px;
+    font-family: 'Montserrat', sans-serif;
+    width: 350px;
+    border: 2px double rgb(216, 203, 203);
+    border-radius: 20px;
+}
+
+.formContainer {
+    display: flex;
+    justify-content: center;
+    width: 50%;;
+    margin: auto;
+    margin-top: 10%;
+    padding:40px;
+    border: 2px double rgb(216, 203, 203);
+    border-radius: 20px;
+  }
