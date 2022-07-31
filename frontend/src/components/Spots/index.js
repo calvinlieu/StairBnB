@@ -9,18 +9,18 @@ const SpotsPage = () => {
   const dispatch = useDispatch();
   const spots = useSelector((state) => Object.values(state?.spots));
   const reviews = useSelector((state) => Object.values(state.reviews))
-
+  const sessionUser = useSelector((state) => (state.session.user))
 
   const spotsString = JSON.stringify(spots);
   const reviewsString = JSON.stringify(reviews);
 
   useEffect(() => {
     getAllSpots(dispatch);
-  }, [dispatch, spotsString]);
+  }, [dispatch, spotsString, sessionUser]);
 
   useEffect(() => {
     dispatch(loadAllReviewsThunk());
-  }, [dispatch, reviewsString]);
+  }, [dispatch, reviewsString, sessionUser]);
 
 
 
