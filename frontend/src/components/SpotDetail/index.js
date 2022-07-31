@@ -15,7 +15,6 @@ const SpotsDetail = () => {
   const spots = useSelector((state) => state.spots);
   const sessionUser = useSelector((state) => state.session.user);
   const reviews = useSelector((state) => Object.values(state.reviews));
-
   const spotsString = JSON.stringify(spots);
   const reviewsString = JSON.stringify(reviews);
 
@@ -55,7 +54,12 @@ const SpotsDetail = () => {
   const avgStarRating = allStars / allReviewsForThisSpot.length;
 
   const userReviewForThisSpot = reviews.filter((review) => {
-    return review.userId === sessionUser.user.id && review.spotId === spotId
+    if (!sessionUser) {
+      // return review.spotId === spotId;
+      return [];
+    } else {
+      return review.userId === sessionUser.id && review.spotId === spotId;
+    }
   });
 
   return (
@@ -76,14 +80,12 @@ const SpotsDetail = () => {
           </p>
           <p className="detailDescription">Description: {spot.description}</p>
           <p className="detailPrice">Price: ${spot.price} night</p>
-          {sessionUser &&
-            sessionUser.user &&
-            sessionUser.user.id === spot.ownerId && (
-              <div>
-                <button onClick={handleEditClick}>Edit Spot</button>
-                <button onClick={handleDelete}>Delete Spot</button>
-              </div>
-            )}
+          {sessionUser && sessionUser.id === spot.ownerId && (
+            <div>
+              <button onClick={handleEditClick}>Edit Spot</button>
+              <button onClick={handleDelete}>Delete Spot</button>
+            </div>
+          )}
         </div>
         <div>
           {!userReviewForThisSpot.length && (

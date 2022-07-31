@@ -16,7 +16,6 @@ import UserReviews from "./components/UserSpots/userReviews";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  const sessionUser = useSelector((state) => state.session.user);
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
