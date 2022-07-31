@@ -17,10 +17,9 @@ function SignupFormPage() {
 
   useEffect(() => {
     const errors = [];
-  }, [errors])
+  }, [errors]);
 
   if (sessionUser) return <Redirect to="/" />;
-
 
   // const validations = () => {
   //   const errors = [];
@@ -45,7 +44,6 @@ function SignupFormPage() {
         })
       ).catch(async (res) => {
         const data = await res.json();
-        console.log(data, "entered .catch");
         if (data) {
           setErrors(data);
           // setErrors((prev) => [...prev, data.errors])
@@ -58,12 +56,15 @@ function SignupFormPage() {
     //   "User with that email already exists",
     // ]);
 
-    setErrors((prev) => [...prev, "Confirm Password field must be the same as the Password field"])
+    setErrors((prev) => [
+      ...prev,
+      "Confirm Password field must be the same as the Password field",
+    ]);
   };
-  console.log(errors, "errors")
+  console.log(errors, "errors");
   return (
-    <div>
-      <h2>Sign Up</h2>
+    <div className="formDiv">
+      <h2 className="signUp">Sign Up</h2>
       <form className="signUpForm" onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => (
@@ -71,8 +72,8 @@ function SignupFormPage() {
           ))}
         </ul>
         <label>
-          First Name
           <input
+            placeholder="First Name"
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
@@ -80,8 +81,8 @@ function SignupFormPage() {
           />
         </label>
         <label>
-          Last Name
           <input
+            placeholder="Last Name"
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
@@ -89,8 +90,8 @@ function SignupFormPage() {
           />
         </label>
         <label>
-          Email
           <input
+            placeholder="Email"
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -98,8 +99,8 @@ function SignupFormPage() {
           />
         </label>
         <label>
-          Username
           <input
+            placeholder="Username"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -107,8 +108,8 @@ function SignupFormPage() {
           />
         </label>
         <label>
-          Password
           <input
+            placeholder="Password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -116,15 +117,15 @@ function SignupFormPage() {
           />
         </label>
         <label>
-          Confirm Password
           <input
+            placeholder="Confirm Password"
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
         </label>
-        <button type="submit">Sign Up</button>
+        <button className="signUpButton" type="submit">Sign Up</button>
       </form>
     </div>
   );

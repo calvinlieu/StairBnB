@@ -13,7 +13,7 @@ function Navigation({ isLoaded }) {
   if (sessionUser) {
     sessionLinks = (
       <>
-      <div>
+      <div id='navBarRight'>
         <ProfileButton user={sessionUser} />
       </div>
       </>
@@ -21,10 +21,10 @@ function Navigation({ isLoaded }) {
   } else {
     sessionLinks = (
       <>
-      <div id='nav_right'>
-        <div id='loginButton'> <LoginFormModal /></div>
+      <div id='navBarRightLoad'>
+        <div id='loginButtonDiv'> <LoginFormModal /></div>
         <div id='signUp'><NavLink to="/signup">Sign Up</NavLink> </div>
-        <DemoUser />
+        <div> <DemoUser /> </div>
       </div>
       </>
     );
