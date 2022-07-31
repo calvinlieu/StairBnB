@@ -1,8 +1,12 @@
 const express = require("express");
 
-const { setTokenCookie, requireAuth, restoreUser } = require("../../utils/auth");
-const { Booking, Review, Spot, User } = require('../../db/models')
-const sequelize = require('sequelize')
+const {
+  setTokenCookie,
+  requireAuth,
+  restoreUser,
+} = require("../../utils/auth");
+const { Booking, Review, Spot, User } = require("../../db/models");
+const sequelize = require("sequelize");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 
@@ -29,41 +33,43 @@ const validateSignup = [
 router.post("/sign-up", validateSignup, async (req, res) => {
   const { firstName, lastName, email, password, username } = req.body;
 
+  let errors = [];
+
   const trackEmail = await User.findOne({
-    where: { email }
-  })
+    where: { email },
+  });
   if (trackEmail) {
-    res.status(403);
-    res.json({
-      message: "User with that email already exists!"
-    })
+    errors.push("User with that email already exists!");
   }
-  try {
-    const user = await User.signup({ firstName, lastName, email, username, password });
-    const token = await setTokenCookie(res, user);
-
-    const newUser = {
-      id: user.id,
-      username: user.username,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      token: token
-    };
-
-    return res.json(newUser);
-    
-  } catch (error) {
-    res.status(403);
-    res.json({
-      "message": "User already exists",
-      "statusCode": 403,
-      "errors": {
-        "email": "User with that email already exists"
-      }
-    })
+  const trackUserName = await User.findOne({
+    where: { username },
+  });
+  if (trackUserName) {
+    errors.push("User with that username already exists!");
+  }
+  if (errors.length) {
+    res.status(403).json(errors);
   }
 
+  const user = await User.signup({
+    firstName,
+    lastName,
+    email,
+    username,
+    password,
+  });
+  const token = await setTokenCookie(res, user);
+
+  const newUser = {
+    id: user.id,
+    username: user.username,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    token: token,
+  };
+
+  res.json(newUser);
 });
 
 //Get the Current User
@@ -76,6 +82,5 @@ router.get("/currentUser", requireAuth, async (req, res) => {
   };
   return res.json(user);
 });
-
 
 module.exports = router;
