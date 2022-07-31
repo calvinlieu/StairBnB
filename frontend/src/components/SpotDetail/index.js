@@ -64,42 +64,48 @@ const SpotsDetail = () => {
   return (
     spot && (
       <>
-        <div>
-          <div className="detailName">{spot.name} </div>
-          <img
-            className="detailImg"
-            src={spot.previewImage}
-            alt={spot.name}
-          ></img>
-          <h3 className="detailLocation">
-            {spot.city}, {spot.state}
-          </h3>
-          <p className="avgStarRating">
-            Average Star Rating: {(avgStarRating || 0).toFixed(2)}
-          </p>
-          <p className="detailDescription">Description: {spot.description}</p>
-          <p className="detailPrice">Price: ${spot.price} night</p>
-          {sessionUser && sessionUser.id === spot.ownerId && (
+        <div className="spotDetailPage">
+          <div className="top">
+            <div className="topText">
+              <div className="detailName">{spot.name} </div>
+              <p className="avgStarRating">
+                Average Star Rating: {(avgStarRating || 0).toFixed(2)}
+              </p>
+              <h3 className="detailLocation">
+                {spot.city}, {spot.state}
+              </h3>
+              <img
+                className="detailImg"
+                src={spot.previewImage}
+                alt={spot.name}
+              ></img>
+              <p className="detailDescription">
+                Description: {spot.description}
+              </p>
+              <p className="detailPrice">Price: ${spot.price} night</p>
+              {sessionUser && sessionUser.id === spot.ownerId && (
+                <div>
+                  <button onClick={handleEditClick}>Edit Spot</button>
+                  <button onClick={handleDelete}>Delete Spot</button>
+                </div>
+              )}
+            </div>
             <div>
-              <button onClick={handleEditClick}>Edit Spot</button>
-              <button onClick={handleDelete}>Delete Spot</button>
+              {!userReviewForThisSpot.length && (
+                <button onClick={handleCreateReview}>Create Review</button>
+              )}
             </div>
-          )}
-        </div>
-        <div>
-          {!userReviewForThisSpot.length && (
-            <button onClick={handleCreateReview}>Create Review</button>
-          )}
-        </div>
-        <div className="spotsReviews">
-          {allReviewsForThisSpot.map((review) => (
-            <div key={review.id}>
-              <div className="eachReview">
-                <h3 className="reviewName">Reviews: {review.review}</h3>
-                <div className="reviewStars">Stars: {review.stars}</div>
-              </div>
+            <div className="spotsReviews">
+              {allReviewsForThisSpot.map((review) => (
+                <div key={review.id}>
+                  <div className="eachReview">
+                    <h3 className="reviewName">Reviews: {review.review}</h3>
+                    <div className="reviewStars">Stars: {review.stars}</div>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </>
     )

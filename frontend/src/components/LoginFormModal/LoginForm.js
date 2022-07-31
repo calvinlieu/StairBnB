@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
-import './LoginForm.css';
+import "./Login.css";
 
 function LoginForm() {
   const dispatch = useDispatch();
@@ -20,42 +20,45 @@ function LoginForm() {
     );
   };
 
-    return (
-        <div>
-            <div>
-                <h2 > Welcome to StairBnB </h2>
-            </div>
-            <form
-                onSubmit={handleSubmit} >
-                <div id="errors_login">
-                    {errors.map((error, idx) => (
-                        <div key={idx}>{error}</div>
-                    ))}
-                </div>
-                <label>
-                    {/* Email */}
-                    <input
-                        type="text"
-                        value={credential}
-                        placeholder="Email"
-                        onChange={(e) => setCredential(e.target.value)}
-                        required
-                    />
-                </label>
-                <label>
-                    {/* Password */}
-                    <input
-                        type="password"
-                        value={password}
-                        placeholder="Password"
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </label>
-                <button type="submit">Log In</button>
-            </form>
+  return (
+        <div className="modal">
+      <div>
+        <h2 className="welcomeContainer"> Welcome to StairBnB </h2>
+      </div>
+      <form className="loginContainer" onSubmit={handleSubmit}>
+        <div id="errors_login">
+          {errors.map((error, idx) => (
+            <div key={idx}>{error}</div>
+          ))}
         </div>
-    );
+        <label>
+          {/* Email */}
+          <input
+            className="loginInput"
+            type="text"
+            value={credential}
+            placeholder="Email"
+            onChange={(e) => setCredential(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+          {/* Password */}
+          <input
+            className="loginInput"
+            type="password"
+            value={password}
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </label>
+        <button className="button" type="submit">
+          Log In
+        </button>
+      </form>
+    </div>
+  );
 }
 
 export default LoginForm;

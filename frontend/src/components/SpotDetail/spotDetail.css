@@ -21,8 +21,13 @@
   border: none;
   font-size: 18px;
   margin-top: 20px;
-  font-family: 'Montserrat', sans-serif;
-  background-image: linear-gradient(to right, #E61E4D 0%, #E31C5F 50%, #D70466 100%);
+  font-family: "Montserrat", sans-serif;
+  background-image: linear-gradient(
+    to right,
+    #e61e4d 0%,
+    #e31c5f 50%,
+    #d70466 100%
+  );
   border: none;
   border-radius: 10px;
   color: white;
@@ -34,11 +39,31 @@
 
 .spotsReview span {
   font-size: 15px;
-  margin-right: 12px ;
- }
+  margin-right: 12px;
+}
 
- .spotsReview label{
+.spotsReview label {
   display: flex;
   padding: 5px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
+}
+
+.spotDetailPage {
+  margin: 100px auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  gap: 15px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.topText {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
