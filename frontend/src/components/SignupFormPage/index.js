@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
-import "./SignupForm.css"
-
+import "./SignupForm.css";
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -16,7 +15,21 @@ function SignupFormPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
+  useEffect(() => {
+    const errors = [];
+  }, [errors])
+
   if (sessionUser) return <Redirect to="/" />;
+
+
+  // const validations = () => {
+  //   const errors = [];
+  //   if (email.length < 5)
+  //     errors.push("Review character count must be 5 or greater");
+  //   if (stars > 5 || stars < 1)
+  //     errors.push("Please enter a number from 1 to 5 stars");
+  //   return errors;
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,20 +45,26 @@ function SignupFormPage() {
         })
       ).catch(async (res) => {
         const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
+        console.log(data, "entered .catch");
+        if (data) {
+          setErrors(data);
+          // setErrors((prev) => [...prev, data.errors])
+        }
+        return;
       });
     }
 
-    return setErrors([
-      "Confirm Password field must be the same as the Password field",
-    ]);
+    // setErrors([
+    //   "User with that email already exists",
+    // ]);
 
+    setErrors((prev) => [...prev, "Confirm Password field must be the same as the Password field"])
   };
-
+  console.log(errors, "errors")
   return (
     <div>
-        <h2>Sign Up</h2>
-      <form className='signUpForm'onSubmit={handleSubmit}>
+      <h2>Sign Up</h2>
+      <form className="signUpForm" onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
