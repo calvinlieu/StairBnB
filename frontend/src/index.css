@@ -5,3 +5,10 @@ body {
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
     Helvetica Neue, sans-serif;
 }
+
+.pageNotFound {
+  font-size: 50px;
+  margin-top: 100px;
+  text-align: center;
+  display: block;
+}

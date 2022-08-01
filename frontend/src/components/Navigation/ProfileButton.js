@@ -3,8 +3,10 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import "./Navigation.css";
+import { useHistory } from "react-router-dom";
 
 function ProfileButton() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
 
@@ -25,6 +27,7 @@ function ProfileButton() {
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
+    history.push("/")
   };
 
   return (
@@ -39,8 +42,12 @@ function ProfileButton() {
             <Link to="/spots/create" id="dropdown1">
               Host your home
             </Link>
-            <Link to="/currentUser/spots" id="dropdown2">My Spots</Link>
-            <Link to="/spots/currentUser/reviews" id="dropdown3">My Reviews</Link>
+            <Link to="/currentUser/spots" id="dropdown2">
+              My Spots
+            </Link>
+            <Link to="/spots/currentUser/reviews" id="dropdown3">
+              My Reviews
+            </Link>
             <div onClick={logout} id="dropdown4">
               Log out
             </div>
