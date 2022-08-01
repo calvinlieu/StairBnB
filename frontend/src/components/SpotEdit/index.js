@@ -117,24 +117,28 @@ const EditSpot = () => {
             onChange={updateCountry}
           />
         </div>
-        {/* <label>
-        Lat
+        <div>
+        <label>
+        Latitude
+        </label>
         <input
           type="text"
           placeholder="Latitude"
           value={lat}
           onChange={updateLat}
         />
-      </label> */}
-        {/* <label>
-        Lng
+        </div>
+        <div>
+        <label>
+        Longitude
+        </label>
         <input
           type="text"
           placeholder="Longitude"
           value={lng}
           onChange={updateLng}
         />
-      </label> */}
+        </div>
         <div>
           <label>Description:</label>
           <input
