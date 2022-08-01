@@ -57,7 +57,6 @@
 
 .starIcon {
   margin-right: 0.5rem;
-  height: 12px;
   width: 12px;
   /* flex-grow: 1; */
 }
@@ -89,6 +88,7 @@
   border-radius: 33px;
   display: flex;
   position: static;
+  margin-top: 10px;
 }
 
  .outerBox {
@@ -148,6 +148,7 @@
   letter-spacing: .5px;
   line-height: 30px;
   text-align: left;
+  margin-right: 10px;
 }
 
 #bookings_price {
@@ -211,5 +212,13 @@
   border-radius: 5px;
   cursor: pointer;
   margin-left: 10px;
+}
+
+.eachReviewStar {
+  margin-top: 10px;
+}
+
+.eachReview {
+  margin-bottom: 10px;
 }
 

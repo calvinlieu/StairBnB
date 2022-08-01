@@ -169,7 +169,7 @@ const SpotsDetail = () => {
                 <div className="eachReview">
                   <div className="reviewName">Name: {fetchNameById(review.userId)}</div>
                   <div className="reviewContent">Review: {review.review}</div>
-                  <div className="reviewStars">Stars: {review.stars}</div>
+                  <div className="eachReviewStars">Stars: {review.stars}<i className="fas fa-star"></i></div>
                 </div>
               </div>
             ))}
