@@ -146,7 +146,7 @@ const SpotForm = () => {
           />
         </label>
         <label>
-          <span>Image:</span>
+          <span>Image</span>
           <input
             type="text"
             placeholder="img-url"
