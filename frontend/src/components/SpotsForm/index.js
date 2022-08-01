@@ -15,7 +15,7 @@ const SpotForm = () => {
   const [lng, setLng] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState(1);
   const [errors, setErrors] = useState([]);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
@@ -35,7 +35,8 @@ const SpotForm = () => {
     if (!description) errors.push("Please include a description");
     if (!previewImage) errors.push("Please include a preview image!");
     if (name.length > 25)
-      errors.push("Please include a name with a length that is less than 25.");
+      errors.push("Please include a name with a length that is less than 25");
+    if (previewImage.length > 255) (errors.push("Please include a different image URL that is less than 255 characters"))
     return errors;
   };
 
@@ -54,6 +55,13 @@ const SpotForm = () => {
       description: description,
       price: price,
     };
+
+    const validationErrors = validations();
+    if (validationErrors.length > 0) {
+      setErrors(validationErrors)
+      return;
+    }
+
     return dispatch(spotActions.createSpot(data))
       .then(async (res) => {
         setSubmitSuccess(true);

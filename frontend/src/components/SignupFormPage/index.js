@@ -61,7 +61,6 @@ function SignupFormPage() {
       "Confirm Password field must be the same as the Password field",
     ]);
   };
-  console.log(errors, "errors");
   return (
     <div className="formDiv">
       <h2 className="signUp">Sign Up</h2>

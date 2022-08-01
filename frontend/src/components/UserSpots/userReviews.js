@@ -30,8 +30,6 @@ function UserReviews() {
     // .then(dispatch(getUserReviews()))
   };
 
-  console.log(reviews);
-
   return (
     isLoaded && (
       <div className="reviewsContainer">
