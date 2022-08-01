@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllSpots } from "../../store/spots";
@@ -15,18 +15,24 @@ const SpotsDetail = () => {
   const spots = useSelector((state) => state.spots);
   const sessionUser = useSelector((state) => state.session.user);
   const reviews = useSelector((state) => Object.values(state.reviews));
-  const users = useSelector((state) => state.users)
+  const users = useSelector((state) => state.users);
+  const [isLoaded, setIsLoaded] = useState(false);
   const spotsString = JSON.stringify(spots);
   const reviewsString = JSON.stringify(reviews);
   const usersString = JSON.stringify(users);
 
+
   useEffect(() => {
     getAllSpots(dispatch);
+    setIsLoaded(true)
+    if (isLoaded && spots && spots[spotId] === undefined) {
+      history.push("/");
+    }
   }, [dispatch, spotsString]);
 
   useEffect(() => {
     dispatch(getAllUsers());
-  }, [dispatch, usersString])
+  }, [dispatch, usersString]);
 
   useEffect(() => {
     dispatch(loadAllReviewsThunk());
@@ -68,10 +74,13 @@ const SpotsDetail = () => {
   });
 
   const fetchNameById = (userId) => {
-    const firstName = users[userId].firstName
-    return firstName;
-  
-  }
+    if (!users[userId]) {
+      return "";
+    } else {
+      const firstName = users[userId].firstName;
+      return firstName;
+    }
+  };
 
   return (
     spot && (
@@ -167,9 +176,14 @@ const SpotsDetail = () => {
             {allReviewsForThisSpot.map((review) => (
               <div key={review.id}>
                 <div className="eachReview">
-                  <div className="reviewName">Name: {fetchNameById(review.userId)}</div>
+                  <div className="reviewName">
+                    Name: {fetchNameById(review.userId)}
+                  </div>
                   <div className="reviewContent">Review: {review.review}</div>
-                  <div className="eachReviewStars">Stars: {review.stars}<i className="fas fa-star"></i></div>
+                  <div className="eachReviewStars">
+                    Stars: {review.stars}
+                    <i className="fas fa-star"></i>
+                  </div>
                 </div>
               </div>
             ))}
