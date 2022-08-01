@@ -5,6 +5,7 @@ import { getAllSpots } from "../../store/spots";
 import { spotDelete } from "../../store/spots";
 import { loadAllReviewsThunk } from "../../store/reviews";
 import "./spotDetail.css";
+import { getAllUsers } from "../../store/user";
 
 const SpotsDetail = () => {
   const history = useHistory();
@@ -14,12 +15,18 @@ const SpotsDetail = () => {
   const spots = useSelector((state) => state.spots);
   const sessionUser = useSelector((state) => state.session.user);
   const reviews = useSelector((state) => Object.values(state.reviews));
+  const users = useSelector((state) => state.users)
   const spotsString = JSON.stringify(spots);
   const reviewsString = JSON.stringify(reviews);
+  const usersString = JSON.stringify(users);
 
   useEffect(() => {
     getAllSpots(dispatch);
   }, [dispatch, spotsString]);
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch, usersString])
 
   useEffect(() => {
     dispatch(loadAllReviewsThunk());
@@ -60,6 +67,12 @@ const SpotsDetail = () => {
     }
   });
 
+  const fetchNameById = (userId) => {
+    const firstName = users[userId].firstName
+    return firstName;
+  
+  }
+
   return (
     spot && (
       <>
@@ -68,24 +81,24 @@ const SpotsDetail = () => {
             <div className="topText">
               <div className="detailName">{spot.name} </div>
               <div className="outerBox">
-                <p className="avgStarRating">
+                <div className="avgStarRating">
                   <div className="star">{<i className="fas fa-star"></i>}</div>
                   <div className="avgRating">
                     {(avgStarRating || 0).toFixed(2)}{" "}
                   </div>
                   <div className="circle">
-                    <i class="fas fa-circle"></i>{" "}
+                    <i className="fas fa-circle"></i>{" "}
                   </div>
                   <div className="reviewCount">
                     {allReviewsForThisSpot.length} Review(s)
                   </div>
                   <div className="circle">
-                    <i class="fas fa-circle"></i>{" "}
+                    <i className="fas fa-circle"></i>{" "}
                   </div>
                   <div className="detailLocation">
                     {spot.city}, {spot.state}, {spot.country}
                   </div>
-                </p>
+                </div>
                 {sessionUser && sessionUser.id === spot.ownerId && (
                   <div className="editAndDeleteButtons">
                     <button className="editButton" onClick={handleEditClick}>
@@ -121,7 +134,7 @@ const SpotsDetail = () => {
                   {(avgStarRating || 0).toFixed(2)}{" "}
                 </div>
                 <div className="circleBottom">
-                  <i class="fas fa-circle"></i>{" "}
+                  <i className="fas fa-circle"></i>{" "}
                 </div>
                 <div className="reviewCountBottom">
                   {allReviewsForThisSpot.length} Review(s)
@@ -136,22 +149,26 @@ const SpotsDetail = () => {
                 {(avgStarRating || 0).toFixed(2)}{" "}
               </div>
               <div className="circleBottom">
-                <i class="fas fa-circle"></i>{" "}
+                <i className="fas fa-circle"></i>{" "}
               </div>
               <div className="reviewCountBottom">
                 {allReviewsForThisSpot.length} Review(s)
               </div>
-            <div className="">
-              {!userReviewForThisSpot.length && (
-                <button onClick={handleCreateReview}>Create Review</button>
-              )}
-            </div>
+
+              <div>
+                {!userReviewForThisSpot.length && (
+                  <button className="reviewButton" onClick={handleCreateReview}>
+                    Create Review
+                  </button>
+                )}
+              </div>
             </div>
 
             {allReviewsForThisSpot.map((review) => (
               <div key={review.id}>
                 <div className="eachReview">
-                  <h3 className="reviewName">Reviews: {review.review}</h3>
+                  <div className="reviewName">Name: {fetchNameById(review.userId)}</div>
+                  <div className="reviewContent">Review: {review.review}</div>
                   <div className="reviewStars">Stars: {review.stars}</div>
                 </div>
               </div>

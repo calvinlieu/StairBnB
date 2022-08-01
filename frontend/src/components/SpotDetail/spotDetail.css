@@ -45,7 +45,7 @@
   align-items: center;
   text-align: center;
   text-decoration: none;
-  border-radius: 15px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -106,7 +106,7 @@
   align-items: center;
 }
 
-.createReviewButton {
+/* .createReviewButton {
   background-color: white;
   border: none;
   font-size: 18px;
@@ -125,7 +125,7 @@
   font-weight: 600;
   height: 50px;
   width: 370px;
-}
+} */
 
 .detailPrice {
   margin-top: 10px;
@@ -195,5 +195,21 @@
   margin-left: 5px;
   margin-top: 10px;
   margin-bottom: 10px;
+  align-items: center;
+}
+
+.reviewButton {
+  background-color: #ff385c;
+  border: none;
+  padding: 10px 15px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
 }
 
