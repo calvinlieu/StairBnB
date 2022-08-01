@@ -33,7 +33,7 @@ const SpotsPage = () => {
       allStars += review.stars;
     });
     const avgStarRating = allStars / allReviewsForThisSpot.length;
-    return (avgStarRating ? avgStarRating.toFixed(2) : "New")
+    return avgStarRating ? avgStarRating.toFixed(2) : "New";
   };
 
   return (
@@ -41,30 +41,35 @@ const SpotsPage = () => {
       <div className="eachSpot">
         {spots &&
           spots.map((spot) => (
-            <div className="spotLink" key={spot.id}>
+            <div className="spotCard" key={spot.id}>
               <NavLink to={`/spots/${spot.id}`}>
                 <div className="room">
                   <div className="imgDiv">
-                  <img
-                    className="spotImg"
-                    src={spot.previewImage}
-                    alt={spot.name}
-                  ></img>
+                    <img className="spotImg" src={spot.previewImage}></img>
                   </div>
                   <div className="roomDetails">
                     <div className="roomData">
-                    <h3 className="spotName">{spot.name}</h3>
-                    <h4 className="spotLocation"> {spot.city}, {spot.state} </h4>
-                    <div className="spotDistance">{`${(Math.floor(Math.random() * (100) + 200)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") } miles away`}</div>
-                    {/* <p className="spotDetails">{spot.description}</p> */}
-                    <p className="spotPrice"> ${spot.price} night</p>
-
-                    <div className="spotStars">
-                      <div className="star">
-                      <i className="fa-solid fa-star star-design"></i>
+                      <div className="spotLocation">
+                        <div>
+                        {spot.city}, {spot.state}
+                        </div>
+                        <div className="spotStars">
+                          <div className="star">
+                            <i className="fa-solid fa-star star-design"></i>
+                            {starSpot(spot.id)}
+                          </div>
+                        </div>
                       </div>
-                      {starSpot(spot.id)}
-                    </div>
+                      <div className="spotDistance">{`${Math.floor(
+                        Math.random() * 100 + 200
+                      )
+                        .toString()
+                        .replace(
+                          /\B(?=(\d{3})+(?!\d))/g,
+                          ","
+                        )} miles away`}</div>
+
+                      <p className="spotPrice"> <b>${spot.price}</b>&nbsp;night</p>
                     </div>
                   </div>
                 </div>

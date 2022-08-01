@@ -23,6 +23,22 @@ const SpotForm = () => {
     return <Redirect to="/" />;
   }
 
+  const validations = () => {
+    const errors = [];
+    if (!address) errors.push("Please enter an address");
+    if (!city) errors.push("Please enter a city");
+    if (!state) errors.push("Please enter a state");
+    if (!country) errors.push("Please enter a country");
+    if (!previewImage) errors.push("Please include a preview image");
+    if (name.length < 2)
+      errors.push("Please enter a name with a length greater than 2");
+    if (!description) errors.push("Please include a description");
+    if (!previewImage) errors.push("Please include a preview image!");
+    if (name.length > 25)
+      errors.push("Please include a name with a length that is less than 25.");
+    return errors;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
@@ -50,14 +66,19 @@ const SpotForm = () => {
 
   return (
     <div className="formContainer">
+      <div>
+        <h2 className="createSpotText">Create a Spot</h2>
+      </div>
       <form className="spotForm" onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
-        <label>
-          <span>Name:</span>
+        {errors ?? (
+          <ul>
+            {errors.map((error, idx) => (
+              <li key={idx}>{error}</li>
+            ))}
+          </ul>
+        )}
+        <div>
+          <label>Name:</label>
           <input
             type="text"
             placeholder="Name"
@@ -65,9 +86,10 @@ const SpotForm = () => {
             onChange={(e) => setName(e.target.value)}
             required
           />
-        </label>
-        <label>
-          <span>Address:</span>
+        </div>
+
+        <div>
+          <label>Address:</label>
           <input
             type="text"
             placeholder="Address"
@@ -75,9 +97,9 @@ const SpotForm = () => {
             onChange={(e) => setAddress(e.target.value)}
             required
           />
-        </label>
-        <label>
-          <span>City: </span>
+        </div>
+        <div>
+          <label>City: </label>
           <input
             type="text"
             placeholder="City"
@@ -85,9 +107,9 @@ const SpotForm = () => {
             onChange={(e) => setCity(e.target.value)}
             required
           />
-        </label>
-        <label>
-          <span>State:</span>
+        </div>
+        <div>
+          <label>State:</label>
           <input
             type="text"
             placeholder="State"
@@ -95,9 +117,9 @@ const SpotForm = () => {
             onChange={(e) => setState(e.target.value)}
             required
           />
-        </label>
-        <label>
-          <span>Country: </span>
+        </div>
+        <div>
+          <label>Country: </label>
           <input
             type="text"
             placeholder="Country"
@@ -105,48 +127,49 @@ const SpotForm = () => {
             onChange={(e) => setCountry(e.target.value)}
             required
           />
-        </label>
-        {/* <label>
-          <span>Latitude:</span>
-          <input
-            type="text"
-            placeholder="Latitude"
-            value={lat}
-            onChange={(e) => setLat(e.target.value)}
-            required
+        </div>
+        <div>
+          <label>Latitude:</label>
+        <input
+          type="text"
+          placeholder="Latitude"
+          value={lat}
+          onChange={(e) => setLat(e.target.value)}
+          required
           />
-        </label>
-        <label>
-          <span>Longitude</span>
-          <input
-            type="text"
-            placeholder="Longitude"
-            value={lng}
-            onChange={(e) => setLng(e.target.value)}
-            required
+          </div>
+        <div>
+          <label>Longitude</label>
+        <input
+          type="text"
+          placeholder="Longitude"
+          value={lng}
+          onChange={(e) => setLng(e.target.value)}
+          required
           />
-        </label> */}
-        <label>
-          <span>Description:</span>
-          <input
-            type="text"
-            placeholder="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
+          </div>
+        <div>
+          <label>Description:</label>
+        <input
+          type="text"
+          placeholder="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
           />
-        </label>
-        <label>
-          <span>Price:</span>
-          <input
-            type="text"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            required
+          </div>
+        <div>
+          <label>Price:</label>
+        <input
+          type="number"
+          min={1}
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          required
           />
-        </label>
-        <label>
-          <span>Image</span>
+          </div>
+        <div>
+          <label>Image:</label>
           <input
             type="text"
             placeholder="img-url"
@@ -154,10 +177,12 @@ const SpotForm = () => {
             onChange={(e) => setPreviewImage(e.target.value)}
             required
           />
-        </label>
-        <button className="createSpot" type="submit">
-          Create Spot
-        </button>
+        </div>
+        <div className="buttonContainer">
+          <button className="createSpot" type="submit">
+            Create Spot
+          </button>
+        </div>
       </form>
     </div>
   );

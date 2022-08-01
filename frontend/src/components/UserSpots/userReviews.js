@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { getUserReviews, loadReviews } from "../../store/reviews";
 import { deleteReview } from "../../store/reviews";
-import { Link } from "react-router-dom";
+import "./userReviews.css";
 
 function UserReviews() {
   const history = useHistory();
@@ -34,19 +34,23 @@ function UserReviews() {
 
   return (
     isLoaded && (
-      <div>
-        <h1>{reviews?.length > 0 ? "My Reviews" : "No Reviews"}</h1>
-        {reviews?.map((review) => (
-          <div key={review.id} className>
-            <div>Location of Review: Spot# {review.id}</div>
-            <div>My Comment: {review.review}</div>
-            <div>Stars: {review.stars}</div>
-
-            <button onClick={handleDeleteClick(review.id)}>
-              Delete this Review
-            </button>
+      <div className="reviewsContainer">
+        <div className="myReviews">
+          <div className="reviewTitle">{reviews?.length > 0 ? "My Reviews" : "No Reviews"}</div>
+          <div className="eachContainer">
+          {reviews?.map((review) => (
+            <div key={review.id} className="eachReview">
+              <div>My Comment: {review.review}</div>
+              <div>Stars: {review.stars}</div>
+              <div>
+                <button className="deleteReview" onClick={handleDeleteClick(review.id)}>
+                  Delete this Review
+                </button>
+              </div>
+            </div>
+          ))}
           </div>
-        ))}
+        </div>
       </div>
     )
   );

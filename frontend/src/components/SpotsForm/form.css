@@ -1,52 +1,47 @@
 .spotForm label {
+  width: 100%;
+  margin: 8px 0;
   display: flex;
-  padding: 5px;
-  font-family: "Montserrat", sans-serif;
+  float: left;
+  padding: 0px;
 }
 
-.spotForm span {
+.createSpotText {
   display: flex;
-  font-size: 15px;
-  margin-right: 12px;
+  align-items: center;
 }
 
 .createSpot {
-  background-color: white;
+  background-color: #ff385c;
   border: none;
-  font-size: 18px;
-  margin-top: 20px;
-  font-family: "Montserrat", sans-serif;
-  background-image: linear-gradient(
-    to right,
-    #e61e4d 0%,
-    #e31c5f 50%,
-    #d70466 100%
-  );
-  border: none;
-  border-radius: 10px;
   color: white;
+  padding: 10px 10px;
+  border-radius: 1rem;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
   font-size: 16px;
-  font-weight: 600;
-  height: 50px;
-  width: 370px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-input {
-  font-size: 16px;
-  padding-left: 10px;
-  font-family: "Montserrat", sans-serif;
-  width: 350px;
-  border: 2px double rgb(216, 203, 203);
-  border-radius: 20px;
+.spotForm input {
+  height: 30px;
+  border: #d3d3d3 1.5px solid;
+  width: 100%;
+  border-radius: 5px;
+  color: gray;
 }
 
 .formContainer {
-  display: flex;
-  justify-content: center;
+  margin: 50px auto 0 auto;
   width: 50%;
-  margin: auto;
-  margin-top: 10%;
-  padding: 40px;
-  border: 2px double rgb(216, 203, 203);
-  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 25px;
 }

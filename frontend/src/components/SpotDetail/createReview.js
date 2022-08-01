@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";
 import * as reviewActions from "../../store/reviews";
-import "./createReview.css"
+import "./createReview.css";
 
 const CreateReviews = () => {
   const dispatch = useDispatch();
@@ -46,15 +46,21 @@ const CreateReviews = () => {
   };
 
   return (
-    <div>
+    <div className="reviewContainer">
       <form className="spotsReview" onSubmit={handleSubmit}>
+      <div className="reviewTitle">Create Your Review</div>
+      {errors ?? (
         <ul>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
         </ul>
-        <label>
-          <span>Message:</span>
+      )}
+      <div>
+        <div>
+          <label>
+            Message:
+          </label>
           <input
             type="text"
             placeholder="Review Message"
@@ -62,9 +68,11 @@ const CreateReviews = () => {
             onChange={(e) => setReviewMessage(e.target.value)}
             required
           />
-        </label>
-        <label>
-          <span>Stars:</span>
+        </div>
+        <div>
+          <label>
+            Stars:
+          </label>
           <input
             type="number"
             placeholder="Rating"
@@ -72,8 +80,13 @@ const CreateReviews = () => {
             onChange={(e) => setStars(e.target.value)}
             required
           />
-        </label>
-        <button className="createReviewButton" type="submit">Create Review</button>
+        </div>
+      </div>
+        <div>
+          <button className="createReviewButton" type="submit">
+            Create Review
+          </button>
+        </div>
       </form>
     </div>
   );
