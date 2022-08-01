@@ -106,7 +106,7 @@ const SpotForm = () => {
             required
           />
         </label>
-        <label>
+        {/* <label>
           <span>Latitude:</span>
           <input
             type="text"
@@ -125,7 +125,7 @@ const SpotForm = () => {
             onChange={(e) => setLng(e.target.value)}
             required
           />
-        </label>
+        </label> */}
         <label>
           <span>Description:</span>
           <input
