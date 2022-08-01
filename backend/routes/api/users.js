@@ -83,4 +83,10 @@ router.get("/currentUser", requireAuth, async (req, res) => {
   return res.json(user);
 });
 
+//get all users
+router.get("/", async (req, res) => {
+  let users = await User.findAll();
+  return res.json(users);
+})
+
 module.exports = router;

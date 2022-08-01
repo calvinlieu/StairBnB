@@ -3,9 +3,8 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import "./Navigation.css";
-import { useHistory } from "react-router-dom";
 
-function ProfileButton({ user }) {
+function ProfileButton() {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
 
@@ -26,7 +25,6 @@ function ProfileButton({ user }) {
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
-    // history.push(`/`);
   };
 
   return (
