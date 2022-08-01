@@ -5,6 +5,8 @@ StairBnB is a full stack application that is inspired by AirBnb. It provides a p
 
 Technology Used 
 
+```
 Backend: Express, NodeJS
 Frontend: React, Redux, Javascript
 Database: SQLITE, Postgres, Sequelize
+```
