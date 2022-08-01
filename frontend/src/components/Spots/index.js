@@ -56,7 +56,7 @@ const SpotsPage = () => {
                     <h3 className="spotName">{spot.name}</h3>
                     <h4 className="spotLocation"> {spot.city}, {spot.state} </h4>
                     <div className="spotDistance">{`${(Math.floor(Math.random() * (100) + 200)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") } miles away`}</div>
-                    <p className="spotDetails">{spot.description}</p>
+                    {/* <p className="spotDetails">{spot.description}</p> */}
                     <p className="spotPrice"> ${spot.price} night</p>
 
                     <div className="spotStars">

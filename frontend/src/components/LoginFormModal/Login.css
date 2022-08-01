@@ -1,3 +1,6 @@
+* {
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
 .modal {
   display: flex;
   flex-direction: column;

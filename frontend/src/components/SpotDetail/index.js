@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllSpots } from "../../store/spots";
 import { spotDelete } from "../../store/spots";
 import { loadAllReviewsThunk } from "../../store/reviews";
-
 import "./spotDetail.css";
 
 const SpotsDetail = () => {
@@ -68,43 +67,95 @@ const SpotsDetail = () => {
           <div className="top">
             <div className="topText">
               <div className="detailName">{spot.name} </div>
-              <p className="avgStarRating">
-                Average Star Rating: {(avgStarRating || 0).toFixed(2)}
-              </p>
-              <h3 className="detailLocation">
-                {spot.city}, {spot.state}
-              </h3>
-              <img
-                className="detailImg"
-                src={spot.previewImage}
-                alt={spot.name}
-              ></img>
-              <p className="detailDescription">
-                Description: {spot.description}
-              </p>
-              <p className="detailPrice">Price: ${spot.price} night</p>
-              {sessionUser && sessionUser.id === spot.ownerId && (
-                <div>
-                  <button onClick={handleEditClick}>Edit Spot</button>
-                  <button onClick={handleDelete}>Delete Spot</button>
-                </div>
-              )}
+              <div className="outerBox">
+                <p className="avgStarRating">
+                  <div className="star">{<i className="fas fa-star"></i>}</div>
+                  <div className="avgRating">
+                    {(avgStarRating || 0).toFixed(2)}{" "}
+                  </div>
+                  <div className="circle">
+                    <i class="fas fa-circle"></i>{" "}
+                  </div>
+                  <div className="reviewCount">
+                    {allReviewsForThisSpot.length} Review(s)
+                  </div>
+                  <div className="circle">
+                    <i class="fas fa-circle"></i>{" "}
+                  </div>
+                  <div className="detailLocation">
+                    {spot.city}, {spot.state}, {spot.country}
+                  </div>
+                </p>
+                {sessionUser && sessionUser.id === spot.ownerId && (
+                  <div className="editAndDeleteButtons">
+                    <button className="editButton" onClick={handleEditClick}>
+                      Edit
+                    </button>
+                    <button className="deleteButton" onClick={handleDelete}>
+                      Delete
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
-            <div>
+          </div>
+          <div>
+            <img
+              className="detailImg"
+              src={spot.previewImage}
+              alt={spot.name}
+            ></img>
+          </div>
+          <div className="bottomContainer">
+            <p className="detailDescription">{spot.description}</p>
+
+            <div id="bookings_price">
+              <div id="priceId">
+                <span id="price_bigger">${spot.price} </span>night
+              </div>
+              <div className="bottomStars">
+                <div className="starIcon">
+                  {<i className="fas fa-star"></i>}
+                </div>
+                <div className="avgRatingBottom">
+                  {(avgStarRating || 0).toFixed(2)}{" "}
+                </div>
+                <div className="circleBottom">
+                  <i class="fas fa-circle"></i>{" "}
+                </div>
+                <div className="reviewCountBottom">
+                  {allReviewsForThisSpot.length} Review(s)
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="spotsReviews">
+            <div className="reviewStars">
+              <div className="starIcon">{<i className="fas fa-star"></i>}</div>
+              <div className="avgRatingBottom">
+                {(avgStarRating || 0).toFixed(2)}{" "}
+              </div>
+              <div className="circleBottom">
+                <i class="fas fa-circle"></i>{" "}
+              </div>
+              <div className="reviewCountBottom">
+                {allReviewsForThisSpot.length} Review(s)
+              </div>
+            <div className="">
               {!userReviewForThisSpot.length && (
                 <button onClick={handleCreateReview}>Create Review</button>
               )}
             </div>
-            <div className="spotsReviews">
-              {allReviewsForThisSpot.map((review) => (
-                <div key={review.id}>
-                  <div className="eachReview">
-                    <h3 className="reviewName">Reviews: {review.review}</h3>
-                    <div className="reviewStars">Stars: {review.stars}</div>
-                  </div>
-                </div>
-              ))}
             </div>
+
+            {allReviewsForThisSpot.map((review) => (
+              <div key={review.id}>
+                <div className="eachReview">
+                  <h3 className="reviewName">Reviews: {review.review}</h3>
+                  <div className="reviewStars">Stars: {review.stars}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </>
