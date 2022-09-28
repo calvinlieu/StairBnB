@@ -306,15 +306,6 @@ router.put("/:spotId", requireAuth, async (req, res) => {
     return res.json(error);
   }
 
-  // spot.address = address
-  // spot.city = city
-  // spot.state = state
-  // spot.lat = lat
-  // spot.lng = lng
-  // spot.name = name
-  // spot.description = description
-  // spot.price = price
-  // spot.previewImage = previewImage
 
   await spot.update({
     address,

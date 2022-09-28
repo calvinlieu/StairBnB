@@ -48,7 +48,7 @@ router.post("/sign-up", validateSignup, async (req, res) => {
     errors.push("User with that username already exists!");
   }
   if (errors.length) {
-    res.status(403).json(errors);
+    return res.status(403).json(errors);
   }
 
   const user = await User.signup({
