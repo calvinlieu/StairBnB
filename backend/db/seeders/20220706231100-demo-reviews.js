@@ -33,6 +33,36 @@ module.exports = {
         review: 'Best house ever!',
         stars: 5
       },
+      {
+        userId: 5,
+        spotId: 6,
+        review: 'The house was amazing! I will definitely be coming back.',
+        stars: 4
+      },
+      {
+        userId: 5,
+        spotId: 7,
+        review: 'This place was great. Very clean and neat and well stocked. Chris was awesome in communicating when I had questions and concerns. I had a great fun stay!',
+        stars: 4
+      },
+      {
+        userId: 5,
+        spotId: 8,
+        review: 'Great location, great value for money, cute apartment. Thank you for your hospitality.',
+        stars: 4
+      },
+      {
+        userId: 5,
+        spotId: 9,
+        review: 'Fantastic place. Clean, comfortable, and all the comforts of home. Great location and a great host. Looking forward to coming back SOON!',
+        stars: 4
+      },
+      {
+        userId: 5,
+        spotId: 10,
+        review: 'I will definitely be staying here again!!!! What a dream place and location! No complaints other than I didn’t book enough nights the first time!',
+        stars: 4
+      },
     ], {});
   },
 
