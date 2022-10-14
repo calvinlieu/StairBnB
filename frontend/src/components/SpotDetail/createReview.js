@@ -76,6 +76,8 @@ const CreateReviews = () => {
           <input
             type="number"
             placeholder="Rating"
+            min={1}
+            max={5}
             value={stars}
             onChange={(e) => setStars(e.target.value)}
             required
