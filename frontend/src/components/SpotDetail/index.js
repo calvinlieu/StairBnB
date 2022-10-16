@@ -6,6 +6,8 @@ import { spotDelete } from "../../store/spots";
 import { loadAllReviewsThunk } from "../../store/reviews";
 import "./spotDetail.css";
 import { getAllUsers } from "../../store/user";
+import Calendar from "react-calendar";
+import CreateBooking from "../Bookings/createBookings";
 
 const SpotsDetail = () => {
   const history = useHistory();
@@ -20,11 +22,11 @@ const SpotsDetail = () => {
   const spotsString = JSON.stringify(spots);
   const reviewsString = JSON.stringify(reviews);
   const usersString = JSON.stringify(users);
-
+  const [value, onChange] = useState(new Date());
 
   useEffect(() => {
     getAllSpots(dispatch);
-    setIsLoaded(true)
+    setIsLoaded(true);
     if (isLoaded && spots && spots[spotId] === undefined) {
       history.push("/");
     }
@@ -130,7 +132,6 @@ const SpotsDetail = () => {
           </div>
           <div className="bottomContainer">
             <p className="detailDescription">{spot.description}</p>
-
             <div id="bookings_price">
               <div id="priceId">
                 <span id="price_bigger">${spot.price} </span>night
@@ -149,6 +150,7 @@ const SpotsDetail = () => {
                   {allReviewsForThisSpot.length} Review(s)
                 </div>
               </div>
+              <div> <CreateBooking /> </div>
             </div>
           </div>
           <div className="spotsReviews">
