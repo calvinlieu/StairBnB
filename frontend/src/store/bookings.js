@@ -15,7 +15,7 @@ const getAllBookingsAction = (bookings) => {
 const addBookingsAction = (booking) => {
   return {
     type: ADD_BOOKINGS,
-    booking,
+    booking
   };
 };
 
@@ -47,11 +47,12 @@ export const getAllBookingForSpot = (bookings, spotId) => async (dispatch) => {
 };
 
 //create a booking
-export const createBooking = (booking) => async (dispatch) => {
-  const response = await csrfFetch(`/api/bookings/${booking.id}`, {
+export const createBooking = (spot, booking) => async (dispatch) => {
+  const response = await csrfFetch(`/api/bookings/${spot.id}`, {
     method: "POST",
     body: JSON.stringify(booking),
   });
+  console.log(response, "response")
   if (response.ok) {
     const newBooking = await response.json();
     dispatch(addBookingsAction(newBooking));

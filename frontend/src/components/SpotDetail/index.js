@@ -8,6 +8,7 @@ import "./spotDetail.css";
 import { getAllUsers } from "../../store/user";
 import Calendar from "react-calendar";
 import CreateBooking from "../Bookings/createBookings";
+import CreateBookingForm from "../Bookings/createBookings";
 
 const SpotsDetail = () => {
   const history = useHistory();
@@ -22,7 +23,7 @@ const SpotsDetail = () => {
   const spotsString = JSON.stringify(spots);
   const reviewsString = JSON.stringify(reviews);
   const usersString = JSON.stringify(users);
-  const [value, onChange] = useState(new Date());
+  const user = useSelector((state) => Object.values(state.users))
 
   useEffect(() => {
     getAllSpots(dispatch);
@@ -84,6 +85,12 @@ const SpotsDetail = () => {
     }
   };
 
+  const spotsUser = user.filter((use) => {
+    return use.id === spot.ownerId
+  })
+  console.log(spots, "spots")
+  console.log(spotsUser[0]?.firstName, "user")
+
   return (
     spot && (
       <>
@@ -130,27 +137,34 @@ const SpotsDetail = () => {
               alt={spot.name}
             ></img>
           </div>
+          <div className="hosted-container">
+            <p>Entire home hosted by {spotsUser[0]?.firstName}</p>
+          </div>
           <div className="bottomContainer">
-            <p className="detailDescription">{spot.description}</p>
-            <div id="bookings_price">
-              <div id="priceId">
-                <span id="price_bigger">${spot.price} </span>night
-              </div>
-              <div className="bottomStars">
-                <div className="starIcon">
-                  {<i className="fas fa-star"></i>}
-                </div>
-                <div className="avgRatingBottom">
-                  {(avgStarRating || 0).toFixed(2)}{" "}
-                </div>
-                <div className="circleBottom">
-                  <i className="fas fa-circle"></i>{" "}
-                </div>
-                <div className="reviewCountBottom">
-                  {allReviewsForThisSpot.length} Review(s)
-                </div>
-              </div>
-              <div> <CreateBooking /> </div>
+            <p className="detailDescription">
+              <p className="self">
+                <i className="fa-solid fa-door-open"></i> Self check-in
+              </p>
+              <p className="check">Check yourself in with the lockbox.</p>
+              <p className="superhost">
+                <i className="fa-solid fa-award"></i> {spotsUser[0]?.firstName} is a Superhost
+              </p>
+              <p className="experience">
+                Superhosts are experienced, highly rated hosts who are committed
+                to providing great stays for guests.
+              </p>
+              <p className="cancel">
+                <i className="fa-regular fa-calendar"></i> Free cancellation for
+                48 hours.
+              </p>
+              <p className="description">{spot.description}</p>
+            </p>
+            <div>
+              <CreateBookingForm
+                spot={spot}
+                star={avgStarRating}
+                review={allReviewsForThisSpot}
+              />
             </div>
           </div>
           <div className="spotsReviews">
@@ -165,7 +179,6 @@ const SpotsDetail = () => {
               <div className="reviewCountBottom">
                 {allReviewsForThisSpot.length} Review(s)
               </div>
-
               <div>
                 {!userReviewForThisSpot.length && (
                   <button className="reviewButton" onClick={handleCreateReview}>
