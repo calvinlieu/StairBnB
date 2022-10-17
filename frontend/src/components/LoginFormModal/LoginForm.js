@@ -22,7 +22,7 @@ function LoginForm() {
   };
 
   return (
-        <div className="modal">
+    <div className="modal">
       <div>
         <h2 className="welcomeContainer"> Welcome to StairBnB </h2>
       </div>
@@ -57,7 +57,17 @@ function LoginForm() {
         <button className="loginButton" type="submit">
           Log In
         </button>
-        <DemoUser />
+        <button
+          type="submit"
+          className="demo-login-form-button"
+          onClick={() => {
+            setCredential("demo@user.io");
+            setPassword("password");
+          }}
+        >
+          Demo User
+        </button>
+        {/* <DemoUser /> */}
       </form>
     </div>
   );

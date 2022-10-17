@@ -11,8 +11,6 @@ const MyBookings = () => {
   const history = useHistory();
   const bookings = useSelector((state) => Object.values(state?.bookings));
 
-  console.log(bookings, "booking");
-
   useEffect(() => {
     dispatch(getCurrentUserBooking());
   }, [dispatch, JSON.stringify(bookings)]);
