@@ -34,10 +34,10 @@ const editBookingsAction = (booking) => {
   };
 };
 
-const deleteBookingsAction = (booking) => {
+const deleteBookingsAction = (bookingId) => {
   return {
     type: DELETE_BOOKING,
-    booking,
+    bookingId,
   };
 };
 
@@ -94,13 +94,13 @@ export const editBooking = (booking) => async (dispatch) => {
 };
 
 //delete a booking
-export const deleteBooking = (booking) => async (dispatch) => {
-  const response = await csrfFetch(`/api/bookings/${booking.id}`, {
+export const deleteBooking = (bookingId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/bookings/${bookingId}`, {
     method: "DELETE",
   });
 
   const res = await response.json();
-  dispatch(deleteBookingsAction(booking));
+  dispatch(deleteBookingsAction(bookingId));
   return res;
 };
 
