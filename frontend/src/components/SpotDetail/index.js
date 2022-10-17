@@ -23,7 +23,7 @@ const SpotsDetail = () => {
   const spotsString = JSON.stringify(spots);
   const reviewsString = JSON.stringify(reviews);
   const usersString = JSON.stringify(users);
-  const user = useSelector((state) => Object.values(state.users))
+  const user = useSelector((state) => Object.values(state.users));
 
   useEffect(() => {
     getAllSpots(dispatch);
@@ -86,10 +86,8 @@ const SpotsDetail = () => {
   };
 
   const spotsUser = user.filter((use) => {
-    return use.id === spot.ownerId
-  })
-  console.log(spots, "spots")
-  console.log(spotsUser[0]?.firstName, "user")
+    return use.id === spot?.ownerId;
+  });
 
   return (
     spot && (
@@ -138,27 +136,28 @@ const SpotsDetail = () => {
             ></img>
           </div>
           <div className="hosted-container">
-            <p>Entire home hosted by {spotsUser[0]?.firstName}</p>
+            <div>Entire home hosted by {spotsUser[0]?.firstName}</div>
           </div>
           <div className="bottomContainer">
-            <p className="detailDescription">
-              <p className="self">
+            <div className="detailDescription">
+              <div className="self">
                 <i className="fa-solid fa-door-open"></i> Self check-in
-              </p>
-              <p className="check">Check yourself in with the lockbox.</p>
-              <p className="superhost">
-                <i className="fa-solid fa-award"></i> {spotsUser[0]?.firstName} is a Superhost
-              </p>
-              <p className="experience">
+              </div>
+              <div className="check">Check yourself in with the lockbox.</div>
+              <div className="superhost">
+                <i className="fa-solid fa-award"></i> {spotsUser[0]?.firstName}{" "}
+                is a Superhost
+              </div>
+              <div className="experience">
                 Superhosts are experienced, highly rated hosts who are committed
                 to providing great stays for guests.
-              </p>
-              <p className="cancel">
+              </div>
+              <div className="cancel">
                 <i className="fa-regular fa-calendar"></i> Free cancellation for
                 48 hours.
-              </p>
-              <p className="description">{spot.description}</p>
-            </p>
+              </div>
+              <div className="description">{spot.description}</div>
+            </div>
             <div>
               <CreateBookingForm
                 spot={spot}

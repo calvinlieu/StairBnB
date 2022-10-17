@@ -26,7 +26,6 @@
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     margin-top: 1em;
-    /* margin-bottom: 1em; */
   }
   
   .sub-text {
@@ -35,12 +34,11 @@
   .booking-errors-container {
     min-height: 2em;
     position: relative;
-    bottom: .4em;
   }
   
   .booking-errors-container > ul > li {
     color: red;
-    font-size: .8rem;
+    font-size: 14px;
     text-align: center;
   }
   
@@ -53,6 +51,7 @@
     height: 2em;
     margin-left: 2em;
   }
+
   .checkin {
     width: 100%;
     height: 2em;

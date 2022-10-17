@@ -25,7 +25,6 @@ function UserReviews() {
     }
   };
 
-  console.log(reviews)
   return (
     isLoaded && (
       <div className="reviewsContainer">

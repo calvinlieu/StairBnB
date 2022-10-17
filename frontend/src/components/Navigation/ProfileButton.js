@@ -39,13 +39,16 @@ function ProfileButton() {
         </button>
         {showMenu && (
           <div id="menu">
-            <Link to="/spots/create" id="dropdown1">
+            <Link to="/spots/create" id="dropdown">
               Host your home
             </Link>
-            <Link to="/currentUser/spots" id="dropdown2">
+            <Link to="/currentUser/spots" id="dropdown">
               My Spots
             </Link>
-            <Link to="/spots/currentUser/reviews" id="dropdown3">
+            <Link to="/currentUser/bookings" id="dropdown">
+              My Bookings
+            </Link>
+            <Link to="/spots/currentUser/reviews" id="dropdown">
               My Reviews
             </Link>
             <div onClick={logout} id="dropdown4">

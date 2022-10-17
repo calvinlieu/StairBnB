@@ -4,6 +4,14 @@ const GET_ALL_BOOKINGS = "bookings/get-all";
 const ADD_BOOKINGS = "bookings/add";
 const DELETE_BOOKING = "bookings/delete";
 const EDIT_BOOKING = "bookings/edit";
+const GET_CURRENT_USER_BOOKING = "bookings/current"
+
+const getCurrentBookingAction = (user) => {
+  return {
+    type: GET_CURRENT_USER_BOOKING,
+    payload: user
+  }
+}
 
 const getAllBookingsAction = (bookings) => {
   return {
@@ -33,9 +41,18 @@ const deleteBookingsAction = (booking) => {
   };
 };
 
+// //get current user booking
+export const getCurrentUserBooking = () => async (dispatch) => {
+  const response = await csrfFetch(`/api/bookings/current-user-bookings`);
+  if (response.ok) {
+    const booking = await response.json();
+    dispatch(getCurrentBookingAction(booking))
+  }
+}
+
 //get bookings for spot based on id
-export const getAllBookingForSpot = (bookings, spotId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/bookings/${spotId}`);
+export const getAllBookings = () => async (dispatch) => {
+  const response = await csrfFetch(`/api/bookings`);
   if (response.ok) {
     const bookings = await response.json();
     dispatch(getAllBookingsAction(bookings));
@@ -47,12 +64,11 @@ export const getAllBookingForSpot = (bookings, spotId) => async (dispatch) => {
 };
 
 //create a booking
-export const createBooking = (spot, booking) => async (dispatch) => {
-  const response = await csrfFetch(`/api/bookings/${spot.id}`, {
+export const createBooking = (id, booking) => async (dispatch) => {
+  const response = await csrfFetch(`/api/bookings/${id}/`, {
     method: "POST",
     body: JSON.stringify(booking),
   });
-  console.log(response, "response")
   if (response.ok) {
     const newBooking = await response.json();
     dispatch(addBookingsAction(newBooking));
@@ -91,6 +107,11 @@ export const deleteBooking = (booking) => async (dispatch) => {
 const initialState = {};
 const bookingsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case GET_CURRENT_USER_BOOKING: {
+      let newState = {}
+      newState = action.payload;
+      return newState;
+    }
     case DELETE_BOOKING: {
       const newState = { ...state };
       delete newState[action.id];

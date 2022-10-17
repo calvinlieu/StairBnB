@@ -13,6 +13,8 @@ import UserSpots from "./components/UserSpots";
 import CreateReviews from "./components/SpotDetail/createReview";
 import UserReviews from "./components/UserSpots/userReviews";
 import "./index.css"
+import BookingSuccessPage from "./components/Bookings/BookingPage";
+import MyBookings from "./components/Bookings/myBookings";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +30,12 @@ function App() {
         <Switch>
           <Route exact path="/">
             <SpotsPage />
+          </Route>
+          <Route exact path="/bookings/:bookingId">
+            <BookingSuccessPage />
+          </Route>
+          <Route exact path ="/currentUser/bookings">
+            <MyBookings />
           </Route>
           <Route exact path="/signup">
             <SignupFormPage />

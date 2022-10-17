@@ -1,8 +1,8 @@
 .spotDetailPage {
-  margin: auto auto 0 30px;
   flex-direction: column;
   width: 100%;
   gap: 15px;
+  
 }
 
 .circle {
@@ -134,11 +134,15 @@
 
 .self {
   font-weight: 700;
+  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .check {
   font-size: 14px;
   color: grey;
+  
+  margin-bottom: 20px;
 }
 
 .superhost {
@@ -148,13 +152,14 @@
 .experience {
   color: grey;
   font-size: 14px;
+  margin-bottom: 20px;
 }
 
 .cancel {
   font-weight: 700;
+  margin-bottom: 20px;
   border-bottom: #D3D3D3 solid 1px;
 }
-
 
 .hosted-container {
   display: flex;
@@ -163,7 +168,6 @@
   font-weight: 600;
   border-bottom: #d3d3d3 solid 1px;
 }
-
 #bookings_price {
   width: 40%;
   margin-right: 20px;
