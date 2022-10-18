@@ -125,7 +125,7 @@ function CreateBookingForm({ spot, star, review, booking }) {
             <i className="fa-solid fa-star"></i>
             <span>
               {" "}
-              {star} ·{" "}
+              {(star || 0.00).toFixed(2)} ·{" "}
               <u>
                 {review.length} {review.length === 1 ? "review" : "reviews"}
               </u>
