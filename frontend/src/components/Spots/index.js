@@ -50,7 +50,7 @@ const SpotsPage = () => {
                   <div className="roomDetails">
                     <div className="roomData">
                       <div className="spotLocation">
-                        <div>
+                        <div className="spot-city">
                         {spot.city}, {spot.state}
                         </div>
                         <div className="spotStars">
