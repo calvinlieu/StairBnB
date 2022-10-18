@@ -195,8 +195,8 @@ router.post("/", requireAuth, async (req, res) => {
     city,
     state,
     country,
-    lat,
-    lng,
+    // lat,
+    // lng,
     name,
     description,
     price,
@@ -213,8 +213,8 @@ router.post("/", requireAuth, async (req, res) => {
   if (!city) error.errors.city = "City is required";
   if (!state) error.errors.state = "State is required";
   if (!country) error.errors.country = "Country is required";
-  if (!lat) error.errors.lat = "Latitude is not valid";
-  if (!lng) error.errors.lng = "Longitude is not valid";
+  // if (!lat) error.errors.lat = "Latitude is not valid";
+  // if (!lng) error.errors.lng = "Longitude is not valid";
   if (!name) error.errors.name = "Name must be less than 50 characters";
   if (!description) error.errors.description = "Description is required";
   if (!price) error.errors.price = "Price per day is required";
@@ -224,8 +224,8 @@ router.post("/", requireAuth, async (req, res) => {
     !city ||
     !state ||
     !country ||
-    !lat ||
-    !lng ||
+    // !lat ||
+    // !lng ||
     !name ||
     !description ||
     !price
@@ -240,8 +240,8 @@ router.post("/", requireAuth, async (req, res) => {
     city,
     state,
     country,
-    lat,
-    lng,
+    // lat,
+    // lng,
     name,
     description,
     previewImage,

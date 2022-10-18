@@ -11,8 +11,8 @@ const SpotForm = () => {
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
   const [previewImage, setPreviewImage] = useState("");
-  const [lat, setLat] = useState("");
-  const [lng, setLng] = useState("");
+  // const [lat, setLat] = useState("");
+  // const [lng, setLng] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(1);
@@ -49,8 +49,8 @@ const SpotForm = () => {
       state: state,
       country: country,
       previewImage: previewImage,
-      lat: lat,
-      lng: lng,
+      // lat: lat,
+      // lng: lng,
       name: name,
       description: description,
       price: price,
