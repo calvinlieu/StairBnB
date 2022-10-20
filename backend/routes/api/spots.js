@@ -300,7 +300,7 @@ router.put("/:spotId", requireAuth, async (req, res) => {
     !lng ||
     !name ||
     !description ||
-    !price
+    !price 
   ) {
     res.statusCode = 400;
     return res.json(error);

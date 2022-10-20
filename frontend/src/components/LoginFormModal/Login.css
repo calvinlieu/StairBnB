@@ -59,6 +59,7 @@
   margin-bottom: 15px;
   border-radius: 5px;
   width: 100%;
+  cursor: pointer;
 }
 
 .demo-login-form-button {
@@ -70,6 +71,8 @@
   margin-bottom: 15px;
   border-radius: 5px;
   width: 100%;
+  cursor: pointer;
+
 }
 
 .button {
