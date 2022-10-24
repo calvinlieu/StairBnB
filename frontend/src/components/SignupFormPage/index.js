@@ -36,7 +36,7 @@ function SignupFormPage() {
       )
         .catch(async (res) => {
           const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
+          if (data.length) setErrors(data);
         });
     }
     return setErrors([

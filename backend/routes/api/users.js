@@ -47,6 +47,7 @@ router.post("/sign-up", validateSignup, async (req, res) => {
   if (trackUserName) {
     errors.push("User with that username already exists!");
   }
+  
   if (errors.length) {
     return res.status(403).json(errors);
   }
