@@ -13,7 +13,7 @@ function CreateBookingForm({ spot, star, review, booking }) {
   const sessionUser = useSelector((state) => state.session.user);
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [errors, setErrors] = useState([]);
-  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [today, setToday] = useState(
     new Date(
       new Date(new Date().getTime() + 24 * 60 * 60 * 1000) -
@@ -81,24 +81,26 @@ function CreateBookingForm({ spot, star, review, booking }) {
   }, [startDate, endDate, timeDifference, daysCount, subTotal, serviceFee]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setHasSubmitted(true)
+    e.preventDefault();
+    setHasSubmitted(true);
     try {
-      const booking = await dispatch(createBooking(spot.id, { startDate, endDate }))
-      history.push(`/bookings/${booking.id}`)
+      const booking = await dispatch(
+        createBooking(spot.id, { startDate, endDate })
+      );
+      history.push(`/bookings/${booking.id}`);
     } catch (error) {
-      const errors = await error.json()
+      const errors = await error.json();
       const newErrors = [];
       for (let error in errors.errors) {
-        newErrors.push(errors.errors[error])
+        newErrors.push(errors.errors[error]);
       }
-      setErrors(newErrors)
+      setErrors(newErrors);
     }
-  }
+  };
   const showLogin = (e) => {
-    e.preventDefault()
-    setShowLoginModal(true)
-  }
+    e.preventDefault();
+    setShowModal(true);
+  };
 
   var formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -111,12 +113,6 @@ function CreateBookingForm({ spot, star, review, booking }) {
   return (
     <div className="form-container">
       <form className="booking-form" onSubmit={handleSubmit}>
-        {showLoginModal && (
-          <LoginFormModal
-            setShowLoginModal={setShowLoginModal}
-            showLoginModal={showLoginModal}
-          />
-        )}
         <div className="booking-content-wrapper">
           <span className="price-wrapper">
             <strong>${spot.price}</strong> night
@@ -125,7 +121,7 @@ function CreateBookingForm({ spot, star, review, booking }) {
             <i className="fa-solid fa-star"></i>
             <span>
               {" "}
-              {(star || 0.00).toFixed(2)} ·{" "}
+              {(star || 0.0).toFixed(2)} ·{" "}
               <u>
                 {review.length} {review.length === 1 ? "review" : "reviews"}
               </u>
@@ -167,6 +163,14 @@ function CreateBookingForm({ spot, star, review, booking }) {
             </ul>
           )}
         </div>
+        {showModal && (
+          <div className="login-modal">
+            <LoginFormModal
+              setShowModal={setShowModal}
+              showModal={showModal}
+            />
+          </div>
+        )}
         {sessionUser ? (
           <button
             className="submit-button booking"

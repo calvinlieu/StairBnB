@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllBookings } from "../../store/bookings";
 import "./bookingPage.css";
@@ -35,6 +35,10 @@ const BookingSuccessPage = () => {
       <div className="checkout-div">
       <div className="check-in">Check in time is 4PM - 9 PM</div>
       <div className="checkout-time">Check out 11 AM</div>
+      </div>
+
+      <div className="link">
+      <NavLink className="view" to={`/currentUser/bookings`}>View your other bookings here!</NavLink>
       </div>
     </div>
   );

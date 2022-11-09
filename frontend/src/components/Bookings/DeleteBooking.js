@@ -11,6 +11,7 @@ function DeleteComment({ booking, onClick }) {
     e.preventDefault();
     dispatch(deleteBooking(booking.id));
     dispatch(getCurrentUserBooking())
+    onClick();
   };
 
   return (
