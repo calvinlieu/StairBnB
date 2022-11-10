@@ -41,9 +41,25 @@ Database: SQLITE, Postgres, Sequelize
 
   ![image](https://user-images.githubusercontent.com/98150408/196548771-7fe77bf0-2769-46f4-a7c4-d0a27c814048.png)
 
-
-
+* Create a reservation 
   
+  * Users are allowed to create a reservation for a specific spot with a selected date of their choice.  
+  
+  ![image](https://user-images.githubusercontent.com/98150408/201044505-8e1d0657-2b1b-4829-a40b-4fa778ae84f0.png)
+
+* Successful Booking 
+
+  * Upon a successful reservation, users are taken to a confirmation page where they are given the option to view their other bookings.
+  
+  ![image](https://user-images.githubusercontent.com/98150408/201045335-479659a4-ec25-4c47-842f-e40f3c7102f3.png) 
+
+
+* View All Bookings
+  
+  * When clicking on the "My Bookings" tab in the profile icon nav bar, users are taken to a page where they are able to view their bookings.
+  
+  ![image](https://user-images.githubusercontent.com/98150408/201045579-7d6899fb-9449-45f8-b6c7-67c942709411.png)
+
 
 
 
