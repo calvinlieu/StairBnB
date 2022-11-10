@@ -57,7 +57,6 @@ const SpotsDetail = () => {
     history.push(`/spots/${spotId}/createReview`);
   };
 
-  //If reviews is undefined, it will run forEach on an empty array.
   let spot = spots[spotId];
   const allReviewsForThisSpot = reviews.filter((review) => {
     return review.spotId === spotId;

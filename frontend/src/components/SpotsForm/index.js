@@ -11,8 +11,6 @@ const SpotForm = () => {
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
   const [previewImage, setPreviewImage] = useState("");
-  // const [lat, setLat] = useState("");
-  // const [lng, setLng] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(1);
@@ -49,8 +47,6 @@ const SpotForm = () => {
       state: state,
       country: country,
       previewImage: previewImage,
-      // lat: lat,
-      // lng: lng,
       name: name,
       description: description,
       price: price,
@@ -136,26 +132,6 @@ const SpotForm = () => {
             required
           />
         </div>
-        {/* <div>
-          <label>Latitude:</label>
-        <input
-          type="text"
-          placeholder="Latitude"
-          value={lat}
-          onChange={(e) => setLat(e.target.value)}
-          required
-          />
-          </div>
-        <div>
-          <label>Longitude</label>
-        <input
-          type="text"
-          placeholder="Longitude"
-          value={lng}
-          onChange={(e) => setLng(e.target.value)}
-          required
-          />
-          </div> */}
         <div>
           <label>Description:</label>
         <input

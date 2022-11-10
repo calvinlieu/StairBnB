@@ -22,7 +22,6 @@ const SpotsPage = () => {
     dispatch(loadAllReviewsThunk());
   }, [dispatch, reviewsString, sessionUser]);
 
-  //define a function that is going to receive a spotid and should return a star rating for that spot
 
   const starSpot = (spotId) => {
     const allReviewsForThisSpot = reviews.filter((review) => {

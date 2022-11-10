@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import "./Login.css";
-import DemoUser from "../DemoUser";
 
 function LoginForm() {
   const dispatch = useDispatch();
@@ -33,7 +32,7 @@ function LoginForm() {
           ))}
         </div>
         <label>
-          {/* Email */}
+          
           <input
             className="loginInput"
             type="text"
@@ -44,7 +43,7 @@ function LoginForm() {
           />
         </label>
         <label>
-          {/* Password */}
+          
           <input
             className="loginInput"
             type="password"
@@ -67,7 +66,7 @@ function LoginForm() {
         >
           Demo User
         </button>
-        {/* <DemoUser /> */}
+        
       </form>
     </div>
   );
