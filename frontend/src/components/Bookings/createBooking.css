@@ -28,6 +28,22 @@
     margin-top: 1em;
   }
 
+  .login-reserve {
+    background: linear-gradient(0.25turn, #E61E4D, #D70666);
+    color: white;
+    border: none;
+    height: 50px;
+    border-radius: .5em;
+    width: 95%;
+    max-width: 95%;
+    transition: all 0.2s ease-in-out;
+    margin-top: 1em;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 14px;
+  }
+
   .login-modal {
     background: linear-gradient(0.25turn, #E61E4D, #D70666);
     color: white;
@@ -59,9 +75,9 @@
     text-align: center;
   }
   
-  .booking.submit-button:active {
+  /* .booking.submit-button:active {
     transform: scale(.97);
-  }
+  } */
   
   .checkout {
     width: 100%;
@@ -74,6 +90,10 @@
     height: 2em;
     margin-right: 2em;
     margin-left: -1.6em;
+  }
+
+  .login-reserve {
+
   }
   
   .booking-input-wrapper {

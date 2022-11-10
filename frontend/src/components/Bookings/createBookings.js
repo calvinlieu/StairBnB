@@ -164,12 +164,9 @@ function CreateBookingForm({ spot, star, review, booking }) {
           )}
         </div>
         {showModal && (
-          <div className="login-modal">
-            <LoginFormModal
-              setShowModal={setShowModal}
-              showModal={showModal}
-            />
-          </div>
+          <button className="login-modal">
+            <LoginFormModal />
+          </button>
         )}
         {sessionUser ? (
           <button
@@ -180,9 +177,9 @@ function CreateBookingForm({ spot, star, review, booking }) {
             Reserve
           </button>
         ) : (
-          <button onClick={showLogin} className="submit-button booking">
+          <div className="login-reserve">
             Login to reserve a date
-          </button>
+          </div>
         )}
         <p className="no-charge">You won't be charged yet</p>
 
