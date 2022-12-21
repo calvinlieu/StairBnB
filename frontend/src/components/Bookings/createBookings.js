@@ -137,7 +137,7 @@ function CreateBookingForm({ spot, star, review, booking }) {
               name="trip-start"
               value={startDate}
               className="checkin"
-              min={format(today, "yyyy-MM-dd")}
+              minDate={format(today, "yyyy-MM-dd")}
               onChange={(e) => setStartDate(e.target.value)}
             ></input>
           </div>
@@ -149,7 +149,7 @@ function CreateBookingForm({ spot, star, review, booking }) {
               name="trip-start"
               value={endDate}
               className="checkout"
-              min={format(tomorrow, "yyyy-MM-dd")}
+              minDate={format(tomorrow, "yyyy-MM-dd")}
               onChange={(e) => setEndDate(e.target.value)}
             ></input>
           </div>
