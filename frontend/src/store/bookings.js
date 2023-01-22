@@ -50,7 +50,7 @@ export const getCurrentUserBooking = () => async (dispatch) => {
   }
 }
 
-//get bookings for spot based on id
+//get all bookings
 export const getAllBookings = () => async (dispatch) => {
   const response = await csrfFetch(`/api/bookings`);
   if (response.ok) {

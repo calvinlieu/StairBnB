@@ -11,6 +11,9 @@ const BookingSuccessPage = () => {
   const sessionUser = useSelector((state) => state.session.user);
   const bookings = useSelector((state) => Object.values(state.bookings));
   const booking = bookings.find((booking) => booking.id === Number(bookingId));
+
+  console.log(bookings, "book")
+  console.log(booking, "book2")
   const [isLoaded, setIsLoaded] = useState(false);
 
 

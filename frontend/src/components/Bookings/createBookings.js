@@ -97,10 +97,6 @@ function CreateBookingForm({ spot, star, review, booking }) {
       setErrors(newErrors);
     }
   };
-  const showLogin = (e) => {
-    e.preventDefault();
-    setShowModal(true);
-  };
 
   var formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -137,7 +133,7 @@ function CreateBookingForm({ spot, star, review, booking }) {
               name="trip-start"
               value={startDate}
               className="checkin"
-              minDate={format(today, "yyyy-MM-dd")}
+              mindate={format(today, "yyyy-MM-dd")}
               onChange={(e) => setStartDate(e.target.value)}
             ></input>
           </div>
@@ -149,7 +145,7 @@ function CreateBookingForm({ spot, star, review, booking }) {
               name="trip-start"
               value={endDate}
               className="checkout"
-              minDate={format(tomorrow, "yyyy-MM-dd")}
+              mindate={format(tomorrow, "yyyy-MM-dd")}
               onChange={(e) => setEndDate(e.target.value)}
             ></input>
           </div>

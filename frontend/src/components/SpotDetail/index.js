@@ -9,6 +9,7 @@ import { getAllUsers } from "../../store/user";
 import Calendar from "react-calendar";
 import CreateBooking from "../Bookings/createBookings";
 import CreateBookingForm from "../Bookings/createBookings";
+import MapContainer from "../GoogleMaps";
 
 const SpotsDetail = () => {
   const history = useHistory();
@@ -58,6 +59,7 @@ const SpotsDetail = () => {
   };
 
   let spot = spots[spotId];
+  console.log(spot)
   const allReviewsForThisSpot = reviews.filter((review) => {
     return review.spotId === spotId;
   });
@@ -200,6 +202,9 @@ const SpotsDetail = () => {
                 </div>
               </div>
             ))}
+          </div>
+          <div>
+            <MapContainer />
           </div>
         </div>
       </>
