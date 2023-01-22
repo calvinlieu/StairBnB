@@ -171,7 +171,7 @@ const EditSpot = () => {
           />
         </div>
         <div>
-          <label>Price:</label>
+          <label>Price Per Night:</label>
           <input
             type="text"
             value={price}

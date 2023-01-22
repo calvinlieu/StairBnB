@@ -17,6 +17,13 @@
   gap: 15px;
 }
 
+.location {
+  font-size: 30px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
 .topText {
   display: flex;
   flex-direction: column;
@@ -32,6 +39,10 @@
   gap: 5px;
   align-items: center;
   justify-content: center;
+}
+
+.spotsReviews {
+  margin-top: 20px;
 }
 
 .editButton,

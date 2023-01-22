@@ -167,6 +167,10 @@ const SpotsDetail = () => {
               />
             </div>
           </div>
+          <div className="googleMaps">
+            <div className="location" >Location</div>
+            <MapContainer lng={spot.lng} lat={spot.lat}/>
+          </div>
           <div className="spotsReviews">
             <div className="reviewStars">
               <div className="starIcon">{<i className="fas fa-star"></i>}</div>
@@ -202,9 +206,6 @@ const SpotsDetail = () => {
                 </div>
               </div>
             ))}
-          </div>
-          <div>
-            <MapContainer />
           </div>
         </div>
       </>
