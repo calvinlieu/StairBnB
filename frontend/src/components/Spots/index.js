@@ -10,7 +10,6 @@ const SpotsPage = () => {
   const spots = useSelector((state) => Object.values(state?.spots));
   const reviews = useSelector((state) => Object.values(state.reviews));
   const sessionUser = useSelector((state) => state.session.user);
-  console.log("SPOTS:", spots)
   const spotsString = JSON.stringify(spots);
   const reviewsString = JSON.stringify(reviews);
 
