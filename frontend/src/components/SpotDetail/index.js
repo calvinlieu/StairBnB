@@ -169,7 +169,7 @@ const SpotsDetail = () => {
           </div>
           <div className="googleMaps">
             <div className="location" >Location</div>
-            <MapContainer lng={spot.lng} lat={spot.lat}/>
+            <MapContainer lng={spot?.lng} lat={spot?.lat}/>
           </div>
           <div className="spotsReviews">
             <div className="reviewStars">
