@@ -1,16 +1,13 @@
 import React from "react";
 import {
-  GoogleMap,
-  LoadScript,
-  useJsApiLoader,
+  StaticGoogleMap,
   Marker,
-  Circle,
-} from "@react-google-maps/api";
+  LoadScript
+} from 'react-static-google-map';
 import { useSelector } from "react-redux";
 
 const MapContainer = ({ lng, lat }) => {
-  // const APIKey = useSelector(state => state.map.APIKey)
-  // console.log(APIKey, "API")
+
 
   const mapStyles = {
     height: "50vh",
@@ -22,16 +19,16 @@ const MapContainer = ({ lng, lat }) => {
     lng: +lng,
   };
 
-  return (
-    <LoadScript googleMapsApiKey="AIzaSyDehtGBFMYXjEU0mBRkTTba5NPDgdzXDqQ">
-      <div>Where You'll Be</div>
-      <GoogleMap
-        mapContainerStyle={mapStyles}
-        zoom={15}
-        center={defaultCenter}
-      />
-    </LoadScript>
-  );
+  let locationStr = `${lat}, ${lng}`
+
+    return (
+        <div>
+            <StaticGoogleMap size="800x400" apiKey="AIzaSyDehtGBFMYXjEU0mBRkTTba5NPDgdzXDqQ">
+                <Marker location={locationStr} color="red" />
+            </StaticGoogleMap>
+        </div>
+
+    )
 };
 
 export default MapContainer;

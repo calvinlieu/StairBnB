@@ -5,6 +5,8 @@ import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import DemoUser from '../DemoUser';
 import './Navigation.css';
+import SearchComponent from '../Search';
+import Search from '../Search';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
@@ -37,7 +39,6 @@ function Navigation({ isLoaded }) {
                 <img src="https://1000logos.net/wp-content/uploads/2017/08/Airbnb-logo.jpg"></img>
             </NavLink>
         </div>
-  
         {isLoaded && sessionLinks}
     </div >
 

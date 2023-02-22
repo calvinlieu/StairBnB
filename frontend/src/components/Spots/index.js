@@ -4,6 +4,8 @@ import { NavLink } from "react-router-dom";
 import { getAllSpots } from "../../store/spots";
 import { loadAllReviewsThunk } from "../../store/reviews";
 import "./spots.css";
+import Search from "../Search";
+import Footer from "../Footer";
 
 const SpotsPage = () => {
   const dispatch = useDispatch();
@@ -36,6 +38,9 @@ const SpotsPage = () => {
 
   return (
     <div className="spotsPage">
+      <div className="search-bar">
+      <Search />
+      </div>
       <div className="eachSpot">
         {spots &&
           spots.map((spot) => (
@@ -74,6 +79,9 @@ const SpotsPage = () => {
               </NavLink>
             </div>
           ))}
+      </div>
+      <div>
+        <Footer />
       </div>
     </div>
   );

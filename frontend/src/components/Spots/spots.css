@@ -1,64 +1,69 @@
 .eachSpot {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1rem;
 }
 
 .spotImg {
-    flex-wrap: wrap;
-    float: left;
-    width: 300px;
-    height: 300px;
-    background-size: cover;
-    border-radius: 33px;
-    object-fit: cover;
-    margin: 1rem;
+  flex-wrap: wrap;
+  float: left;
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  border-radius: 33px;
+  object-fit: cover;
+  margin: 1rem;
 }
 
 .spotPrice {
-    font-weight: bold;
+  font-weight: bold;
 }
 
+
 a:link {
-    text-decoration: none;
+  text-decoration: none;
+}
+
+.search-bar {
+  margin-left: 33px;
 }
 
 .spotLocation {
-    padding-left: 17px;
-    padding-right: 20px;
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
-    font-size: 15px;
-    font-weight: bold;
+  padding-left: 17px;
+  padding-right: 20px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: bold;
 }
 
 .spotDistance {
-    display: flex;
-    padding-left: 17px;
-    font-size: 14px;
-    margin-top: 3px;
+  display: flex;
+  padding-left: 17px;
+  font-size: 14px;
+  margin-top: 3px;
 }
 
 .spotPrice {
-    display: flex;
-    padding-left: 17px;
-    font-size: 14px;
-    font-weight: 100;
+  display: flex;
+  padding-left: 17px;
+  font-size: 14px;
+  font-weight: 100;
 }
 
 .spot-city {
-    color: black;
+  color: black;
 }
 
 .spotStars {
-    color: black;
+  color: black;
 }
 
 .spotDistance {
-    color: grey;
+  color: grey;
 }
 
 .spotPrice {
-    color: black;
+  color: black;
 }

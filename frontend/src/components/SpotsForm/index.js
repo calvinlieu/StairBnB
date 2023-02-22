@@ -52,7 +52,7 @@ const SpotForm = () => {
       previewImage: previewImage,
       name: name,
       lng: lng,
-      lat, lat,
+      lat: lat,
       description: description,
       price: price,
     };

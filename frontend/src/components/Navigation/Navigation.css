@@ -21,6 +21,10 @@
   cursor: pointer;
 }
 
+.searchBar {
+  z-index: 10;
+}
+
 #demoUser {
   background-color: #ff385c;
   border: none;
